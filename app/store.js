@@ -1,6 +1,6 @@
 import { createStore, } from 'redux';
 import getReducer from './reducer';
-import createMiddleware from './middleware';
+import createMiddleware from './utils/apollo';
 
 let reduxStore = null;
 
