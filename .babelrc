@@ -17,6 +17,7 @@
           "./app"
         ],
         "alias": {
+          "app": "./",
           "components": "./components",
           "modules": "./modules",
           "utils": "./utils"
