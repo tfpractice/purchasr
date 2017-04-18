@@ -18,7 +18,7 @@ function _initClient(headers, initialState) {
   });
 }
 
-export const initClient = (headers, initialState = {}) => {
+const initClient = (headers, initialState = {}) => {
   if (!process.browser) {
     return _initClient(headers, initialState);
   }
@@ -29,3 +29,5 @@ export const initClient = (headers, initialState = {}) => {
   
   return apolloClient;
 };
+
+export default initClient;

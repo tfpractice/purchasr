@@ -1,14 +1,14 @@
 import { createStore, } from 'redux';
 import getReducer from './reducer';
-import createMiddleware from './utils/apollo';
+import { apolloWare, } from './utils/apollo';
 
 let reduxStore = null;
 
-export const initStore = (client, initialState) => {
+const initStore = (client, initialState) => {
   let store;
 
   if (!process.browser || !reduxStore) {
-    const middleware = createMiddleware(client.middleware());
+    const middleware = apolloWare(client.middleware());
 
     store = createStore(getReducer(client), initialState, middleware);
     if (!process.browser) {
@@ -18,3 +18,5 @@ export const initStore = (client, initialState) => {
   }
   return reduxStore;
 };
+
+export default initStore;
