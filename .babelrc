@@ -1,0 +1,29 @@
+{
+  "presets": [
+    "next/babel",
+    "react",
+    [
+      "latest",
+      {
+        "modules": false
+      }
+    ]
+  ],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": [
+          "./app"
+        ],
+        "alias": {
+          "components": "./components",
+          "modules": "./modules",
+          "utils": "./utils"
+        }
+      }
+    ],
+    "transform-class-properties",
+    "transform-object-rest-spread"
+  ]
+}
