@@ -3,7 +3,7 @@ module.exports = {
     settings: {
       'import/resolver': {
         'babel-module': {},
-        webpack: { config: './config/webpack/shared.js' },
+        'babel-module-alias': {},
       }, },
     env: {
       node: true,
@@ -146,7 +146,7 @@ module.exports = {
         'react/no-did-mount-set-state': 1,
         'react/no-did-update-set-state': 1,
         'react/no-multi-comp': 1,
-        'react/prop-types': 1,
+        'react/prop-types': 0,
         'react/react-in-jsx-scope': 1,
         'react/self-closing-comp': 1,
         'react/jsx-wrap-multilines': 1,

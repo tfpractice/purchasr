@@ -3,8 +3,12 @@ import { graphql, } from 'react-apollo';
 import Single from './single';
 import allProducts from './query';
 
-const dataToProps = ({ data, ...rest }) => ({ data, products: data.viewer.allProducts.edges.map(({ node, }) => node), ...rest, });
-const ProductList = ({ data, products, ...rest }) => (
+const dataToProps = ({ data, }) => ({
+ data,
+ products: data.viewer.allProducts.edges.map(({ node, }) => node),
+});
+   
+const ProductList = ({ data, products, }) => (
   <section>
     <ul>
       <h1>I am the Productlist</h1>
