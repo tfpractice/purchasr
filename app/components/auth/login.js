@@ -3,7 +3,7 @@ import { Field, reduxForm, reset, } from 'redux-form';
 import Layout from 'material-ui/Layout';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
-import { createUser, LoginWithData, } from './queries';
+import { LoginWithData, } from './queries';
 
 const resetForm = formID => (action, dispatch) => dispatch(reset(formID));
 

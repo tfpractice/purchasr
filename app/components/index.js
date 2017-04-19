@@ -4,7 +4,7 @@ import { Login, } from './auth';
 export default ({ children, }) => (
   <main>
     <h1> Site loaded</h1>
-    <Login />
+    {/* <Login formID="mainLogin" /> */}
     <ProductList />
     {children}
   </main>);
