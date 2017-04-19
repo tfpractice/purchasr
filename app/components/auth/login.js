@@ -16,6 +16,7 @@ const renderField = ({ input, meta: { error: e, }, ...rest }) => (
 const baseLogin = ({ handleSubmit, }) => (
   <form onSubmit={handleSubmit} style={styles} >
     <Field name="username" component={renderField} />
+    <Field name="password" type="password" component={renderField} />
     <Button accent type="submit">Login</Button>
   </form>
 );
