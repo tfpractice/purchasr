@@ -5,4 +5,7 @@ import App from '../app/components';
 // import PostList from '../components/PostList'
 import withData from '../app/utils/apollo/withData';
 
-export default withData(props => (<App />));
+export default withData((props) => {
+  console.log('props', props);
+  return (<App />);
+});

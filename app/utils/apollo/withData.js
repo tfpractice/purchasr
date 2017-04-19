@@ -1,11 +1,11 @@
 import 'isomorphic-fetch';
-import React from 'react';
+import React, { Component, } from 'react';
 import { ApolloProvider, getDataFromTree, } from 'react-apollo';
 import initClient from './initClient';
 import initStore from '../../store';
 
-export default Component => (
-  class extends React.Component {
+export default Comp => (
+  class extends Component {
     static async getInitialProps (ctx) {
       const headers = ctx.req ? ctx.req.headers : {};
       const client = initClient(headers);
@@ -13,13 +13,13 @@ export default Component => (
     
       const props = {
       url: { query: ctx.query, pathname: ctx.pathname, },
-      ...await (Component.getInitialProps ? Component.getInitialProps(ctx) : {}),
+      ...await (Comp.getInitialProps ? Comp.getInitialProps(ctx) : {}),
       };
     
       if (!process.browser) {
         const app = (
           <ApolloProvider client={client} store={store}>
-            <Component {...props} />
+            <Comp {...props} />
           </ApolloProvider>
       );
       
@@ -47,7 +47,7 @@ export default Component => (
     render () {
       return (
         <ApolloProvider client={this.client} store={this.store}>
-          <Component {...this.props} />
+          <Comp {...this.props} />
         </ApolloProvider>
       );
     }
