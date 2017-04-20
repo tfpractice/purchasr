@@ -15,4 +15,6 @@ query GetAllProducts {
   }
 }`;
 
+// const creat
+
 export default allProducts;

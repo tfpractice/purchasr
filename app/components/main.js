@@ -1,11 +1,12 @@
-import React from 'react';
-import { ProductList, } from './products';
-import { Login, } from './auth';
+import React, { Component, } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import createPalette, { dark, } from 'material-ui/styles/palette';
 import createMuiTheme from 'material-ui/styles/theme';
 import { pink, teal, } from 'material-ui/styles/colors';
 import Layout from 'material-ui/Layout';
+import NavBar from './navBar';
+import { ProductList, } from './products';
+import { Login, } from './auth';
 
 const palette = createPalette({
   primary: teal,
@@ -19,13 +20,22 @@ const { styleManager, theme, } = MuiThemeProvider.createDefaultContext(
 
 const styles = { paddingTop: '3rem', };
 
-export default ({ children, }) => (
-  <MuiThemeProvider theme={theme} styleManager={styleManager}>
-    <main>
-      <h1> Site loaded</h1>
-      <Login formID="mainLogin" />
-      <ProductList />
-      {children}
-    </main>
-  </MuiThemeProvider>
-);
+export default class Main extends Component {
+  
+  render() {
+    console.log('this.props', this.props);
+    return (
+      <MuiThemeProvider theme={theme} styleManager={styleManager}>
+        <Layout container className="App" direction={'column'}>
+          <Layout item xs={12}>
+            <NavBar />
+          </Layout>
+          <Layout item xs={12} style={styles}>
+            <ProductList />
+            {this.props.children}
+          </Layout>
+        </Layout>
+      </MuiThemeProvider>
+    );
+  }
+}
