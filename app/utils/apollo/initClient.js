@@ -1,20 +1,13 @@
-import { ApolloClient, createNetworkInterface, } from 'react-apollo';
-
+import { ApolloClient, } from 'react-apollo';
+import { networkInterface, } from './interface';
 let apolloClient = null;
 
 function _initClient(headers, initialState) {
   return new ApolloClient({
     initialState,
+    networkInterface,
     ssrMode: !process.browser,
     dataIdFromObject: result => result.id || null,
-    networkInterface: createNetworkInterface({
-      uri: 'https://us-west-2.api.scaphold.io/graphql/tfpTest',
-      opts: {
-        credentials: 'same-origin',
-        
-        // Pass headers here if your graphql server requires them
-      },
-    }),
   });
 }
 
