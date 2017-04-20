@@ -3,7 +3,7 @@ import { Field, reduxForm, reset, } from 'redux-form';
 import Layout from 'material-ui/Layout';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
-import { LoginWithData, } from './queries';
+import { LoginChain, LoginWithData, } from './queries';
 
 const resetForm = formID => (action, dispatch) => dispatch(reset(formID));
 
@@ -32,4 +32,4 @@ const LoginForm = ({ login, formID, ...rest }) => {
   );
 };
 
-export default LoginWithData(LoginForm);
+export default LoginChain(LoginForm);
