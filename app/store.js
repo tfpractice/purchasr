@@ -12,6 +12,8 @@ const initStore = (client, initialState) => {
   let store;
   
   if (!process.browser || !reduxStore) {
+    console.log('client.middleware()', client.middleware());
+
     store = applyMid(thunk, client.middleware(), log)(createStore)(getReducer(client), initialState);
     
     if (!process.browser) {

@@ -12,7 +12,8 @@ const preLog = (req, next) => {
 };
 
 const postLog = ({ response, }, next) => {
-  console.log('APOLLO RESPONSE IN PRGRESS ', response);
+  console.log('next', next);
+  console.log('APOLLO RESPONSE IN PRGRESS ', (response));
   next();
 };
 
