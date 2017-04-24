@@ -60,11 +60,15 @@ const loginU = mutation => input =>
 const chain = ({ login, findUser, createUser, }, ) => input =>
  findUser(input).then(x => createUser(input)).catch(console.error);
 
+export const executeFind = client => ({ username, }) => {
+  client.query({ query: GetUsers, variables: { where: { username: { eq: username, }, }, }, }).then(x => console.log('x', x) && x);
+};
 export const WithFind = component => graphql(GetUsers, {
   name: 'getUsers',
-  props: ({ getUsers, ...getUsersArgs }) => {
-    console.log('getUsers,getUsersArgs', getUsers, getUsersArgs);
-    return ({ getUsers, findUser: find(getUsers), ...getUsersArgs, });
+  props: ({ getUsers, ownProps, }, ) => {
+    console.log('props, alt', getUsers, ownProps);
+
+    return ({ getUsers, findUser: find(getUsers), exec: executeFind(ownProps.client), });
   },
 })(component);
 
