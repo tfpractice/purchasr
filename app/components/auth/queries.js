@@ -42,19 +42,17 @@ const getEdges = ({ data: { viewer: { allUsers: { edges, }, }, }, },
 
 export const executeFind = client => ({ username, }) => {
   client.query({ query: GetUsers, variables: { where: { username: { eq: username, }, }, }, })
-    .then(getEdges);
+    .then(getEdges).catch(console.error);
 };
 
-const isEmpty = (edges = []) => { console.log('isEmpty edges', edges); return edges.length === 0; };
+const isEmpty = (edges = []) => edges.length === 0;
 
 const log = ({ findUser, createUser, login, }) => input =>
 Promise.resolve(findUser(input)).then(isEmpty)
   .then((edges) => {
     console.log('edges', edges, isEmpty(edges));
-    return login({ variables: { input, }, });
-
-    // return !edges ? login({ variables: { input, }, })
-    //   : createUser({ variables: { input, }, });
+    return edges ?
+    createUser({ variables: { input, }, }) : login({ variables: { input, }, });
   })
   .then(u => console.log('login u', u) && u)
   .catch(e => console.error('errroorr', e));
