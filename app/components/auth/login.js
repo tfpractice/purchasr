@@ -1,5 +1,4 @@
 import React from 'react';
-import { withApollo, } from 'react-apollo';
 import { Field, reduxForm, reset, } from 'redux-form';
 import Layout from 'material-ui/Layout';
 import Button from 'material-ui/Button';
@@ -24,13 +23,13 @@ const baseLogin = ({ handleSubmit, }) => (
 
 const ReduxLogin = reduxForm()(baseLogin);
 
-const LoginForm = ({ login, exec, formID, ...rest }) => {
+const LoginForm = ({ login, login2, formID, ...rest }) => {
   console.log('rest', rest);
   return (
     <ReduxLogin
-      form={formID} onSubmit={exec} onSubmitSuccess={resetForm(formID)}
+      form={formID} onSubmit={login} onSubmitSuccess={resetForm(formID)}
     />
   );
 };
 
-export default LoginChain(withApollo(LoginForm));
+export default LoginChain(LoginForm);

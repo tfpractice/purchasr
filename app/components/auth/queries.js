@@ -17,8 +17,8 @@ query GetUsers($where:UserWhereArgs $first:Int) {
 `;
 
 export const CreateUser = gql`
-  mutation CreateUserMutation($user: CreateUserInput!) {
-    createUser(input: $user) {
+  mutation CreateUserMutation($input: CreateUserInput!) {
+    createUser(input: $input) {
       changedUser {
         username
       }
@@ -36,63 +36,47 @@ export const LoginUser = gql`
       }
     }
     `;
-
-const find = ({ updateQuery, ...uqrest }) => (input) => {
-  const up = (prev, { variables, }) => prev;
-
-  return updateQuery(up);
-};
     
-const addUser = mutation => user =>
-  mutation({ variables: { user, }, })
-    .then(x => console.log('x', x) && x)
-    .catch(console.error);
-
-const loginU = mutation => input =>
-  mutation({ variables: { input, }, })
-    .then(x => console.log('x', x) && x)
-    .catch(console.error);
-    
-const chain = ({ login, findUser, createUser, }, ) => input =>
- findUser(input).then(x => createUser(input)).catch(console.error);
-
 const getEdges = ({ data: { viewer: { allUsers: { edges, }, }, }, },
 ) => (edges);
 
 export const executeFind = client => ({ username, }) => {
   client.query({ query: GetUsers, variables: { where: { username: { eq: username, }, }, }, })
-    .then(x => console.log('x datat from executeFind', x) && x);
+    .then(getEdges);
 };
-export const WithFind = component => graphql(GetUsers, {
-  name: 'getUsers',
-  props: ({ getUsers, ownProps, }, ) => {
-    console.log('props, alt', getUsers, ownProps);
 
-    return ({ getUsers, findUser: find(getUsers), exec: executeFind(ownProps.client), });
-  },
+const isEmpty = (edges = []) => { console.log('isEmpty edges', edges); return edges.length === 0; };
+
+const log = ({ findUser, createUser, login, }) => input =>
+Promise.resolve(findUser(input)).then(isEmpty)
+  .then((edges) => {
+    console.log('edges', edges, isEmpty(edges));
+    return login({ variables: { input, }, });
+
+    // return !edges ? login({ variables: { input, }, })
+    //   : createUser({ variables: { input, }, });
+  })
+  .then(u => console.log('login u', u) && u)
+  .catch(e => console.error('errroorr', e));
+
+export const WithFind = component => graphql(GetUsers, {
+      name: 'getUsers',
+      props: ({ ownProps: { client, }, }, ) => ({ findUser: executeFind(client), }),
 })(component);
 
 export const WithCreate = component => graphql(CreateUser, {
   name: 'createUser',
-  props: ({ createUser, ...WithCreateArgs }) => {
-    console.log('WithCreateArgs', WithCreateArgs);
-    return ({ createUser: addUser(createUser), ...WithCreateArgs, });
-  },
+  props: ({ createUser, ownProps: { client, }, }) => ({ createUser, findUser: executeFind(client), }),
 })(component);
 
-export const WithLogin = component => graphql(CreateUser, {
+export const WithLogin = component => graphql(LoginUser, {
   name: 'login',
-  props: ({ login, ownProps: { getUsers, findUser, createUser, }, ...WithLoginArgs }) => {
-    console.log('WithLoginArgs', WithLoginArgs);
-    return ({ login: chain({ login, findUser, createUser, }), ...WithLoginArgs, });
+  props: ({ login, ownProps: { findUser, createUser, }, }) => {
+    console.log('WithLoginArgs', login);
+    
+    return ({ login2: input => login({ variables: { input, }, }), login: log({ login, findUser, createUser, }), });
   },
 })(component);
-
-export const LoginWithData = component =>
-  graphql(CreateUser, {
-        name: 'createUser',
-        props: ({ createUser, ...cArgs }) => ({ login: login(createUser), }),
-  })(component);
 
 export const LoginChain = component =>
-  compose(withApollo, WithFind, WithCreate, WithLogin)(component);
+  compose(withApollo, WithCreate, WithLogin)(component);
