@@ -1,4 +1,5 @@
 import React from 'react';
+import { withApollo, } from 'react-apollo';
 import { Field, reduxForm, reset, } from 'redux-form';
 import Layout from 'material-ui/Layout';
 import Button from 'material-ui/Button';
@@ -32,4 +33,4 @@ const LoginForm = ({ login, formID, ...rest }) => {
   );
 };
 
-export default LoginChain(LoginForm);
+export default LoginChain(withApollo(LoginForm));

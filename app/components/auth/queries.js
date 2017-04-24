@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { compose, graphql, } from 'react-apollo';
+import { compose, graphql, withApollo, } from 'react-apollo';
 
 export const GetUsers = gql`
 query GetUsers($where:UserWhereArgs $first:Int) {
@@ -37,8 +37,8 @@ export const LoginUser = gql`
     }
     `;
 
-const find = ({ updateQuery, }) => (input) => {
-  console.log('updateQuery', updateQuery);
+const find = ({ updateQuery, ...uqrest }) => (input) => {
+  console.log('updateQuery...uqrest', uqrest);
   const up = (prev, { variables, }) => {
     console.log('variables', variables);
     return prev;
@@ -63,7 +63,7 @@ const chain = ({ login, findUser, createUser, }, ) => input =>
 export const WithFind = component => graphql(GetUsers, {
   name: 'getUsers',
   props: ({ getUsers, ...getUsersArgs }) => {
-    console.log('getUsers', getUsers, getUsersArgs);
+    console.log('getUsers,getUsersArgs', getUsers, getUsersArgs);
     return ({ getUsers, findUser: find(getUsers), ...getUsersArgs, });
   },
 })(component);
@@ -91,4 +91,4 @@ export const LoginWithData = component =>
   })(component);
 
 export const LoginChain = component =>
-  compose(WithFind, WithCreate, WithLogin)(component);
+  compose(withApollo, WithFind, WithCreate, WithLogin)(component);
