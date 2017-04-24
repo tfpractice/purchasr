@@ -49,11 +49,9 @@ const isEmpty = (edges = []) => edges.length === 0;
 
 const log = ({ findUser, createUser, login, }) => input =>
 Promise.resolve(findUser(input))
-  .then((edges) => {
-    console.log('edges', edges, isEmpty(edges));
-    return isEmpty(edges) ?
-     createUser({ variables: { input, }, }) : login({ variables: { input, }, });
-  })
+  .then(edges => isEmpty(edges) ?
+     createUser({ variables: { input, }, })
+     : login({ variables: { input, }, }))
   .then(u => console.log('login u', u) && u)
   .catch(console.error);
 
