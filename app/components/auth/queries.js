@@ -38,11 +38,7 @@ export const LoginUser = gql`
     `;
 
 const find = ({ updateQuery, ...uqrest }) => (input) => {
-  console.log('updateQuery...uqrest', uqrest);
-  const up = (prev, { variables, }) => {
-    console.log('variables', variables);
-    return prev;
-  };
+  const up = (prev, { variables, }) => prev;
 
   return updateQuery(up);
 };
@@ -61,7 +57,8 @@ const chain = ({ login, findUser, createUser, }, ) => input =>
  findUser(input).then(x => createUser(input)).catch(console.error);
 
 export const executeFind = client => ({ username, }) => {
-  client.query({ query: GetUsers, variables: { where: { username: { eq: username, }, }, }, }).then(x => console.log('x', x) && x);
+  client.query({ query: GetUsers, variables: { where: { username: { eq: username, }, }, }, })
+    .then(x => console.log('x datat from executeFind', x) && x);
 };
 export const WithFind = component => graphql(GetUsers, {
   name: 'getUsers',
