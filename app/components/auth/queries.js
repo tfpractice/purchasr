@@ -56,6 +56,9 @@ const loginU = mutation => input =>
 const chain = ({ login, findUser, createUser, }, ) => input =>
  findUser(input).then(x => createUser(input)).catch(console.error);
 
+const getEdges = ({ data: { viewer: { allUsers: { edges, }, }, }, },
+) => (edges);
+
 export const executeFind = client => ({ username, }) => {
   client.query({ query: GetUsers, variables: { where: { username: { eq: username, }, }, }, })
     .then(x => console.log('x datat from executeFind', x) && x);
