@@ -23,13 +23,9 @@ const baseLogin = ({ handleSubmit, }) => (
 
 const ReduxLogin = reduxForm()(baseLogin);
 
-const LoginForm = ({ login, formID, ...rest }) => {
-  console.log('rest', rest);
-  return (
-    <ReduxLogin
-      form={formID} onSubmit={login} onSubmitSuccess={resetForm(formID)}
-    />
-  );
-};
+const LoginForm = ({ login, formID, ...rest }) => (
+  <ReduxLogin
+    form={formID} onSubmit={login} onSubmitSuccess={resetForm(formID)}
+  />);
 
 export default LoginChain(LoginForm);
