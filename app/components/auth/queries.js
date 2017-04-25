@@ -44,6 +44,7 @@ export const LoginUser = gql`
        loginUser(input: $input) {
          token
          user {
+           id
            username
          }
          viewer{
@@ -70,6 +71,10 @@ const findAndLogin = ({ findUser, createUser, loginUser, }) => input =>
      .then(u =>
        isEmpty(u) ? createUser(input).then(() => input) : input)
      .then(loginUser)
+     .then((user) => {
+       localStorage.setItem('purchasr_token', user.data.loginUser.token);
+       localStorage.setItem('user', JSON.stringify(user.data.loginUser.user));
+     })
      .catch(console.error);
 
 export const WithFind = component => graphql(GetUsers, {
