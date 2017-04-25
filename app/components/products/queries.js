@@ -39,8 +39,10 @@ const AllProducts = gql`
 
 export const WithAllProducts = component => graphql(AllProducts, {
   name: 'products',
-  props: ({ products, }) =>
-  ({ products: products.viewer.allProducts.edges.map(({ node, }) => node), }),
+  props: ({ products, ownProps: allProps, }) => {
+    console.log('allProps', allProps);
+    return ({ products: products.viewer.allProducts.edges.map(({ node, }) => node), });
+  },
 })(component);
 
 export const CreateProduct = gql`
@@ -52,11 +54,35 @@ export const CreateProduct = gql`
        }
      }
    }`;
+   
+export const SubscribeToProducts = gql`
+subscription SubscribeToProducts($filter: ProductSubscriptionFilter, $mutations: [ProductMutationEvent]!) {
+  subscribeToProduct(mutations:$mutations, filter:$filter) {
+    edge
+    mutation
+    value {
+      id
+      name
+      price
+      createdAt
+    }
+  }
+}
+`;
+
+//
+// export const WithSubsription = component => graphql(SubscribeToProducts, {
+//   name: 'products',
+//   props: ({ products, }) =>
+//   ({ products: products.viewer.allProducts.edges.map(({ node, }) => node), }),
+// })(component);
 
 export const WithCreateProduct = component => graphql(CreateProduct, {
   name: 'createProduct',
-  props: ({ createProduct, }) =>
-  ({ createProduct: input => createProduct({ variables: { input, }, }), }),
+  props: ({ createProduct, ownProps, }) => {
+    console.log('ownProps', ownProps);
+    return ({ createProduct: input => createProduct({ variables: { input, }, }), });
+  },
 })(component);
 
 export const UpdateProduct = gql`
@@ -97,6 +123,6 @@ const CRUDProduct = component =>
    compose(WithProduct, WithUpdateProduct, WithDeleteProduct)(component);
 
 export const ViewProducts = component =>
-    compose(WithCreateProduct, WithAllProducts)(component);
+    compose(WithAllProducts, WithCreateProduct, )(component);
 
 export default CRUDProduct;
