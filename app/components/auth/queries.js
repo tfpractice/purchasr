@@ -45,6 +45,8 @@ export const executeFind = client => ({ username, }) =>
   client.query({ query: GetUsers, variables: { where: { username: { eq: username, }, }, }, })
     .then(getEdges).catch(console.error);
 
+export const fetchByName = query => input =>
+query.refetch({ where: { username: { eq: username, }, }, });
 const isEmpty = (edges = []) => edges.length === 0;
 
 const log = ({ findUser, createUser, login, }) => input =>
@@ -57,7 +59,10 @@ Promise.resolve(findUser(input))
 
 export const WithFind = component => graphql(GetUsers, {
        name: 'getUsers',
-       props: ({ ownProps: { client, }, }, ) => ({ findUser: executeFind(client), }),
+       props: ({ getUsers, ownProps: { client, }, ...other }, ) => {
+         console.log('GetUsers', getUsers, other);
+         return ({ byName: ({ username, }) => getUsers.refetch({ where: { username: { eq: username, }, }, first: 1, }, ), findUser: executeFind(client), });
+       },
 })(component);
 
 export const WithCreate = component => graphql(CreateUser, {
@@ -71,4 +76,4 @@ export const WithLogin = component => graphql(LoginUser, {
 })(component);
 
 export const LoginChain = component =>
-   compose(withApollo, WithCreate, WithLogin)(component);
+   compose(withApollo, WithFind, WithCreate, WithLogin)(component);

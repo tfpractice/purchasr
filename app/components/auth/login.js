@@ -23,11 +23,11 @@ const baseLogin = ({ handleSubmit, }) => (
 
 const ReduxLogin = reduxForm()(baseLogin);
 
-const LoginForm = ({ login, login2, formID, ...rest }) => {
+const LoginForm = ({ login, byName, formID, ...rest }) => {
   console.log('rest', rest);
   return (
     <ReduxLogin
-      form={formID} onSubmit={login} onSubmitSuccess={resetForm(formID)}
+      form={formID} onSubmit={byName} onSubmitSuccess={resetForm(formID)}
     />
   );
 };
