@@ -1,6 +1,11 @@
 import gql from 'graphql-tag';
 import { compose, graphql, withApollo, } from 'react-apollo';
 
+const getEdges = ({ data: { viewer: { allUsers: { edges, }, }, }, },
+) => spread(edges);
+
+const isEmpty = (edges = []) => edges.length === 0;
+
 const dataToProps = ({ data, }) => ({
   data,
   edges: data.viewer.allProducts.edges.map(({ node, }) => node),
@@ -14,13 +19,6 @@ const GetProduct = gql`
       price
     }
   }`;
-
-export const WithProduct = component => graphql(GetProduct, {
-  name: 'getProduct',
-  skip:  ({ id, } = { id: '', }) => !!id,
-  options: ({ getProduct, ownProps: { id, }, }) => ({ variables: id, }),
-  props: ({ getProduct, ownProps, }) => ({ ownProps, getProduct, }),
-})(component);
 
 const AllProducts = gql`
   query GetAllProducts {
@@ -36,14 +34,6 @@ const AllProducts = gql`
       }
     }
   }`;
-
-export const WithAllProducts = component => graphql(AllProducts, {
-  name: 'products',
-  props: ({ products, ownProps: allProps, }) => {
-    console.log('allProps', allProps);
-    return ({ products: products.viewer.allProducts.edges.map(({ node, }) => node), });
-  },
-})(component);
 
 export const CreateProduct = gql`
    mutation CreateProductMutation($input: CreateProductInput!) {
@@ -77,14 +67,6 @@ subscription SubscribeToProducts($filter: ProductSubscriptionFilter, $mutations:
 //   ({ products: products.viewer.allProducts.edges.map(({ node, }) => node), }),
 // })(component);
 
-export const WithCreateProduct = component => graphql(CreateProduct, {
-  name: 'createProduct',
-  props: ({ createProduct, ownProps, }) => {
-    console.log('ownProps', ownProps);
-    return ({ createProduct: input => createProduct({ variables: { input, }, }), });
-  },
-})(component);
-
 export const UpdateProduct = gql`
   mutation UpdateProductMutation($input: UpdateProductInput!) {
     updateProduct(input: $input) {
@@ -95,13 +77,6 @@ export const UpdateProduct = gql`
     }
   }`;
 
-export const WithUpdateProduct = component => graphql(UpdateProduct, {
-  name: 'updateProduct',
-  skip:  ({ id, } = { id: '', }) => !id,
-  props: ({ updateProduct, ownProps: { id, }, }) =>
-   ({ updateProduct: input => updateProduct({ variables: { input: { id, ...input, }, }, }), }),
-})(component);
-
 export const DeleteProduct = gql`
   mutation DeleteProductMutation($id: ID!) {
     deleteProduct(id: $id) {
@@ -111,6 +86,36 @@ export const DeleteProduct = gql`
       }
     }
   }`;
+
+export const WithAllProducts = component => graphql(AllProducts, {
+  name: 'products',
+  props: ({ products, ownProps: allProps, }) => {
+    console.log('allProps', allProps);
+    return ({ products: products.viewer.allProducts.edges.map(({ node, }) => node), });
+  },
+})(component);
+
+export const WithCreateProduct = component => graphql(CreateProduct, {
+    name: 'createProduct',
+    props: ({ createProduct, ownProps, }) => {
+      console.log('ownProps', ownProps);
+      return ({ createProduct: input => createProduct({ variables: { input, }, }), });
+    },
+})(component);
+
+export const WithProduct = component => graphql(GetProduct, {
+    name: 'getProduct',
+    skip:  ({ id, } = { id: '', }) => !id,
+    options: ({ getProduct, ownProps: { id, }, }) => ({ variables: id, }),
+    props: ({ getProduct, ownProps, }) => ({ ownProps, getProduct, }),
+})(component);
+
+export const WithUpdateProduct = component => graphql(UpdateProduct, {
+  name: 'updateProduct',
+  skip:  ({ id, } = { id: '', }) => !id,
+  props: ({ updateProduct, ownProps: { id, }, }) =>
+   ({ updateProduct: input => updateProduct({ variables: { input: { id, ...input, }, }, }), }),
+})(component);
 
 export const WithDeleteProduct = component => graphql(DeleteProduct, {
     name: 'deleteProduct',

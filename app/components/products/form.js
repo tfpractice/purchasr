@@ -26,8 +26,7 @@ const ReduxProduct = reduxForm()(baseProduct);
 export const CreateForm = ({ createProduct, formID, ...rest }) => (
   <ReduxProduct
     form={formID} onSubmit={createProduct} onSubmitSuccess={resetForm(formID)}
-  />
-  );
+  />);
 export const CreateProductForm = WithCreateProduct(CreateForm);
 
 const ProductForm = ({ login, login2, formID, ...rest }) => {
