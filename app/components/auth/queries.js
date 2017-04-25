@@ -1,9 +1,14 @@
 import gql from 'graphql-tag';
 import { spread, } from 'fenugreek-collections';
-import { compose, graphql, withApollo, } from 'react-apollo';
+import { compose, graphql, } from 'react-apollo';
+
+const getEdges = ({ data: { viewer: { allUsers: { edges, }, }, }, },
+) => spread(edges);
+
+const isEmpty = (edges = []) => edges.length === 0;
 
 export const GetUsers = gql`
-query GetUsers($where:UserWhereArgs $first:Int) {
+  query GetUsers($where:UserWhereArgs $first:Int) {
    viewer {
      allUsers(where:$where first:$first) {
        edges {
@@ -14,18 +19,25 @@ query GetUsers($where:UserWhereArgs $first:Int) {
        }
      }
    }
-}
-`;
+ }`;
 
 export const CreateUser = gql`
-   mutation CreateUserMutation($input: CreateUserInput!) {
+  mutation CreateUserMutation($input: CreateUserInput!) {
      createUser(input: $input) {
+       token
+       viewer{
+         id
+         user{
+           id
+           username
+         }
+       }
        changedUser {
+         id
          username
        }
      }
-   }
-   `;
+   }`;
 
 export const LoginUser = gql`
      mutation LoginUserMutation($input: LoginUserInput!) {
@@ -34,46 +46,46 @@ export const LoginUser = gql`
          user {
            username
          }
+         viewer{
+           id
+           user{
+             id
+             username
+           }
+         }
        }
-     }
-     `;
-     
-const getEdges = ({ data: { viewer: { allUsers: { edges, }, }, }, },
-) => spread(edges);
+     }`;
 
-export const executeFind = client => ({ username, }) =>
-  client.query({ query: GetUsers, variables: { where: { username: { eq: username, }, }, }, })
-    .then(getEdges).catch(console.error);
+export const userByName = query => ({ username, }) =>
+  query.refetch({ where: { username: { eq: username, }, }, }).then(getEdges);
 
-export const fetchByName = query => input =>
-query.refetch({ where: { username: { eq: username, }, }, });
-const isEmpty = (edges = []) => edges.length === 0;
+export const createFromInput = mutation => input =>
+  mutation({ variables: { input, }, });
 
-const log = ({ findUser, createUser, login, }) => input =>
-Promise.resolve(findUser(input))
-  .then(edges => isEmpty(edges) ?
-     createUser({ variables: { input, }, })
-     : login({ variables: { input, }, }))
-  .then(u => console.log('login u', u) && u)
-  .catch(console.error);
+const logInput = mutation => input =>
+  mutation({ variables: { input, }, });
+
+const findAndLogin = ({ findUser, createUser, loginUser, }) => input =>
+   findUser(input)
+     .then(u =>
+       isEmpty(u) ? createUser(input).then(() => input) : input)
+     .then(loginUser)
+     .catch(console.error);
 
 export const WithFind = component => graphql(GetUsers, {
-       name: 'getUsers',
-       props: ({ getUsers, ownProps: { client, }, ...other }, ) => {
-         console.log('GetUsers', getUsers, other);
-         return ({ byName: ({ username, }) => getUsers.refetch({ where: { username: { eq: username, }, }, first: 1, }, ), findUser: executeFind(client), });
-       },
+  props: ({ data, }) =>
+    ({ findUser: userByName(data), }),
 })(component);
 
 export const WithCreate = component => graphql(CreateUser, {
-   name: 'createUser',
-   props: ({ createUser, ownProps: { client, }, }) => ({ createUser, findUser: executeFind(client), }),
+  props: ({ mutation, }) =>
+    ({ createUser: createFromInput(mutation), }),
 })(component);
 
 export const WithLogin = component => graphql(LoginUser, {
-   name: 'login',
-   props: ({ login, ownProps: { findUser, createUser, }, }) => ({ login: log({ login, findUser, createUser, }), }),
+  props: ({ mutate, ownProps: { findUser, createUser, }, }) =>
+  ({ login: findAndLogin({ loginUser: logInput(mutate), findUser, createUser, }), }),
 })(component);
 
 export const LoginChain = component =>
-   compose(withApollo, WithFind, WithCreate, WithLogin)(component);
+   compose(WithFind, WithCreate, WithLogin)(component);
