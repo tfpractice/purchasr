@@ -55,8 +55,7 @@ export const CreateProduct = gql`
 
 export const WithCreateProduct = component => graphql(CreateProduct, {
   name: 'createProduct',
-  skip:  ({ id, } = { id: '', }) => !id,
-  props: ({ createProduct, ownProps: { id, }, }) =>
+  props: ({ createProduct, }) =>
   ({ createProduct: input => createProduct({ variables: { input, }, }), }),
 })(component);
 
@@ -94,14 +93,10 @@ export const WithDeleteProduct = component => graphql(DeleteProduct, {
     ({ deleteProduct: () => deleteProduct({ variables: id, }), }),
 })(component);
 
-const withCRUDProduct = component =>
-   compose(
-   WithProduct,
+const CRUDProduct = component =>
+   compose(WithProduct, WithUpdateProduct, WithDeleteProduct)(component);
 
-  //  WithAllProducts,
-   WithCreateProduct,
-   WithUpdateProduct,
-   WithDeleteProduct
- )(component);
+export const ViewProducts = component =>
+    compose(WithCreateProduct, WithAllProducts)(component);
 
-export default withCRUDProduct;
+export default CRUDProduct;
