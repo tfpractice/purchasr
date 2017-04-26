@@ -1,11 +1,12 @@
 import React from 'react';
 import { graphql, } from 'react-apollo';
-import Single from './single';
 import Layout from 'material-ui/Layout';
 import { List, ListItem, ListSubheader, } from 'material-ui/List';
-import ProductCRUD, { WithAllProducts, } from './queries';
 import Paper from 'material-ui/Paper';
-import { CreateProductForm, } from './form';
+import Single from './single';
+import { AllProducts, } from './containers';
+
+// import { CreateProductForm, } from './form';
 
 const dataToProps = ({ data, }) => ({
  data,
@@ -16,7 +17,7 @@ const ProductList = ({ products, }) => {
   console.log('product', products);
   return (
     <Paper>
-      <CreateProductForm formID="createProduct" />
+      {/* <CreateProductForm formID="createProduct" /> */}
       <List>
         <ListSubheader >
           I am the Productlist
@@ -29,4 +30,4 @@ const ProductList = ({ products, }) => {
   );
 };
 
-export default WithAllProducts(ProductList);
+export default AllProducts(ProductList);

@@ -1,5 +1,6 @@
 import React from 'react';
-import ProductCRUD from './queries';
+
+// import ProductCRUD from './queries';
 
 const Product = (props, ...other) => {
   console.log('props', props, other);
@@ -11,4 +12,4 @@ const Product = (props, ...other) => {
   );
 };
 
-export default ProductCRUD(Product);
+export default (Product);
