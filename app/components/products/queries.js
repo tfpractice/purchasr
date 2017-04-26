@@ -1,17 +1,5 @@
 import gql from 'graphql-tag';
 
-// import { compose, graphql, withApollo, } from 'react-apollo';
-
-const getEdges = ({ data: { viewer: { allUsers: { edges, }, }, }, },
-) => spread(edges);
-
-const isEmpty = (edges = []) => edges.length === 0;
-
-const dataToProps = ({ data, }) => ({
-  data,
-  edges: data.viewer.allProducts.edges.map(({ node, }) => node),
-});
-
 export const byID = gql`
   query GetProduct($id: ID!){
     product {

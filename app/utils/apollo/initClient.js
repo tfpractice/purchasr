@@ -7,7 +7,7 @@ function _initClient(headers, initialState) {
     initialState,
     networkInterface,
     ssrMode: !process.browser,
-    dataIdFromObject: result => result.id || null,
+    // dataIdFromObject: ({ id, } = { id: '', }) => id,
   });
 }
 

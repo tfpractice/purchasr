@@ -3,6 +3,7 @@ import { Field, reduxForm, reset, } from 'redux-form';
 import Layout from 'material-ui/Layout';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
+import { WithCreate, } from './containers';
 
 // import ProductCRUD, { WithCreateProduct, } from './queries';
 
@@ -28,7 +29,8 @@ export const CreateForm = ({ createProduct, formID, ...rest }) => (
   <ReduxProduct
     form={formID} onSubmit={createProduct} onSubmitSuccess={resetForm(formID)}
   />);
-export const CreateProductForm = WithCreateProduct(CreateForm);
+  
+export const CreateProductForm = WithCreate(CreateForm);
 
 const ProductForm = ({ login, login2, formID, ...rest }) => {
   console.log('rest', rest);
@@ -39,4 +41,5 @@ const ProductForm = ({ login, login2, formID, ...rest }) => {
   );
 };
 
-export default ProductCRUD(ProductForm);
+//
+// export default ProductCRUD(ProductForm);

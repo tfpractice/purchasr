@@ -6,7 +6,7 @@ import Paper from 'material-ui/Paper';
 import Single from './single';
 import { AllProducts, } from './containers';
 
-// import { CreateProductForm, } from './form';
+import { CreateProductForm, } from './form';
 
 const dataToProps = ({ data, }) => ({
  data,
@@ -17,7 +17,7 @@ const ProductList = ({ products, }) => {
   console.log('product', products);
   return (
     <Paper>
-      {/* <CreateProductForm formID="createProduct" /> */}
+      <CreateProductForm formID="createProduct" />
       <List>
         <ListSubheader >
           I am the Productlist
