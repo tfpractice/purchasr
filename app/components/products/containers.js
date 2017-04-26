@@ -31,32 +31,32 @@ export const WithCreate = component => graphql(create, {
 
 export const WithProduct = component => graphql(byID, {
   name: 'getProduct',
-  skip:  ({ id, ...ownProps } = { id: '', }, ...rest) => { console.log('id,ownProps', id, !id, !!id, ownProps, rest); return id; },
+  skip:  ({ id, } = { id: '', }) => !!id,
   options: ({ getProduct, ownProps, }) => {
     console.log('WithProductownProps', ownProps);
     return ({ variables: { id: ownProps.id, }, });
   },
   props: ({ getProduct, ownProps, }) => {
     console.log('WithProductownProps props', ownProps);
-    return ({ ...ownProps, getProduct, });
+    return ({ ownProps, getProduct, });
   },
 })(component);
 
-export const WithUpdateProduct = component => graphql(edit, {
-  name: 'updateProduct',
-  skip:  ({ id, } = { id: '', }) => !id,
-  props: ({ updateProduct, ownProps: { id, }, }) =>
-   ({ updateProduct: input => updateProduct({ variables: { input: { id, ...input, }, }, }), }),
-})(component);
-
-export const WithDeleteProduct = component => graphql(destroy, {
-  name: 'deleteProduct',
-  skip:  ({ id, } = { id: '', }) => !id,
-  props: ({ deleteProduct, ownProps: { id = '', }, }) =>
-  ({ deleteProduct: () => deleteProduct({ variables: id, }), }),
-})(component);
-
-const CRUDProduct = component =>
- compose(WithProduct, WithUpdateProduct, WithDeleteProduct)(component);
-
-export default CRUDProduct;
+// export const WithUpdateProduct = component => graphql(edit, {
+//   name: 'updateProduct',
+//   skip:  ({ id, } = { id: '', }) => !id,
+//   props: ({ updateProduct, ownProps: { id, }, }) =>
+//    ({ updateProduct: input => updateProduct({ variables: { input: { id, ...input, }, }, }), }),
+// })(component);
+//
+// export const WithDeleteProduct = component => graphql(destroy, {
+//   name: 'deleteProduct',
+//   skip:  ({ id, } = { id: '', }) => !id,
+//   props: ({ deleteProduct, ownProps: { id = '', }, }) =>
+//   ({ deleteProduct: () => deleteProduct({ variables: id, }), }),
+// })(component);
+//
+// const CRUDProduct = component =>
+//  compose(WithProduct, WithUpdateProduct, WithDeleteProduct)(component);
+//
+// export default CRUDProduct;

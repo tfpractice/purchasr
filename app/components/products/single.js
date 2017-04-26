@@ -15,4 +15,4 @@ const Product = (props, ...SingleProductProps) => {
   );
 };
 
-export default WithProduct(Product);
+export default (Product);
