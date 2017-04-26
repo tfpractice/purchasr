@@ -14,8 +14,10 @@ const dataToProps = ({ data, }) => ({
 });
    
 const ProductList = ({ products, ...productListProps }) => {
-  console.log('product', products);
-  console.log('productListProps', productListProps);
+  const a = 0;
+
+  // console.log('product', products);
+  // console.log('productListProps', productListProps);
   return (
     <Paper>
       <CreateProductForm formID="createProduct" />
