@@ -1,17 +1,47 @@
 import React from 'react';
 import { WithProduct, } from './containers';
 
+// @flow weak
+
+// import React from 'react';
+// import { createStyleSheet } from 'jss-theme-reactor';
+// import customPropTypes from 'material-ui/utils/customPropTypes';
+import { Card, CardActions, CardContent, CardHeader, CardMedia, } from 'material-ui/Card';
+import Button from 'material-ui/Button';
+import Text from 'material-ui/Text';
+
+// const styleSheet = createStyleSheet('SimpleCard', (theme) => ({
+//   card: { minWidth: 275 },
+//   bullet: {
+//     display: 'inline-block',
+//     margin: '0 2px',
+//     transform: 'scale(0.8)',
+//   },
+//   title: {
+//     marginBottom: 16,
+//     fontSize: 14,
+//     color: theme.palette.text.secondary,
+//   },
+//   pos: {
+//     marginBottom: 12,
+//     color: theme.palette.text.secondary,
+//   },
+// }));
+
 // import ProductCRUD from './queries';
-
-const Product = (props, ...SingleProductProps) => {
+const Product = ({ product, ...SingleProductProps }) => {
   const a = 0;
-
-  console.log('SingleProductProps', props, SingleProductProps);
+  
+  console.log('SingleProductProps', product, SingleProductProps);
   return (
-    <div>
-      <h1>{props.product.name}</h1>
-      <h1>{props.product.price}</h1>
-    </div>
+    <Card >
+      <CardContent>
+        <CardHeader title={product.name} subheader={`$${product.price}`} />
+        <CardMedia>
+          <img src="http://placehold.it/150/ff00ff" alt="Contemplative Reptile" />
+        </CardMedia>
+      </CardContent>
+    </Card>
   );
 };
 
