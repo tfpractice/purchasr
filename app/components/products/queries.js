@@ -14,7 +14,7 @@ export const all = gql`
     viewer {
       allProducts {
         edges {
-          node {
+           product:node {
             id
             name
             price
@@ -27,7 +27,8 @@ export const all = gql`
 export const create = gql`
    mutation CreateProductMutation($input: CreateProductInput!) {
      createProduct(input: $input) {
-       changedProduct {
+       product:changedProduct {
+         id
          name
          price
        }
