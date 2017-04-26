@@ -3,7 +3,8 @@ import React from 'react';
 // import ProductCRUD from './queries';
 
 const Product = (props, ...other) => {
-  console.log('props', props, other);
+  const a = 0;
+
   return (
     <div>
       <h1>{props.product.name}</h1>

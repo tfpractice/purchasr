@@ -13,7 +13,7 @@ const getEdges = ({ data: { viewer: { allProducts: { edges, }, }, }, },
 
 const isEmpty = (edges = []) => edges.length === 0;
 
-const createInput = ({ mutate, }) => input =>
+const createProduct = ({ mutate, }) => input =>
  mutate({ variables: { input, }, });
 
 export const AllProducts = component => graphql(all, {
@@ -24,18 +24,10 @@ export const AllProducts = component => graphql(all, {
   },
 })(component);
 
-export const WithCreate = component => compose(x => x, graphql(create, {
-  name: 'createProduct',
-  options: (ops) => {
-    console.log('ops', ops);
-    return ({ refetchQueries: [ 'GetAllProducts', ], });
-  },
-  
-  props: ({ createProduct, ownProps, }) => {
-    console.log('createProduct ownProps', createProduct, ownProps);
-    return ({ createProduct: createInput({ mutate: createProduct, }), });
-  },
-}))(component);
+export const WithCreate = component => graphql(create, {
+  options: ops => ({ refetchQueries: [ 'GetAllProducts', ], }),
+  props: ({ mutate, }) => ({ createProduct: createProduct({ mutate, }), }),
+})(component);
 
 export const ProductView = component => compose(AllProducts, WithCreate)(component);
 

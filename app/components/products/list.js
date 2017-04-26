@@ -13,8 +13,9 @@ const dataToProps = ({ data, }) => ({
  products: data.viewer.allProducts.edges.map(({ node, }) => node),
 });
    
-const ProductList = ({ products, }) => {
+const ProductList = ({ products, ...productListProps }) => {
   console.log('product', products);
+  console.log('productListProps', productListProps);
   return (
     <Paper>
       <CreateProductForm formID="createProduct" />
