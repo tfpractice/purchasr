@@ -1,25 +1,17 @@
 import React from 'react';
-import { graphql, } from 'react-apollo';
 import Layout from 'material-ui/Layout';
-import { List, ListItem, ListSubheader, } from 'material-ui/List';
-import Paper from 'material-ui/Paper';
 import Single from './single';
 import { WithAll, } from './containers';
-
 import { CreateProductForm, } from './form';
    
-const ProductList = ({ products, ...productListProps }) => (
-  <Paper>
+const ProductList = ({ products, }) => (
+  <Layout container>
     <CreateProductForm formID="createProduct" />
-    <List>
-      <ListSubheader >
-        I am the Productlist
-        </ListSubheader>
-      {products.map(p => <ListItem key={p.id}>
+    {products.map(p =>
+      <Layout item md={4} key={p.id}>
         <Single product={p} />
-      </ListItem>)}
-    </List>
-  </Paper>
-  );
+      </Layout>)}
+  </Layout>
+);
 
 export default WithAll(ProductList);

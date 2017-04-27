@@ -1,24 +1,32 @@
 import React from 'react';
-import { Field, reduxForm, reset, } from 'redux-form';
+import { Field, reduxForm, } from 'redux-form';
 import Layout from 'material-ui/Layout';
+import Card from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
+import { FormGroup, } from 'material-ui/Form';
 import { WithCreate, WithEdit, } from './containers';
 
 const styles = { display: 'inline-flex', };
+
+// style={styles}
+const onSubmitSuccess = (res, dispatch, { reset, }) => reset();
+
 const renderField = ({ input, meta: { error: e, }, ...rest }) => (
   <TextField type="text" inputProps={input} error={e} {...rest} />
   );
 
 const baseProduct = ({ handleSubmit, destroyProduct, }) => (
-  <form onSubmit={handleSubmit} style={styles} >
-    <Field name="name" component={renderField} />
-    <Field name="price" type="number" component={renderField} />
+  <FormGroup onSubmit={handleSubmit} >
+    <FormGroup row>
+      <Field label="name" name="name" component={renderField} />
+      <Field label="price" name="price" type="number" component={renderField} />
+    </FormGroup>
     <Button accent type="submit">Submit Product</Button>
     {destroyProduct && <Button onClick={destroyProduct}>Destroy </Button>}
-  </form>);
+  </FormGroup>
+  );
 
-const onSubmitSuccess = (res, dispatch, { reset, }) => reset();
 const ReduxProduct = reduxForm({ onSubmitSuccess, })((baseProduct));
 
 export const CreateForm = ({ createProduct, formID, }) => (

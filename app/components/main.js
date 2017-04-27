@@ -25,7 +25,7 @@ export default class Main extends Component {
   render() {
     console.log('this.props', this.props);
     return (
-      <MuiThemeProvider theme={theme} styleManager={styleManager}>
+      <div>
         <Layout container className="App" direction={'column'}>
           <Layout item xs={12}>
             <NavBar />
@@ -35,7 +35,7 @@ export default class Main extends Component {
             {this.props.children}
           </Layout>
         </Layout>
-      </MuiThemeProvider>
+      </div>
     );
   }
 }

@@ -10,16 +10,15 @@ const Product = ({ product, }) => {
   const a = 0;
   
   return (
-    <Card >
+    <Card raised>
+      <CardHeader title={product.name} subheader={`$${product.price}`} />
+      <CardMedia>
+        <img src="http://placehold.it/150/ff00ff" alt="Contemplative Reptile" />
+      </CardMedia>
       <CardContent>
-        <CardHeader title={product.name} subheader={`$${product.price}`} />
-        <CardMedia>
-          <img src="http://placehold.it/150/ff00ff" alt="Contemplative Reptile" />
-        </CardMedia>
-        <CardActions>
-          <EditProductForm id={product.id} formID={`product:${product.id}`} />
-        </CardActions>
+        <EditProductForm id={product.id} formID={`product:${product.id}`} />
       </CardContent>
+      <CardActions />
     </Card>
   );
 };
