@@ -4,33 +4,22 @@ import Layout from 'material-ui/Layout';
 import { List, ListItem, ListSubheader, } from 'material-ui/List';
 import Paper from 'material-ui/Paper';
 import Single from './single';
-import { AllProducts, } from './containers';
+import { WithAll, } from './containers';
 
 import { CreateProductForm, } from './form';
-
-const dataToProps = ({ data, }) => ({
- data,
- products: data.viewer.allProducts.edges.map(({ node, }) => node),
-});
    
-const ProductList = ({ products, ...productListProps }) => {
-  const a = 0;
-
-  // console.log('product', products);
-  // console.log('productListProps', productListProps);
-  return (
-    <Paper>
-      <CreateProductForm formID="createProduct" />
-      <List>
-        <ListSubheader >
-          I am the Productlist
+const ProductList = ({ products, ...productListProps }) => (
+  <Paper>
+    <CreateProductForm formID="createProduct" />
+    <List>
+      <ListSubheader >
+        I am the Productlist
         </ListSubheader>
-        {products.map(p => <ListItem key={p.id}>
-          <Single product={p} id={p.id} />
-        </ListItem>)}
-      </List>
-    </Paper>
+      {products.map(p => <ListItem key={p.id}>
+        <Single product={p} />
+      </ListItem>)}
+    </List>
+  </Paper>
   );
-};
 
-export default AllProducts(ProductList);
+export default WithAll(ProductList);

@@ -3,43 +3,33 @@ import { Field, reduxForm, reset, } from 'redux-form';
 import Layout from 'material-ui/Layout';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
-import { WithCreate, } from './containers';
-
-// import ProductCRUD, { WithCreateProduct, } from './queries';
-
-const resetForm = formID => (action, dispatch) => dispatch(reset(formID));
+import { WithCreate, WithEdit, } from './containers';
 
 const styles = { display: 'inline-flex', };
-
 const renderField = ({ input, meta: { error: e, }, ...rest }) => (
   <TextField type="text" inputProps={input} error={e} {...rest} />
   );
 
-const baseProduct = ({ handleSubmit, }) => (
+const baseProduct = ({ handleSubmit, destroyProduct, }) => (
   <form onSubmit={handleSubmit} style={styles} >
     <Field name="name" component={renderField} />
     <Field name="price" type="number" component={renderField} />
-    <Button accent type="submit">Product</Button>
-  </form>
-);
+    <Button accent type="submit">Submit Product</Button>
+    {destroyProduct && <Button onClick={destroyProduct}>Destroy </Button>}
+  </form>);
 
-const ReduxProduct = reduxForm()(baseProduct);
+const onSubmitSuccess = (res, dispatch, { reset, }) => reset();
+const ReduxProduct = reduxForm({ onSubmitSuccess, })((baseProduct));
 
-export const CreateForm = ({ createProduct, formID, ...rest }) => (
+export const CreateForm = ({ createProduct, formID, }) => (
   <ReduxProduct
-    form={formID} onSubmit={createProduct} onSubmitSuccess={resetForm(formID)}
+    form={formID} onSubmit={createProduct}
   />);
-  
+
+const ProductForm = ({ updateProduct, destroyProduct, formID, }) => (
+  <ReduxProduct
+    form={formID} onSubmit={updateProduct} destroyProduct={destroyProduct}
+  />);
+
+export const EditProductForm = WithEdit(ProductForm);
 export const CreateProductForm = WithCreate(CreateForm);
-
-const ProductForm = ({ login, login2, formID, ...rest }) => {
-  console.log('rest', rest);
-  return (
-    <ReduxProduct
-      form={formID} onSubmit={login} onSubmitSuccess={resetForm(formID)}
-    />
-  );
-};
-
-//
-// export default ProductCRUD(ProductForm);
