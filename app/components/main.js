@@ -23,9 +23,12 @@ const styles = { paddingTop: '3rem', };
 export default class Main extends Component {
   
   render() {
-    console.log('this.props', this.props);
+    const a = 0;
+
+    // console.log('this.props', this.props);
+
     return (
-      <div>
+      <MuiThemeProvider theme={theme} styleManager={styleManager}>
         <Layout container className="App" direction={'column'}>
           <Layout item xs={12}>
             <NavBar />
@@ -35,7 +38,7 @@ export default class Main extends Component {
             {this.props.children}
           </Layout>
         </Layout>
-      </div>
+      </MuiThemeProvider>
     );
   }
 }
