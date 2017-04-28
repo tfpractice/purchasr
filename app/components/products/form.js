@@ -6,11 +6,11 @@ import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import { FormGroup, } from 'material-ui/Form';
 import { WithCreate, WithEdit, } from './containers';
-
+import { ClearForm, onSubmitSuccess, } from 'utils';
 const styles = { display: 'inline-flex', };
 
 // style={styles}
-const onSubmitSuccess = (res, dispatch, { reset, }) => reset();
+// const onSubmitSuccess = (res, dispatch, { reset, }) => reset();
 
 const renderField = ({ input, meta: { error: e, }, ...rest }) => (
   <TextField type="text" inputProps={input} error={e} {...rest} />
@@ -28,6 +28,8 @@ const baseProduct = ({ handleSubmit, destroyProduct, }) => (
   );
 
 const ReduxProduct = reduxForm({ onSubmitSuccess, })((baseProduct));
+
+// const ReduxProduct = ClearForm(baseProduct);
 
 export const CreateForm = ({ createProduct, formID, }) => (
   <ReduxProduct
