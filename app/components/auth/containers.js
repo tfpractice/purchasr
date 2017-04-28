@@ -20,9 +20,14 @@ export const WithLogin = component => graphql(LOGIN_USER, {
   props: ({ mutate, }) =>
     ({ loginUser: loginUser(mutate), }),
 })(component);
+ 
+export const WithCurrent = component => graphql(CURRENT_USER, {
+  props: ({ data: currentUser, }) =>
+    ({ currentUser, }),
+})(component);
 
 export const WithFindAndLogin = component => compose(WithFind, WithCreate, WithLogin,
-  graphql(GET_USERS, {
+  graphql(CURRENT_USER, {
   props: ({ ownProps: { findUser, loginUser, createUser, }, }) =>
     ({ login: findAndLogin(findUser)(createUser)(loginUser), }),
   }))(component);

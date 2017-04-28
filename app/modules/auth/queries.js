@@ -1,13 +1,14 @@
 import gql from 'graphql-tag';
 
 export const CURRENT_USER = gql`
-  query viewer {
-    id 
-    # user {
-    #   id
-    #   username
-    # }
-  }`;
+  query Viewer {
+    viewer {
+      user {
+        id
+        username
+      }
+  }
+}`;
 
 export const GET_USERS = gql`
   query GetUsers($where:UserWhereArgs $first:Int) {
