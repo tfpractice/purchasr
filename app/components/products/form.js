@@ -1,7 +1,5 @@
 import React from 'react';
-import { Field, reduxForm, } from 'redux-form';
-import Layout from 'material-ui/Layout';
-import Card from 'material-ui/Card';
+import { Field, } from 'redux-form';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import { FormGroup, } from 'material-ui/Form';

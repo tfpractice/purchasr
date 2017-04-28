@@ -1,5 +1,4 @@
 import { compose, graphql, } from 'react-apollo';
-import gql from 'graphql-tag';
 import { Auth, } from 'modules';
 
 const {
