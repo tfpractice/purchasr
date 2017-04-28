@@ -1,8 +1,8 @@
 import { compose, graphql, } from 'react-apollo';
 import { ProductActions, ProductQueries, } from 'modules';
 
-const { createProduct, destroyProduct, editProduct, getProducts, } = ProductActions;
-const { ALL_PRODUCTS, CREATE_PRODUCT, DESTROY_PRODUCT, EDIT_PRODUCT, PRODUCT_BY_ID, } = ProductQueries;
+const { createProduct, destroyProduct, editProduct, purchaseProduct, getProducts, } = ProductActions;
+const { ALL_PRODUCTS, CREATE_PRODUCT, PURCHASE_PRODUCT, DESTROY_PRODUCT, EDIT_PRODUCT, PRODUCT_BY_ID, } = ProductQueries;
 
 export const WithAll = component => graphql(ALL_PRODUCTS, {
  props: ({ data, }) =>
@@ -33,5 +33,14 @@ export const WithDestroy = component => graphql(DESTROY_PRODUCT, {
    ({ destroyProduct: destroyProduct(mutate)(id), }),
   options: { refetchQueries: [ 'GetAllProducts', ], },
 })(component);
+
+// export const WithPurchase = component = graphql(PURCHASE_PRODUCT, {
+//   skip: ({ id, }) => !id,
+//   props: ({ mutate, ownProps: { id, }, }) =>
+//    ({ destroyProduct: destroyProduct(mutate)(id), }),
+//   options: { refetchQueries: [ 'GetAllProducts', ], },
+// }de
+//
+// )(component);
 
 export const WithEdit = component => compose(WithUpdate, WithDestroy)(component);

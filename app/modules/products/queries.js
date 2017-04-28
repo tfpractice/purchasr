@@ -54,6 +54,22 @@ export const destroy = gql`
       }
     }
   }`;
+  
+export const PURCHASE_PRODUCT = gql`
+    mutation AddProduct($input: AddToPurchasesConnectionInput!) {
+      addToPurchasesConnection(input: $input) {
+        changedPurchases {
+          user {
+            id
+            username
+          }
+          product {
+            id
+            name
+          }
+        }
+      }
+    }`;
 
 export const ALL_PRODUCTS = all;
 export const PRODUCT_BY_ID = byID;
