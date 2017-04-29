@@ -3,9 +3,9 @@ import { Card, CardActions, CardContent, CardHeader, CardMedia, } from 'material
 import Button from 'material-ui/Button';
 import Text from 'material-ui/Text';
 import { EditProductForm, } from './form';
-import { WithPurchase, } from './containers';
+import { WithUnPurchase, } from './containers';
 
-const Product = ({ product, purchaseProduct, ...props }) => {
+const Product = ({ product, dropProduct, purchaseProduct, ...props }) => {
   const a = 0;
   
   return (
@@ -18,10 +18,11 @@ const Product = ({ product, purchaseProduct, ...props }) => {
         <EditProductForm id={product.id} formID={`product:${product.id}`} />
       </CardContent>
       <CardActions >
-        { purchaseProduct && <Button onClick={purchaseProduct}>Purchase</Button>}
+        { purchaseProduct && <Button onClick={purchaseProduct}>Add to Cart</Button>}
+        { dropProduct && <Button onClick={dropProduct}>Remove from cart</Button>}
       </CardActions>
     </Card>
   );
 };
 
-export default WithPurchase(Product);
+export default WithUnPurchase(Product);

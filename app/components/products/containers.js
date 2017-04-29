@@ -5,10 +5,10 @@ import { WithCurrent, } from '../auth/containers';
 
 const {
  actions:
-  { createProduct, destroyProduct, editProduct, purchaseProduct, getProducts, },
+  { createProduct, destroyProduct, dropProduct, editProduct, purchaseProduct, getProducts, },
 queries:
   {
- ALL_PRODUCTS, CREATE_PRODUCT,
+ ALL_PRODUCTS, CREATE_PRODUCT, UNPURCHASE_PRODUCT,
      PURCHASE_PRODUCT, DESTROY_PRODUCT, EDIT_PRODUCT, PRODUCT_BY_ID,
 },
 } = Product;
@@ -48,6 +48,12 @@ export const WithPurchase = component => WithCurrent(graphql(PURCHASE_PRODUCT, {
   skip: ({ currentUser, }) => !currentUser,
   props: ({ mutate, ownProps: { product: { id: pid, }, currentUser: { id: uid, }, }, }) =>
    ({ purchaseProduct: () => purchaseProduct(mutate)(uid)(pid), }),
+})(component));
+
+export const WithUnPurchase = component => WithPurchase(graphql(UNPURCHASE_PRODUCT, {
+  skip: ({ currentUser, }) => !currentUser,
+  props: ({ mutate, ownProps: { product: { id: pid, }, currentUser: { id: uid, }, }, }) =>
+   ({ dropProduct: () => dropProduct(mutate)(uid)(pid), }),
 })(component));
 
 export const WithEdit = component => compose(WithUpdate, WithDestroy)(component);

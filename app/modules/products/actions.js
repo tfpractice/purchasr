@@ -14,3 +14,6 @@ export const destroyProduct = mutate => id => () =>
 
 export const purchaseProduct = mutate => userId => productId =>
   mutate({ variables: { input: { userId, productId, }, }, });
+
+export const dropProduct = mutate => userId => productId =>
+    mutate({ variables: { input: { userId, productId, }, }, });
