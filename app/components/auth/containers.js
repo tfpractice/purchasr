@@ -17,18 +17,20 @@ export const WithCreate = component => graphql(CREATE_USER, {
 })(component);
 
 export const WithLogin = component => graphql(LOGIN_USER, {
+  options: { refetchQueries: [ 'GetCurrentUser', ], },
+
   props: ({ mutate, }) =>
     ({ loginUser: loginUser(mutate), }),
 })(component);
  
 export const WithCurrent = component => graphql(CURRENT_USER, {
-  props: ({ data: currentUser, }) =>
-    ({ currentUser, }),
+  props: ({ data, }) =>
+    ({ userData: data, currentUser: data.viewer.user, }),
 })(component);
 
 export const WithFindAndLogin = component => compose(WithFind, WithCreate, WithLogin,
   graphql(CURRENT_USER, {
-  props: ({ ownProps: { findUser, loginUser, createUser, }, }) =>
+    props: ({ ownProps: { findUser, loginUser, createUser, }, }) =>
     ({ login: findAndLogin(findUser)(createUser)(loginUser), }),
   }))(component);
 

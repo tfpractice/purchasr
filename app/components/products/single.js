@@ -3,10 +3,9 @@ import { Card, CardActions, CardContent, CardHeader, CardMedia, } from 'material
 import Button from 'material-ui/Button';
 import Text from 'material-ui/Text';
 import { EditProductForm, } from './form';
+import { WithPurchase, } from './containers';
 
-// import { createStyleSheet } from 'jss-theme-reactor';
-// import customPropTypes from 'material-ui/utils/customPropTypes';
-const Product = ({ product, }) => {
+const Product = ({ product, purchaseProduct, ...props }) => {
   const a = 0;
   
   return (
@@ -18,27 +17,11 @@ const Product = ({ product, }) => {
       <CardContent>
         <EditProductForm id={product.id} formID={`product:${product.id}`} />
       </CardContent>
-      <CardActions />
+      <CardActions >
+        { purchaseProduct && <Button onClick={purchaseProduct}>Purchase</Button>}
+      </CardActions>
     </Card>
   );
 };
 
-export default (Product);
-
-// const styleSheet = createStyleSheet('SimpleCard', (theme) => ({
-//   card: { minWidth: 275 },
-//   bullet: {
-//     display: 'inline-block',
-//     margin: '0 2px',
-//     transform: 'scale(0.8)',
-//   },
-//   title: {
-//     marginBottom: 16,
-//     fontSize: 14,
-//     color: theme.palette.text.secondary,
-//   },
-//   pos: {
-//     marginBottom: 12,
-//     color: theme.palette.text.secondary,
-//   },
-// }));
+export default WithPurchase(Product);
