@@ -1,17 +1,17 @@
 import { compose, graphql, } from 'react-apollo';
-import { Auth, Product, } from 'modules';
+import { Product, } from 'modules';
 import { WithCurrent, } from '../auth/containers';
 
 const {
- actions:
-  { createProduct, destroyProduct, dropProduct, editProduct, purchaseProduct, getProducts, },
-queries:
-  {
+  actions:  {
+   createProduct, destroyProduct, dropProduct, editProduct,
+   purchaseProduct, getProducts,
+},
+  queries:  {
  ALL_PRODUCTS, CREATE_PRODUCT, UNPURCHASE_PRODUCT,
-     PURCHASE_PRODUCT, DESTROY_PRODUCT, EDIT_PRODUCT, PRODUCT_BY_ID,
+ PURCHASE_PRODUCT, DESTROY_PRODUCT, EDIT_PRODUCT, PRODUCT_BY_ID,
 },
 } = Product;
-const { queries: { CURRENT_USER, }, } = Auth;
 
 export const WithAll = component => graphql(ALL_PRODUCTS, {
   props: ({ data, }) =>
@@ -24,7 +24,7 @@ export const WithCreate = component => graphql(CREATE_PRODUCT, {
 })(component);
 
 export const WithProduct = component => graphql(PRODUCT_BY_ID, {
-  skip:  ({ id, } = { id: '', }) => !!id,
+  skip:  ({ id, } = { id: '', }) => !id,
   options: ({ ownProps: { id, }, }) => ({ variables: { id, }, }),
   props: ({ data, }) => ({ getProduct: data, }),
 })(component);
@@ -47,32 +47,22 @@ const getID = ({ id, }) => id;
 const getProduct = ({ product, }) => product;
 
 export const isInCart = cart => product =>
-new Set(cart.map(getID)).has(getID(product));
+  new Set(cart.map(getID)).has(getID(product));
 
 export const WithPurchase = component => WithCurrent(graphql(PURCHASE_PRODUCT, {
   options: { refetchQueries: [ 'GetCurrentUser', ], },
-  skip: ({ currentUser, purchases, product, }) => {
-    console.log('WithPurchase', product.name);
-    console.log('isInCart(purchases)(product)', isInCart(purchases)(product));
-    return !currentUser || isInCart(purchases)(product);
-  },
-  props: ({ mutate, ownProps: { ...purchprp, product: { id: pid, }, currentUser: { id: uid, }, }, }) => {
-    console.log('purchprp', purchprp);
-    return ({ purchaseProduct: () => purchaseProduct(mutate)(uid)(pid), });
-  },
+  skip: ({ currentUser, purchases, product, }) =>
+   !currentUser || isInCart(purchases)(product),
+  props: ({ mutate, ownProps: { product, currentUser: { id: uid, }, }, }) =>
+    ({ purchaseProduct: () => purchaseProduct(mutate)(uid)(getID(product)), }),
 })(component));
 
 export const WithUnPurchase = component => WithPurchase(graphql(UNPURCHASE_PRODUCT, {
   options: { refetchQueries: [ 'GetCurrentUser', ], },
-  skip: ({ currentUser, purchases, product, ...cartprops }) => {
-    console.log('WithUnPurchase', purchases, product.name);
-    console.log('cartprops', cartprops);
-    console.log('UNPURCHASE_PRODUCT InCart(purchases)(product)', isInCart(purchases)(product));
-    console.log('UNPURCHASE_PRODUCT NOT InCart(purchases)(product)', !isInCart(purchases)(product));
-    return !currentUser || !isInCart(purchases)(product);
-  },
-  props: ({ mutate, ownProps: { product: { id: pid, }, currentUser: { id: uid, }, }, }) =>
-   ({ dropProduct: () => dropProduct(mutate)(uid)(pid), }),
+  skip: ({ currentUser, purchases, product, }) =>
+   !currentUser || !isInCart(purchases)(product),
+  props: ({ mutate, ownProps: { product, currentUser: { id: uid, }, }, }) =>
+   ({ dropProduct: () => dropProduct(mutate)(uid)(product.id), }),
 })(component));
 
 export const WithEdit = component => compose(WithUpdate, WithDestroy)(component);

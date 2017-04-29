@@ -7,8 +7,7 @@ import { WithUnPurchase, } from './containers';
 
 const Product = ({ product, dropProduct, purchaseProduct, ...props }) => {
   const a = 0;
-
-  { console.log('dropProduct', dropProduct); }
+  
   return (
     <Card raised>
       <CardHeader title={product.name} subheader={`$${product.price}`} />
