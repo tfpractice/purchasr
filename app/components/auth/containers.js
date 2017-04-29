@@ -1,3 +1,4 @@
+import { spread, } from 'fenugreek-collections';
 import { compose, graphql, } from 'react-apollo';
 import { Auth, } from 'modules';
 
@@ -22,10 +23,18 @@ export const WithLogin = component => graphql(LOGIN_USER, {
   props: ({ mutate, }) =>
     ({ loginUser: loginUser(mutate), }),
 })(component);
- 
+
+const getUser = ({ viewer: { user, }, }) => user;
+const getPurchases = ({ purchases: { edges, }, } = { purchases: { edges: [], }, }) =>
+spread(edges);
+
+const getCart = data => getUser(data) ? getPurchases(getUser(data)) : [];
+
 export const WithCurrent = component => graphql(CURRENT_USER, {
-  props: ({ data, }) =>
-    ({ userData: data, currentUser: data.viewer.user, }),
+  props: ({ data, }) => {
+    console.log('getUser(data)', getUser(data));
+    return ({ userData: data, currentUser: getUser(data), purchases: getCart(data), });
+  },
 })(component);
 
 export const WithFindAndLogin = component => compose(WithFind, WithCreate, WithLogin,

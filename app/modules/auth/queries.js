@@ -6,7 +6,15 @@ export const CURRENT_USER = gql`
       user {
         id
         username
-      }
+        purchases{
+          edges{
+            product:node{
+              id
+              name
+            }
+          }
+        }
+    }
   }
 }`;
 

@@ -24,6 +24,23 @@ export const all = gql`
     }
   }`;
 
+export const UNPURCHASED_PRODUCTS = gql`
+    query GetUnPurchased {
+      viewer {
+        user{
+          id
+        }
+        allProducts {
+          edges {
+             product:node {
+              id
+              name
+              price
+            }
+          }
+        }
+      }
+    }`;
 export const create = gql`
    mutation CreateProductMutation($input: CreateProductInput!) {
      createProduct(input: $input) {

@@ -44,14 +44,22 @@ export const WithDestroy = component => graphql(DESTROY_PRODUCT, {
   options: { refetchQueries: [ 'GetAllProducts', ], },
 })(component);
 
+const getID = ({ id, }) => id;
+
+export const isOrdered = purchases => product =>
+new Set(purchases.map(getID)).has(getID(product));
+
 export const WithPurchase = component => WithCurrent(graphql(PURCHASE_PRODUCT, {
-  skip: ({ currentUser, }) => !currentUser,
+  skip: ({ currentUser, purchases, product, }) => !currentUser || isOrdered(purchases)(product),
   props: ({ mutate, ownProps: { product: { id: pid, }, currentUser: { id: uid, }, }, }) =>
    ({ purchaseProduct: () => purchaseProduct(mutate)(uid)(pid), }),
 })(component));
 
 export const WithUnPurchase = component => WithPurchase(graphql(UNPURCHASE_PRODUCT, {
-  skip: ({ currentUser, }) => !currentUser,
+  skip: ({ currentUser, purchases, product, }) => {
+    console.log('WithUnPurchase', purchases);
+    return !currentUser || !isOrdered(purchases)(product);
+  },
   props: ({ mutate, ownProps: { product: { id: pid, }, currentUser: { id: uid, }, }, }) =>
    ({ dropProduct: () => dropProduct(mutate)(uid)(pid), }),
 })(component));
