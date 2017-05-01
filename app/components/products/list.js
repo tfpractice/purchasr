@@ -3,7 +3,7 @@ import Layout from 'material-ui/Layout';
 import Button from 'material-ui/Button';
 import Single from './single';
 import { WithAll, } from './containers';
-import { CreateProductForm, } from './form';
+import { CreateProductForm, } from './forms';
    
 const ProductList = ({ products, byPrice, byStock, }) => (
   <Layout container>

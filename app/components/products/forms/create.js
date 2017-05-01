@@ -1,21 +1,16 @@
 import React from 'react';
 import { Field, } from 'redux-form';
 import Button from 'material-ui/Button';
-import TextField from 'material-ui/TextField';
 import { FormGroup, } from 'material-ui/Form';
-import { WithCreate, WithEdit, } from './containers';
-import { ClearForm, onSubmitSuccess as OSS, } from 'utils';
-
-const renderField = ({ input, meta: { error: e, }, ...rest }) => (
-  <TextField type="text" inputProps={input} error={e} {...rest} />
-  );
+import { ClearForm, renderText, } from 'utils';
+import { WithCreate, WithEdit, } from '../containers';
 
 const baseProduct = ({ handleSubmit, destroyProduct, }) => (
   <form onSubmit={handleSubmit} >
     <FormGroup row>
-      <Field label="name" name="name" component={renderField} />
-      <Field label="stock" name="stock" type="number" component={renderField} />
-      <Field label="price" name="price" type="number" component={renderField} />
+      <Field label="name" name="name" component={renderText} />
+      <Field label="stock" name="stock" type="number" component={renderText} />
+      <Field label="price" name="price" type="number" component={renderText} />
     </FormGroup>
     <Button accent type="submit">Submit Product</Button>
     {destroyProduct && <Button onClick={destroyProduct}>Destroy </Button>}
