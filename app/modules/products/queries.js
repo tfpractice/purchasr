@@ -10,9 +10,9 @@ export const byID = gql`
   }`;
 
 export const all = gql`
-  query GetAllProducts {
+  query GetAllProducts($where:ProductWhereArgs) {
     viewer {
-      allProducts {
+      allProducts(where:$where) {
         edges {
            product:node {
             id

@@ -14,6 +14,7 @@ const baseProduct = ({ handleSubmit, destroyProduct, }) => (
   <form onSubmit={handleSubmit} >
     <FormGroup row>
       <Field label="name" name="name" component={renderField} />
+      <Field label="quantity" name="quantity" type="number" component={renderField} />
       <Field label="price" name="price" type="number" component={renderField} />
     </FormGroup>
     <Button accent type="submit">Submit Product</Button>

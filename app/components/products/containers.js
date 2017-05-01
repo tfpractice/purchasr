@@ -19,7 +19,8 @@ const {
 } = Product;
 
 export const WithAll = component => graphql(ALL_PRODUCTS, {
-   props: ({ data, }) =>
+  options: { variables: { where: { quantity: { gte: 1, }, }, }, },
+  props: ({ data, }) =>
     ({ WithAll: data, products: getProducts(data), }),
 })(component);
 
