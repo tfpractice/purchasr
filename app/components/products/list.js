@@ -7,9 +7,11 @@ import { CreateProductForm, } from './forms';
    
 const ProductList = ({ products, byPrice, byStock, }) => (
   <Layout container>
-    <Button onClick={byPrice}>Sort by price</Button>
-    <Button onClick={byStock}>Sort by stock</Button>
-    <CreateProductForm formID="createProduct" />
+    <Layout item sm={12} >
+      <Button onClick={byPrice}>Sort by price</Button>
+      <Button onClick={byStock}>Sort by stock</Button>
+      <CreateProductForm formID="createProduct" />
+    </Layout>
     {products.map(p =>
       <Layout item md={4} key={p.id}>
         <Single product={p} />

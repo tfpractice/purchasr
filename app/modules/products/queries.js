@@ -6,6 +6,8 @@ export const byID = gql`
       id
       name
       price
+      stock
+      description
     }
   }`;
 
@@ -15,9 +17,11 @@ export const all = gql`
       allProducts(where:$where orderBy:$orderBy) {
         edges {
            product:node {
-            id
-            name
-            price
+             id
+             name
+             price
+             stock
+             description
           }
         }
       }
