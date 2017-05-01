@@ -10,7 +10,7 @@ const getProduct = ({ product, }) => product;
 const {
   actions:  {
    createProduct, destroyProduct, dropProduct, editProduct,
-   purchaseProduct, getProducts,
+   purchaseProduct, getProducts, sortProducts,
 },
   queries:  {
  ALL_PRODUCTS, CREATE_PRODUCT, UNPURCHASE_PRODUCT,
@@ -20,8 +20,12 @@ const {
 
 export const WithAll = component => graphql(ALL_PRODUCTS, {
   options: { variables: { where: { stock: { gt: 0, }, }, }, },
-  props: ({ data, }) =>
-    ({ WithAll: data, products: getProducts(data), }),
+  props: ({ data, }) => ({
+    WithAll: data,
+    products: getProducts(data),
+    byPrice: () => sortProducts(data)('price'),
+    byStock: () => sortProducts(data)('stock'),
+  }),
 })(component);
 
 export const WithCreate = component => graphql(CREATE_PRODUCT, {

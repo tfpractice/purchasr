@@ -2,7 +2,10 @@ import { spread, } from 'fenugreek-collections';
 
 export const getProducts = ({ viewer: { allProducts: { edges, }, }, }) =>
    spread(edges).map(({ product, }) => product);
-
+   
+export const sortProducts = data => field =>
+  data.refetch({ orderBy: { field, direction: 'ASC', }, });
+  
 export const createProduct = mutate => input =>
   mutate({ variables: { input, }, });
 

@@ -1,7 +1,7 @@
 import React, { Component, } from 'react';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import Text from 'material-ui/Text';
+import Text from 'material-ui/Typography';
 import Layout from 'material-ui/Layout';
 import { Login, } from './auth';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardActions, CardContent, CardHeader, CardMedia, } from 'material-ui/Card';
 import Button from 'material-ui/Button';
-import Text from 'material-ui/Text';
+import Text from 'material-ui/Typography';
 import { EditProductForm, } from './form';
 import { WithUnPurchase, } from './containers';
 
