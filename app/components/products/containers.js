@@ -2,6 +2,11 @@ import { compose, graphql, } from 'react-apollo';
 import { Product, } from 'modules';
 import { WithCurrent, } from '../auth/containers';
 
+const replaceProduct = next => edges => edges.map(p => p.id === next.id ? next : { ...p, });
+const addProduct = next => edges => edges.concat(next);
+const getID = ({ id, }) => id;
+const getProduct = ({ product, }) => product;
+
 const {
   actions:  {
    createProduct, destroyProduct, dropProduct, editProduct,
@@ -14,13 +19,14 @@ const {
 } = Product;
 
 export const WithAll = component => graphql(ALL_PRODUCTS, {
-  props: ({ data, }) =>
-   ({ data, products: getProducts(data), }),
+   props: ({ data, }) =>
+    ({ WithAll: data, products: getProducts(data), }),
 })(component);
 
 export const WithCreate = component => graphql(CREATE_PRODUCT, {
-  options: { refetchQueries: [ 'GetAllProducts', ], },
-  props: ({ mutate, }) => ({ createProduct: createProduct(mutate), }),
+   props: ({ mutate, }) =>
+   ({ createProduct: createProduct(mutate), }),
+   options: { refetchQueries: [ 'GetAllProducts', ], },
 })(component);
 
 export const WithProduct = component => graphql(PRODUCT_BY_ID, {
@@ -42,9 +48,6 @@ export const WithDestroy = component => graphql(DESTROY_PRODUCT, {
    ({ destroyProduct: destroyProduct(mutate)(id), }),
   options: { refetchQueries: [ 'GetAllProducts', ], },
 })(component);
-
-const getID = ({ id, }) => id;
-const getProduct = ({ product, }) => product;
 
 export const isInCart = cart => product =>
   new Set(cart.map(getID)).has(getID(product));
