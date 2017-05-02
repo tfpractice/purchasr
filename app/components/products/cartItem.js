@@ -1,39 +1,36 @@
 import React from 'react';
 import { Card, CardActions, CardContent, CardHeader, CardMedia, } from 'material-ui/Card';
+import {
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemIcon,
+  ListItemSecondaryAction,
+  ListItemText,
+} from 'material-ui/List';
+import { Checkbox, } from 'material-ui/Checkbox';
+import IconButton from 'material-ui/IconButton';
+import DeleteIcon from 'material-ui-icons/Delete';
+import Avatar from 'material-ui/Avatar';
 import Button from 'material-ui/Button';
 import Text from 'material-ui/Typography';
 import { EditProductForm, PurchaseForm, } from './forms';
 import { WithUnPurchase, } from './containers';
 
-const Product = ({ product, dropProduct, purchaseProduct, }) => {
-  const a = 0;
-  
-  return (
-    <ListItem dense button key={index}>
-      <Avatar alt="Remy Sharp" src={remyImage} />
-      <ListItemText primary={product.name} />
-      <ListItemSecondaryAction>
-        <Checkbox
-          onClick={(event) => this.handleToggle(event, index)}
-          checked={this.state.checked.indexOf(index) !== -1}
-        />
-      </ListItemSecondaryAction>
-    </ListItem>
-    <Card raised>
-      <CardHeader title={product.name} subheader={`$${product.price}`} />
-      <CardMedia>
-        <img src="http://placehold.it/150/ff00ff" alt="Contemplative Reptile" />
-      </CardMedia>
-      <CardContent>
-        <EditProductForm formID={`edit:${product.id}`} id={product.id} />
-        {product.description || product.stock }
-      </CardContent>
-      <CardActions >
-        { purchaseProduct && <PurchaseForm product={product} formID={`purchase:${product.id}`} />}
-        { dropProduct && <Button onClick={dropProduct}>Remove from cart</Button>}
-      </CardActions>
-    </Card>
-  );
-};
+const CartItem = ({ product, dropProduct, purchaseProduct, }) => (
+  <ListItem dense button key={product.id} divider>
+    <ListItemAvatar>
+      <Avatar alt="Remy Sharp" src={'http://placehold.it/150/ff00ff'} />
+    </ListItemAvatar>
+    <ListItemText primary={product.name} secondary={(product.price)} />
+    <ListItemSecondaryAction>
+      { purchaseProduct && <PurchaseForm product={product} formID={`purchase:${product.id}`} />}
+      { dropProduct && <IconButton>
+        <DeleteIcon onClick={dropProduct} />
+        </IconButton>}
+    </ListItemSecondaryAction>
+  </ListItem>
 
-export default WithUnPurchase(Product);
+  );
+
+export default WithUnPurchase(CartItem);

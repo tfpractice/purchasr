@@ -1,5 +1,3 @@
-// @flow weak
-
 import React, { Component, } from 'react';
 import { createStyleSheet, } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';

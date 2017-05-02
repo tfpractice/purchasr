@@ -6,16 +6,15 @@ import {
   ListItemIcon,
   ListItemText,
 } from 'material-ui/List';
-import Single from './single';
+import CartItem from './cartItem';
 import { WithUnPurchase, } from './containers';
 import { CreateProductForm, } from './forms';
    
 const Cart = ({ products, }) => (
-  <List container>
+  <List container subheader={'Your Cart'}>
     {products.map(p =>
-      <ListItem key={p.id}>
-        <Single product={p} />
-      </ListItem>)}
+      <CartItem product={p} key={p.id} />
+    )}
   </List>
 );
 
