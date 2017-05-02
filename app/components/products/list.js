@@ -14,7 +14,7 @@ const ProductList = ({ products, byPrice, byStock, }) => (
     </Layout>
     {products.map(p =>
       <Layout item md={4} key={p.id}>
-        <Single product={p} />
+        <Single id={p.id} product={p} />
       </Layout>)}
   </Layout>
 );
