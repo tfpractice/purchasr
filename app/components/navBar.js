@@ -3,16 +3,16 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Text from 'material-ui/Typography';
 import Layout from 'material-ui/Layout';
-import { Login, WithCurrent, } from './auth';
+import { Dash, Login, WithCurrent, } from './auth';
 
-const NavBar = (props) => {
-  console.log('props', props);
+const NavBar = ({ currentUser, }) => {
+  console.log('props', currentUser);
   return (
     <AppBar>
       <Toolbar>
         <Layout container justify={'space-between'}>
           <Text type="headline" colorInherit>Pruchasr</Text>
-          <Login formID={'mainLogin'} />
+          {currentUser ? <Dash /> : <Login formID={'mainLogin'} />}
         </Layout>
       </Toolbar>
     </AppBar>
