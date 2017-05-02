@@ -1,5 +1,8 @@
 import gql from 'graphql-tag';
-import { PRODUCT_INFO, } from './fragments';
+import { fragments, } from '../auth';
+import { PRODUCT_INFO, PURCHASE_INFO, } from './fragments';
+
+const { VIEWER_USER, } = fragments;
 
 export const PRODUCT_BY_ID = gql`
   query GetProduct($id: ID!){
@@ -26,9 +29,7 @@ ${PRODUCT_INFO}`;
 export const UNPURCHASED_PRODUCTS = gql`
   query GetUnPurchased {
     viewer {
-      user{
-        id
-      }
+    ...viewerUser
       allProducts {
         edges {
           product:node {
@@ -38,7 +39,8 @@ export const UNPURCHASED_PRODUCTS = gql`
       }
     }
   }
-${PRODUCT_INFO}`;
+${PRODUCT_INFO}
+${VIEWER_USER}`;
 
 export const CREATE_PRODUCT = gql`
    mutation CreateProductMutation($input: CreateProductInput!) {
@@ -74,30 +76,18 @@ export const PURCHASE_PRODUCT = gql`
     mutation AddProduct($input: AddToPurchasesConnectionInput!) {
       addToPurchasesConnection(input: $input) {
         changedPurchases {
-          user {
-            id
-            username
-          }
-          product {
-            ...productInfo
-          }
+          ...purchaseInfo
         }
       }
     }
-${PRODUCT_INFO}`;
+${PURCHASE_INFO}`;
 
 export const UNPURCHASE_PRODUCT = gql`
   mutation RemoveProduct($input: RemoveFromPurchasesConnectionInput!) {
     removeFromPurchasesConnection(input: $input) {
       changedPurchases {
-        user {
-          id
-          username
-        }
-        product {
-          ...productInfo
-        }
+        ...purchaseInfo
     }
   }
 }
-${PRODUCT_INFO}`;
+${PURCHASE_INFO}`;

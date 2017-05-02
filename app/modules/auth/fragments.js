@@ -7,24 +7,25 @@ export const USER_INFO = gql`
   }`;
 
 export const USER_PURCHASE = gql`
-  fragment purchaseInfo on UserPurchasesEdge{
+  fragment userPurchase on UserPurchasesEdge{
       product:node{
         id
         name
       }
       quantity
-  }`;
+  } 
+`;
 
 export const VIEWER_USER = gql`
     fragment viewerUser on Viewer{
-    user{
+    user {
       ...userInfo
       purchases{
         edges{
-          ...purchaseInfo
+          ...userPurchase
         }
       }
     }    
   }
-    ${USER_INFO}
-    ${USER_PURCHASE}`;
+${USER_INFO}
+${USER_PURCHASE}`;

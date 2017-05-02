@@ -11,7 +11,7 @@ import { WithUnPurchase, } from './containers';
 import { CreateProductForm, } from './forms';
    
 const Cart = ({ products, }) => (
-  <List container subheader={'Your Cart'}>
+  <List subheader={'Your Cart'}>
     {products.map(p =>
       <CartItem product={p} key={p.id} />
     )}

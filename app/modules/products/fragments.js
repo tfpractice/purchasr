@@ -9,3 +9,16 @@ export const PRODUCT_INFO = gql`
     description
   }
 `;
+
+export const PURCHASE_INFO = gql`
+  fragment purchaseInfo on Purchases{
+    product{
+    ...productInfo
+    }
+    user{
+      id
+      username
+    }
+    quantity
+}
+${PRODUCT_INFO}`;
