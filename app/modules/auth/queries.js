@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { USER_INFO, USER_PURCHASE, VIEWER_USER, } from './fragments';
+import { USER_INFO, VIEWER_USER, } from './fragments';
 
 export const CURRENT_USER = gql`
   query GetCurrentUser {
@@ -7,10 +7,7 @@ export const CURRENT_USER = gql`
       ...viewerUser
   }
 } 
- ${VIEWER_USER}
- ${USER_INFO}
- ${USER_PURCHASE}
-`;
+${VIEWER_USER}`;
 
 export const GET_USERS = gql`
   query GetUsers($where:UserWhereArgs $first:Int) {
@@ -24,7 +21,7 @@ export const GET_USERS = gql`
      }
    }
  }
-  ${USER_INFO}`;
+${USER_INFO}`;
 
 export const CREATE_USER = gql`
   mutation CreateUserMutation($input: CreateUserInput!) {
@@ -35,7 +32,7 @@ export const CREATE_USER = gql`
        }
      }
    }
-    ${USER_INFO}`;
+${USER_INFO}`;
 
 export const LOGIN_USER = gql`
   mutation LoginUserMutation($input: LoginUserInput!) {

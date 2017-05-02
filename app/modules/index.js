@@ -1,5 +1,5 @@
-export { actions as ProductActions, queries as ProductQueries, } from './products';
 import * as Auth from './auth';
 import * as Product from './products';
+import * as Purchases from './purchases';
 
-export { Auth, Product, };
+export { Auth, Product, Purchases, };

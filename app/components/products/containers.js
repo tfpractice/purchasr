@@ -1,5 +1,5 @@
 import { compose, graphql, } from 'react-apollo';
-import { Product, } from 'modules';
+import { Product, Purchases, } from 'modules';
 import { WithCurrent, } from '../auth/containers';
 
 const replaceProduct = next => edges => edges.map(p => p.id === next.id ? next : { ...p, });
@@ -7,15 +7,12 @@ const addProduct = next => edges => edges.concat(next);
 const getID = ({ id, }) => id;
 const getProduct = ({ product, }) => product;
 
+const { actions: { dropProduct, purchaseProduct, }, } = Purchases;
+const { queries: { UNPURCHASE_PRODUCT, PURCHASE_PRODUCT, }, } = Purchases;
+
 const {
-  actions:  {
-   createProduct, destroyProduct, dropProduct, editProduct,
-   purchaseProduct, getProducts, sortProducts,
-},
-  queries:  {
- ALL_PRODUCTS, CREATE_PRODUCT, UNPURCHASE_PRODUCT,
- PURCHASE_PRODUCT, DESTROY_PRODUCT, EDIT_PRODUCT, PRODUCT_BY_ID,
-},
+  actions:  { createProduct, destroyProduct, editProduct, getProducts, sortProducts, },
+  queries:  { ALL_PRODUCTS, CREATE_PRODUCT, DESTROY_PRODUCT, EDIT_PRODUCT, PRODUCT_BY_ID, },
 } = Product;
 
 export const WithAll = component => graphql(ALL_PRODUCTS, {
