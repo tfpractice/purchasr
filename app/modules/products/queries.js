@@ -1,8 +1,6 @@
 import gql from 'graphql-tag';
-import { fragments, } from '../auth';
+import { VIEWER_USER, } from '../auth';
 import { PRODUCT_INFO, PURCHASE_INFO, } from './fragments';
-
-const { VIEWER_USER, } = fragments;
 
 export const PRODUCT_BY_ID = gql`
   query GetProduct($id: ID!){
