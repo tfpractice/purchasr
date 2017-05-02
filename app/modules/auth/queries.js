@@ -4,7 +4,7 @@ import { USER_INFO, USER_PURCHASE, VIEWER_USER, } from './fragments';
 export const CURRENT_USER = gql`
   query GetCurrentUser {
     viewer {
-    ...viewerUser
+      ...viewerUser
   }
 } 
  ${VIEWER_USER}
