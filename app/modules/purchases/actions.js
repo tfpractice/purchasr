@@ -6,3 +6,5 @@ export const purchaseProduct = mutate => userId => productId => (input = qt) =>
 
 export const dropProduct = mutate => userId => productId =>
   mutate({ variables: { input: { userId, productId, }, }, });
+
+// export const buyAndUpdate

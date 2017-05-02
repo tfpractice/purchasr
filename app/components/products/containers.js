@@ -4,10 +4,6 @@ import { WithCurrent, } from '../auth/containers';
 import { WithPurchase, } from '../purchase';
 export { WithPurchase, };
 
-// const replaceProduct = next => edges => edges.map(p => p.id === next.id ? next : { ...p, });
-// const addProduct = next => edges => edges.concat(next);
-// const getProduct = ({ product, }) => product;
-
 const getID = ({ id, }) => id;
 const { actions: { dropProduct, purchaseProduct, }, } = Purchases;
 const { queries: { UNPURCHASE_PRODUCT, PURCHASE_PRODUCT, }, } = Purchases;
@@ -55,14 +51,6 @@ export const WithDestroy = component => graphql(DESTROY_PRODUCT, {
 
 export const isInCart = cart => product =>
   new Set(cart.map(getID)).has(getID(product));
-
-//
-// export const WithPurchase = component => WithCurrent(graphql(PURCHASE_PRODUCT, {
-//   options: { refetchQueries: [ 'GetCurrentUser', ], },
-//   skip: ({ currentUser, purchases, product, }) => !currentUser || isInCart(purchases)(product),
-//   props: ({ mutate, ownProps: { product, currentUser: { id: uid, }, }, }) =>
-//     ({ purchaseProduct: qt => purchaseProduct(mutate)(uid)(product.id)(qt), }),
-// })(component));
 
 export const WithUnPurchase = component => WithPurchase(graphql(UNPURCHASE_PRODUCT, {
   options: { refetchQueries: [ 'GetCurrentUser', ], },

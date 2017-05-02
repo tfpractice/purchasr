@@ -5,10 +5,9 @@ import Text from 'material-ui/Typography';
 import { EditProductForm, PurchaseForm, } from './forms';
 import { WithUnPurchase, } from './containers';
 
-const Product = ({ product, dropProduct, purchaseProduct, ...rest }) => {
+const Product = ({ product, dropProduct, purchaseProduct, }) => {
   const a = 0;
   
-  console.log('rest', rest);
   return (
     <Card raised>
       <CardHeader title={product.name} subheader={`$${product.price}`} />

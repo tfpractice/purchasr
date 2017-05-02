@@ -113,6 +113,7 @@ class Dash extends Component {
       </div>
     );
 
+    console.log('this.props', this.props);
     return (
       <div>
         <Button onClick={this.handleRightOpen}>Open Right</Button>
