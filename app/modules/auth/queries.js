@@ -44,3 +44,17 @@ export const LOGIN_USER = gql`
     }
   }
 ${USER_INFO}`;
+
+export const GET_ROLES = gql`
+  query GetRoles($where:RoleWhereArgs $first:Int) {
+   viewer {
+     allRoles(where:$where first:$first) {
+       edges {
+        node {
+           name
+           id
+         }
+       }
+     }
+   }
+ }`;

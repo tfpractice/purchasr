@@ -4,7 +4,7 @@ import { Auth, } from 'modules';
 
 const {
  actions: { userByName, createUser, loginUser, findAndLogin, },
- queries: { GET_USERS, CREATE_USER, LOGIN_USER, CURRENT_USER, },
+ queries: { GET_USERS, CREATE_USER, GET_ROLES, LOGIN_USER, CURRENT_USER, },
 } = Auth;
 
 export const WithFind = component => graphql(GET_USERS, {
@@ -12,10 +12,17 @@ export const WithFind = component => graphql(GET_USERS, {
     ({ findUser: userByName(data), }),
 })(component);
 
-export const WithCreate = component => graphql(CREATE_USER, {
+export const WithRoles = component => graphql(GET_ROLES, {
+  props: ({ data, }) => {
+    console.log('data', data);
+    return ({ roles: (data), });
+  },
+})(component);
+
+export const WithCreate = component => WithRoles(graphql(CREATE_USER, {
   props: ({ mutate, }) =>
     ({ createUser: createUser(mutate), }),
-})(component);
+})(component));
 
 export const WithLogin = component => graphql(LOGIN_USER, {
   options: { refetchQueries: [ 'GetCurrentUser', ], },

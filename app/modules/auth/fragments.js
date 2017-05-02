@@ -28,4 +28,5 @@ export const VIEWER_USER = gql`
     }    
   }
 ${USER_INFO}
-${USER_PURCHASE}`;
+${USER_PURCHASE}
+`;
