@@ -14,3 +14,4 @@ export const viewEdges = qRes =>
 [ getViewer, getColl, getEdges, ].reduce(binVoke, qRes);
 
 export const viewNodes = qRes => viewEdges(qRes).map(getNode);
+export const getID = ({ id, }) => id;

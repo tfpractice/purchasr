@@ -1,4 +1,3 @@
-import { spread, } from 'fenugreek-collections';
 import { viewEdges, viewNodes, } from 'utils';
 
 export const sortProducts = data => field =>

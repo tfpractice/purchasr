@@ -1,12 +1,11 @@
 import { compose, graphql, } from 'react-apollo';
 import { Product, Purchases, } from 'modules';
+import { getID, } from 'utils';
 import { WithCurrent, } from '../auth';
 import { WithUpdate, } from '../products';
 
 const { actions: { dropProduct, purchaseProduct, }, } = Purchases;
 const { queries: { UNPURCHASE_PRODUCT, PURCHASE_PRODUCT, }, } = Purchases;
-
-const getID = ({ id, }) => id;
 
 export const isInCart = cart => product =>
   new Set(cart.map(getID)).has(getID(product));

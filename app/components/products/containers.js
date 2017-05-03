@@ -1,11 +1,9 @@
 import { compose, graphql, } from 'react-apollo';
 import { Product, Purchases, } from 'modules';
-import { viewNodes, } from 'utils';
-import { WithCurrent, } from '../auth/containers';
+import { getID, viewNodes, } from 'utils';
 import { WithPurchase, } from '../purchase';
 export { WithPurchase, };
 
-const getID = ({ id, }) => id;
 const { actions: { dropProduct, purchaseProduct, }, } = Purchases;
 const { queries: { UNPURCHASE_PRODUCT, PURCHASE_PRODUCT, }, } = Purchases;
 
@@ -17,7 +15,7 @@ const {
 export const WithAll = component => graphql(ALL_PRODUCTS, {
   options: { variables: { where: { stock: { gt: 0, }, }, }, },
   props: ({ data, }) => ({
-    WithAll: data,
+    productsData: data,
     products: viewNodes(data),
     byPrice: () => sortProducts(data)('price'),
     byStock: () => sortProducts(data)('stock'),
