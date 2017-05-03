@@ -58,14 +58,12 @@ export const GET_ROLES = gql`
      }
    }
  }`;
-
- //
- // export const UPDATE_PUCHASE = gql`
- //     mutation UpdatePurchase($input: UpdatePurchasesConnectionInput!) {
- //       updatePurchasesConnection(input: $input) {
- //         changedPurchases {
- //           ...purchaseInfo
- //         }
- //       }
- //     }
- // ${PURCHASE_INFO}`;
+export const ADD_ROLE = gql`
+     mutation AddProduct($input: AddToPurchasesConnectionInput!) {
+       addToPurchasesConnection(input: $input) {
+         changedPurchases {
+           ...purchaseInfo
+         }
+       }
+     }
+ ${PURCHASE_INFO}`;
