@@ -1,8 +1,6 @@
 import { spread, } from 'fenugreek-collections';
+import { viewEdges, viewNodes, } from 'utils';
 
-export const getProducts = ({ viewer: { allProducts: { edges, }, }, }) =>
-   spread(edges).map(({ product, }) => product);
-   
 export const sortProducts = data => field =>
   data.refetch({ orderBy: { field, direction: 'ASC', }, });
   
@@ -16,7 +14,7 @@ export const destroyProduct = mutate => id => () =>
   mutate({ variables: { input: { id, }, }, });
 
 export const purchaseProduct = mutate => userId => productId => (input = { quantity: 1, }) =>
-mutate({ variables: { input: { ...input, userId, productId, }, }, });
+  mutate({ variables: { input: { ...input, userId, productId, }, }, });
 
 export const dropProduct = mutate => userId => productId =>
-    mutate({ variables: { input: { userId, productId, }, }, });
+  mutate({ variables: { input: { userId, productId, }, }, });

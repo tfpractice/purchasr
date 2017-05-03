@@ -1,12 +1,12 @@
-import { spread, } from 'fenugreek-collections';
+import { first, } from 'fenugreek-collections';
+import { getData, viewNodes, } from 'utils';
 
-const getEdges = ({ data: { viewer: { allUsers: { edges, }, }, }, },
-) => spread(edges);
-
-const isEmpty = (edges = []) => edges.length === 0;
+const makeUser = cFunc => input => cFunc(input).then(() => input);
+const newIfNull = cFunc => input => user => user ? input : makeUser(cFunc)(input);
 
 export const userByName = data => ({ username, }) =>
-  data.refetch({ where: { username: { eq: username, }, }, }).then(getEdges);
+  data.refetch({ where: { username: { eq: username, }, }, })
+    .then(getData).then(viewNodes).then(first);
 
 export const createUser = mutation => input =>
   mutation({ variables: { input, }, });
@@ -21,7 +21,7 @@ export const setToken = (u) => {
 
 export const findAndLogin = findU => createU => loginU => input =>
   findU(input)
-    .then(u => isEmpty(u) ? createU(input).then(() => input) : input)
+    .then(newIfNull(createU)(input))
     .then(loginU)
     .then(setToken)
     .catch(console.error);

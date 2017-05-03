@@ -12,7 +12,7 @@ ${VIEWER_USER}`;
 export const GET_USERS = gql`
   query GetUsers($where:UserWhereArgs $first:Int) {
    viewer {
-     allUsers(where:$where first:$first) {
+     collection:allUsers(where:$where first:$first) {
        edges {
          node {
            ...userInfo
@@ -48,7 +48,7 @@ ${USER_INFO}`;
 export const GET_ROLES = gql`
   query GetRoles($where:RoleWhereArgs $first:Int) {
    viewer {
-     allRoles(where:$where first:$first) {
+     collection:allRoles(where:$where first:$first) {
        edges {
         node {
            name

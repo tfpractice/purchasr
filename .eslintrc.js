@@ -34,6 +34,7 @@ module.exports = {
         'no-warning-comments': 0,
         curly: 0,
         'no-confusing-arrow': 0,
+        'no-console': ["warn", { allow: ["warn", "error"] }],
         'arrow-parens': [ 2, 'as-needed', { requireForBlockBody: true }],
         'no-alert': 0,
         // Warnings
@@ -49,7 +50,7 @@ module.exports = {
             2, 80,
         ],
         'newline-per-chained-call': [
-            'error',
+            'warn',
              { ignoreChainWithDepth: 3, },
         ],
         // Errors

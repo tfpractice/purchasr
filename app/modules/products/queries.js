@@ -13,10 +13,10 @@ ${PRODUCT_INFO}`;
 export const ALL_PRODUCTS = gql`
   query GetAllProducts($where:ProductWhereArgs $orderBy:[ProductOrderByArgs]) {
     viewer {
-      allProducts(where:$where orderBy:$orderBy) {
+      collection:allProducts(where:$where orderBy:$orderBy) {
         edges {
-           product:node {
-             ...productInfo
+           node {
+            ...productInfo
           }
         }
       }
@@ -28,9 +28,9 @@ export const UNPURCHASED_PRODUCTS = gql`
   query GetUnPurchased {
     viewer {
     ...viewerUser
-      allProducts {
+      collection:allProducts {
         edges {
-          product:node {
+          node {
             ...productInfo
           }
         }

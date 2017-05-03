@@ -1,5 +1,6 @@
 import { compose, graphql, } from 'react-apollo';
 import { Product, Purchases, } from 'modules';
+import { viewNodes, } from 'utils';
 import { WithCurrent, } from '../auth/containers';
 import { WithPurchase, } from '../purchase';
 export { WithPurchase, };
@@ -9,7 +10,7 @@ const { actions: { dropProduct, purchaseProduct, }, } = Purchases;
 const { queries: { UNPURCHASE_PRODUCT, PURCHASE_PRODUCT, }, } = Purchases;
 
 const {
-  actions:  { createProduct, destroyProduct, editProduct, getProducts, sortProducts, },
+  actions:  { createProduct, destroyProduct, editProduct, sortProducts, },
   queries:  { ALL_PRODUCTS, CREATE_PRODUCT, DESTROY_PRODUCT, EDIT_PRODUCT, PRODUCT_BY_ID, },
 } = Product;
 
@@ -17,7 +18,7 @@ export const WithAll = component => graphql(ALL_PRODUCTS, {
   options: { variables: { where: { stock: { gt: 0, }, }, }, },
   props: ({ data, }) => ({
     WithAll: data,
-    products: getProducts(data),
+    products: viewNodes(data),
     byPrice: () => sortProducts(data)('price'),
     byStock: () => sortProducts(data)('stock'),
   }),

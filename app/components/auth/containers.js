@@ -1,6 +1,7 @@
 import { spread, } from 'fenugreek-collections';
 import { compose, graphql, } from 'react-apollo';
 import { Auth, } from 'modules';
+import { viewNodes, } from 'utils';
 
 const {
  actions: { userByName, createUser, loginUser, findAndLogin, },
@@ -12,12 +13,7 @@ export const WithFind = component => graphql(GET_USERS, {
     ({ findUser: userByName(data), }),
 })(component);
 
-export const WithRoles = component => graphql(GET_ROLES, {
-  props: ({ data, }) => {
-    console.log('data', data);
-    return ({ roles: (data), });
-  },
-})(component);
+export const WithRoles = component => graphql(GET_ROLES, { props: ({ data, }) => ({ roleData: data, roles: viewNodes(data), }), })(component);
 
 export const WithCreate = component => WithRoles(graphql(CREATE_USER, {
   props: ({ mutate, }) =>
