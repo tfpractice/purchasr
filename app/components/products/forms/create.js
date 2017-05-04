@@ -11,10 +11,10 @@ const baseProduct = ({ handleSubmit, destroyProduct, }) => (
     <Field label="name" name="name" component={renderText} />
     <Field label="description" name="description" type="textarea" component={renderText} />
     <Layout container>
-      <Layout item sm="6">
+      <Layout item sm={6}>
         <Field label="stock" name="stock" type="number" component={renderText} />
       </Layout>
-      <Layout item md="6">
+      <Layout item sm={6}>
         <Field label="price" name="price" type="number" component={renderText} />
       </Layout>
     </Layout>

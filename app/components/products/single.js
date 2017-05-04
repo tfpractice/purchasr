@@ -9,7 +9,7 @@ import { WithProduct, } from '../containers';
 const Product = ({ product, ...props }) => {
   const a = 0;
 
-  console.log('Productprops', props);
+  console.log('Productprops', props, product);
   
   return (
     <Card raised>
