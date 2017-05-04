@@ -24,9 +24,9 @@ export const WithCreate = component => graphql(CREATE_PRODUCT, {
 })(component);
 
 export const WithProduct = component => graphql(PRODUCT_BY_ID, {
-  skip:  ({ id, } = { id: '', }) => !id,
-  options: ({ ownProps: { id, }, }) => ({ variables: { id, }, }),
-  props: ({ data, }) => ({ getProduct: data, }),
+  skip:  ({ product, }) => !product,
+  options: ({ product: { id, }, }) => ({ variables: { id, }, }),
+  props: ({ data, }) => ({ productQuery: data, }),
 })(component);
 
 export const WithUpdate = component => graphql(EDIT_PRODUCT, {

@@ -4,7 +4,7 @@ import { PRODUCT_INFO, PURCHASE_INFO, } from './fragments';
 
 export const PRODUCT_BY_ID = gql`
   query GetProduct($id: ID!){
-    product {
+    getProduct(id:$id) {
       ...productInfo
     }
   } 
