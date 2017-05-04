@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from 'material-ui/Layout';
 import { List, ListItem, ListItemIcon, ListItemText, } from 'material-ui/List';
-import { WithCurrent, } from '../auth';
+import { WithCurrent, } from '../containers';
 import CartItem from './cartItem';
 
 const Cart = ({ products, ...props }) => {

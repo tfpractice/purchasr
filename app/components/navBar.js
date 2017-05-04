@@ -3,7 +3,8 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Text from 'material-ui/Typography';
 import Layout from 'material-ui/Layout';
-import { Dash, Login, WithCurrent, } from './auth';
+import { Dash, Login, } from './auth';
+import { WithCurrent, } from './containers';
 
 const NavBar = ({ currentUser, ...props }) => {
   console.log('props', props);

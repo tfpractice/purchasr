@@ -3,7 +3,7 @@ import { Field, } from 'redux-form';
 import Button from 'material-ui/Button';
 import { FormGroup, } from 'material-ui/Form';
 import { ClearForm, renderText, } from 'utils';
-import { WithCreate, WithEdit, } from '../containers';
+import { WithCreate, WithEdit, } from '../../containers';
 
 const baseProduct = ({ handleSubmit, destroyProduct, }) => (
   <form onSubmit={handleSubmit} >

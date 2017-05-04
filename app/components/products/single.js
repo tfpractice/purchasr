@@ -3,7 +3,8 @@ import { Card, CardActions, CardContent, CardHeader, CardMedia, } from 'material
 import Button from 'material-ui/Button';
 import Text from 'material-ui/Typography';
 import { EditProductForm, } from './forms';
-import { PurchaseForm, WithUnPurchase, } from '../purchase';
+import { PurchaseForm, } from '../purchase';
+import { WithUnPurchase, } from '../containers';
 
 const Product = ({ product, dropProduct, purchaseProduct, }) => {
   const a = 0;

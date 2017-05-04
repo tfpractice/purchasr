@@ -5,7 +5,7 @@ import Layout from 'material-ui/Layout';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import { ClearForm, } from 'utils';
-import { LoginChain, } from './containers';
+import { LoginChain, } from '../containers';
 
 const styles = { display: 'inline-flex', };
 
