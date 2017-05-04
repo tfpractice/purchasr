@@ -4,7 +4,7 @@ import Button from 'material-ui/Button';
 import Text from 'material-ui/Typography';
 import { EditProductForm, } from './forms';
 import { PurchaseForm, } from '../purchase';
-import { WithProduct, WithUnPurchase, } from '../containers';
+import { WithProduct, } from '../containers';
 
 const Product = ({ product, ...props }) => {
   const a = 0;

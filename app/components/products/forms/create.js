@@ -1,19 +1,23 @@
 import React from 'react';
 import { Field, } from 'redux-form';
 import Button from 'material-ui/Button';
+import Layout from 'material-ui/Layout';
 import { FormGroup, } from 'material-ui/Form';
 import { ClearForm, renderText, } from 'utils';
 import { WithCreate, WithEdit, } from '../../containers';
 
 const baseProduct = ({ handleSubmit, destroyProduct, }) => (
   <form onSubmit={handleSubmit} >
-    <FormGroup >
-      <Field label="name" name="name" component={renderText} />
-      <Field label="description" name="description" type="text" component={renderText} />
-
-      <Field label="stock" name="stock" type="number" component={renderText} />
-      <Field label="price" name="price" type="number" component={renderText} />
-    </FormGroup>
+    <Field label="name" name="name" component={renderText} />
+    <Field label="description" name="description" type="textarea" component={renderText} />
+    <Layout container>
+      <Layout item sm="6">
+        <Field label="stock" name="stock" type="number" component={renderText} />
+      </Layout>
+      <Layout item md="6">
+        <Field label="price" name="price" type="number" component={renderText} />
+      </Layout>
+    </Layout>
     <Button accent type="submit">Submit Product</Button>
     {destroyProduct && <Button onClick={destroyProduct}>Destroy </Button>}
   </form>
