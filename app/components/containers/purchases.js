@@ -22,9 +22,9 @@ export const WithPurchase = component => compose(WithCurrent, WithUpdate)(graphq
 
 export const WithUnPurchase = component => WithPurchase(graphql(UNPURCHASE_PRODUCT, {
   options: { refetchQueries: [ 'GetCurrentUser', ], },
-  skip: ({ currentUser, purchases, product, }) => !currentUser || !isInCart(purchases)(product),
+  skip: ({ currentUser, purchases, product, quantity, purchase, }) => !currentUser || !isInCart(purchases)(product),
   props: ({ mutate, ownProps: { product, currentUser: { id: uid, }, }, }) =>
-   ({ dropProduct: () => dropProduct(mutate)(uid)(product.id), }),
+   ({ dropProduct: () => dropProduct(mutate)(uid)(purchase.product.id), }),
 })(component));
 
 //   props: ({ mutate, ownProps: { product, currentUser: { id: uid, }, }, }) =>

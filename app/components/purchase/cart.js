@@ -4,12 +4,12 @@ import { List, ListItem, ListItemIcon, ListItemText, } from 'material-ui/List';
 import { WithCurrent, } from '../containers';
 import CartItem from './cartItem';
 
-const Cart = ({ products, ...props }) => {
-  console.log('Cart props', props);
+const Cart = ({ products, ...props, purchases, }) => {
+  console.log('Cart products, props,purchases', products, props, purchases);
   return (
     <List subheader={'Your Cart'}>
-      {products.map(p =>
-        <CartItem product={p} key={p.id} />
+      {purchases.map(p =>
+        <CartItem product={p} purchase={p} quantity={p.quantity} key={p.product.id} />
       )}
     </List>
   );

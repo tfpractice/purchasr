@@ -12,8 +12,8 @@ import Text from 'material-ui/Typography';
 import { PurchaseForm, } from './form';
 import { WithUnPurchase, } from '../containers';
 
-const CartItem = ({ product, dropProduct, purchaseProduct, ...props }) => {
-  console.log('props', props);
+const CartItem = ({ product, dropProduct, purchaseProduct, ...props, quantity, }) => {
+  console.log('CartItemprops', props);
   return (
     <ListItem dense button key={product.id} divider>
       <ListItemAvatar>
