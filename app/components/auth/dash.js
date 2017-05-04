@@ -113,7 +113,7 @@ class Dash extends Component {
       </div>
     );
 
-    console.log('this.props', this.props);
+    console.log('DASH.props', this.props);
     return (
       <div>
         <Button onClick={this.handleRightOpen}>Open Right</Button>
@@ -125,7 +125,7 @@ class Dash extends Component {
           onClick={this.handleRightClose}
         >
           {fullList}
-          <Cart products={this.props.purchases} />
+          <Cart products={this.props.purchases.map(({ product, }) => product)} />
         </Drawer>
       </div>
     );

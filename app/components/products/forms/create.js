@@ -32,7 +32,7 @@ export const CreateForm = ({ createProduct, formID, }) => (
     form={formID} onSubmit={createProduct}
   />);
 
-const ProductForm = ({ updateProduct, destroyProduct, formID, }) => (
+const ProductForm = ({ updateProduct, destroyProduct, formID, ...props }) => (
   <ReduxProduct
     form={formID} onSubmit={updateProduct} destroyProduct={destroyProduct}
   />);

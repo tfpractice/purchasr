@@ -16,9 +16,9 @@ const basePurchase = ({ handleSubmit, }) => (
 
 const ReduxPurchase = ClearForm(basePurchase);
 
-const Purchase = ({ purchaseProduct, formID, }) => (
-  <ReduxPurchase
-    form={formID} onSubmit={purchaseProduct}
-  />);
+const Purchase = ({ purchaseProduct, formID, currentUser, ...props }) => {
+  console.log('PurchaseForm props', props);
+  return (currentUser && <ReduxPurchase form={formID} onSubmit={purchaseProduct} />);
+};
 
 export const PurchaseForm = WithUnPurchase(Purchase);

@@ -10,8 +10,7 @@ const {
 
 const getUser = ({ viewer: { user, }, }) => user;
 const getProduct = ({ product, }) => product;
-const getPurchases = ({ purchases: { edges, }, } = { purchases: { edges: [], }, }) =>
-spread(edges);
+const getPurchases = ({ purchases: { edges, }, } = { purchases: { edges: [], }, }) => { console.log('edges ', edges); return spread(edges); };
 const getCart = data => getUser(data) ? getPurchases(getUser(data)) : [];
 
 export const WithFind = component => graphql(GET_USERS, {
@@ -37,8 +36,10 @@ export const WithLogin = component => graphql(LOGIN_USER, {
 })(component);
 
 export const WithCurrent = component => graphql(CURRENT_USER, {
-  props: ({ data, }) =>
-   ({ userData: data, currentUser: getUser(data), purchases: getCart(data), }),
+  props: ({ data, ...rest }) => {
+    console.log('getCart(data)', getCart(data), rest);
+    return ({ userData: data, currentUser: getUser(data), purchases: getCart(data), });
+  },
 })(component);
 
 export const WithAddRole = component => WithCurrent(graphql(ADD_ROLE, {

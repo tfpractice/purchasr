@@ -11,13 +11,14 @@ export const USER_PURCHASE = gql`
       product:node{
         id
         name
+        stock
       }
       quantity
   } 
 `;
 
 export const VIEWER_USER = gql`
-    fragment viewerUser on Viewer{
+  fragment viewerUser on Viewer{
     user {
       ...userInfo
       purchases{

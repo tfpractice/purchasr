@@ -31,7 +31,9 @@ export const UNPURCHASE_PRODUCT = gql`
 }
 ${PURCHASE_INFO}`;
 
-// export const PURCHASED_PRODUCTS = gql`
+//
+// export const USER_PURCHASE=
+// // export const PURCHASED_PRODUCTS = gql`
 //   query GetAllProducts($where:ProductWhereArgs $orderBy:[ProductOrderByArgs]) {
 //     viewer {
 //       allProducts(where:$where orderBy:$orderBy) {

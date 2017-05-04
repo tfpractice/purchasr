@@ -22,7 +22,7 @@ const Product = ({ product, ...props }) => {
         <EditProductForm formID={`edit:${product.id}`} id={product.id} />
       </CardContent>
       <CardActions >
-        {/* { purchaseProduct && <PurchaseForm product={product} formID={`purchase:${product.id}`} />} */}
+        {<PurchaseForm product={product} formID={`purchase:${product.id}`} />}
         {/* { dropProduct && <Button onClick={dropProduct}>Remove from cart</Button>} */}
       </CardActions>
     </Card>
