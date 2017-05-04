@@ -12,7 +12,7 @@ import SendIcon from 'material-ui-icons/Send';
 import MailIcon from 'material-ui-icons/Mail';
 import DeleteIcon from 'material-ui-icons/Delete';
 import ReportIcon from 'material-ui-icons/Report';
-import { LoginChain, WithCurrent, } from './containers';
+import { WithCurrent, } from './containers';
 import { Cart, } from '../products';
 
 const styleSheet = createStyleSheet('Dash', () => ({
