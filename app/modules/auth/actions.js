@@ -19,6 +19,15 @@ export const setToken = (u) => {
   localStorage.setItem('user', JSON.stringify(u.data.loginUser.user));
 };
 
+export const addRole = mutate => userId => roleId =>
+  mutate({ variables: { input: { roleId, userId, accessLevel: 'readwrite', }, }, });
+
+export const updateRole = mutate => userId => roleId =>
+  mutate({ variables: { input: { roleId, userId, accessLevel: 'readwrite', }, }, });
+
+export const dropRole = mutate => userId => roleId =>
+  mutate({ variables: { input: { roleId, userId, accessLevel: 'readwrite', }, }, });
+
 export const findAndLogin = findU => createU => loginU => input =>
   findU(input)
     .then(newIfNull(createU)(input))

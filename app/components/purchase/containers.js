@@ -20,10 +20,17 @@ export const WithPurchase = component => compose(WithCurrent, WithUpdate)(graphq
     }),
 })(component));
 
-//
+export const WithUnPurchase = component => WithPurchase(graphql(UNPURCHASE_PRODUCT, {
+  options: { refetchQueries: [ 'GetCurrentUser', ], },
+  skip: ({ currentUser, purchases, product, }) => !currentUser || !isInCart(purchases)(product),
+  props: ({ mutate, ownProps: { product, currentUser: { id: uid, }, }, }) =>
+   ({ dropProduct: () => dropProduct(mutate)(uid)(product.id), }),
+})(component));
+
 // export const WithUnPurchase = component => WithPurchase(graphql(UNPURCHASE_PRODUCT, {
 //   options: { refetchQueries: [ 'GetCurrentUser', ], },
 //   skip: ({ currentUser, purchases, product, }) => !currentUser || !isInCart(purchases)(product),
 //   props: ({ mutate, ownProps: { product, currentUser: { id: uid, }, }, }) =>
 //    ({ dropProduct: () => dropProduct(mutate)(uid)(product.id), }),
+//       // .then(p => updateProduct({ id: product.id, stock: product.stock + qt.quantity, })),
 // })(component));

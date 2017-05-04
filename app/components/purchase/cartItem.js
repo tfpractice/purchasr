@@ -1,12 +1,6 @@
 import React from 'react';
 import { Card, CardActions, CardContent, CardHeader, CardMedia, } from 'material-ui/Card';
-import {
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemIcon,
-  ListItemSecondaryAction,
-  ListItemText,
+import { List, ListItem, ListItemAvatar, ListItemIcon, ListItemSecondaryAction, ListItemText,
 } from 'material-ui/List';
 import { Checkbox, } from 'material-ui/Checkbox';
 import IconButton from 'material-ui/IconButton';
@@ -14,9 +8,10 @@ import DeleteIcon from 'material-ui-icons/Delete';
 import Avatar from 'material-ui/Avatar';
 import Button from 'material-ui/Button';
 import Text from 'material-ui/Typography';
-import { PurchaseForm, } from './forms';
-import { WithUnPurchase, } from '../purchase';
 
+// import { PurchaseForm, } from '../products/forms';
+
+//
 const CartItem = ({ product, dropProduct, purchaseProduct, ...props }) => {
   console.log('props', props);
   return (
@@ -36,4 +31,6 @@ const CartItem = ({ product, dropProduct, purchaseProduct, ...props }) => {
   );
 };
 
-export default WithUnPurchase(CartItem);
+export { CartItem as default, } from '../products';
+
+// export default (CartItem);
