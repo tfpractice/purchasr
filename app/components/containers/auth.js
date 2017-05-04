@@ -8,10 +8,17 @@ const {
  queries: { GET_USERS, CREATE_USER, GET_ROLES, LOGIN_USER, DROP_ROLE, ADD_ROLE, CURRENT_USER, },
 } = Auth;
 
+const getUser = ({ viewer: { user, }, }) => user;
+const getProduct = ({ product, }) => product;
+const getPurchases = ({ purchases: { edges, }, } = { purchases: { edges: [], }, }) =>
+spread(edges);
+const getCart = data => getUser(data) ? getPurchases(getUser(data)) : [];
+
 export const WithFind = component => graphql(GET_USERS, {
   props: ({ data, }) =>
     ({ findUser: userByName(data), }),
 })(component);
+export const WithUsers = WithFind;
 
 export const WithRoles = component => graphql(GET_ROLES, {
   props: ({ data, }) =>
@@ -28,13 +35,6 @@ export const WithLogin = component => graphql(LOGIN_USER, {
   props: ({ mutate, }) =>
     ({ loginUser: loginUser(mutate), }),
 })(component);
-
-const getUser = ({ viewer: { user, }, }) => user;
-const getProduct = ({ product, }) => product;
-const getPurchases = ({ purchases: { edges, }, } = { purchases: { edges: [], }, }) =>
-spread(edges);
-
-const getCart = data => getUser(data) ? getPurchases(getUser(data)) : [];
 
 export const WithCurrent = component => graphql(CURRENT_USER, {
   props: ({ data, }) =>
