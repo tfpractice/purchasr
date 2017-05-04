@@ -4,8 +4,7 @@ import Button from 'material-ui/Button';
 import { FormGroup, } from 'material-ui/Form';
 import { ClearForm, renderText, } from 'utils';
 import { WithCreate, WithEdit, } from '../containers';
-import * as cont from '../containers';
-console.log('cont', cont);
+
 const baseProduct = ({ handleSubmit, destroyProduct, }) => (
   <form onSubmit={handleSubmit} >
     <FormGroup >

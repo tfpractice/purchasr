@@ -1,9 +1,7 @@
 import { compose, graphql, } from 'react-apollo';
 import { Product, Purchases, } from 'modules';
 import { getID, viewNodes, } from 'utils';
-import { WithPurchase, WithUnPurchase, } from '../purchase';
 
-export { WithUnPurchase, };
 const { actions: { dropProduct, purchaseProduct, }, } = Purchases;
 const { queries: { UNPURCHASE_PRODUCT, PURCHASE_PRODUCT, }, } = Purchases;
 
