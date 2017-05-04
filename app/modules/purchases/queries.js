@@ -2,14 +2,51 @@ import gql from 'graphql-tag';
 import { PURCHASE_INFO, } from './fragments';
 
 export const PURCHASE_PRODUCT = gql`
-    mutation AddProduct($input: AddToPurchasesConnectionInput!) {
+    mutation AddProduct($input: AddToPurchasesConnectionInput!, $pInput:UpdateProductInput!) {
       addToPurchasesConnection(input: $input) {
         changedPurchases {
           ...purchaseInfo
         }
       }
+    
     }
 ${PURCHASE_INFO}`;
+
+// updateProduct(input: $pInput) {
+//   changedProduct {
+//     ...productInfo
+//   }
+// }
+
+export const BUY_AND_UPDATE = gql`
+    mutation BuyAndUpdate($input: AddToPurchasesConnectionInput!, $pInput:UpdateProductInput!) {
+      addToPurchasesConnection(input: $input) {
+        changedPurchases {
+          ...purchaseInfo
+        }
+      }
+      updateProduct(input: $pInput) {
+        changedProduct {
+          id
+          name
+          stock
+          price
+          description
+        }
+      }    
+    }
+${PURCHASE_INFO}`;
+
+//
+//  const EDIT_PRODUCT = gql`
+//   mutation UpdateProductMutation($input: UpdateProductInput!) {
+//     updateProduct(input: $input) {
+//       changedProduct {
+//         ...productInfo
+//       }
+//     }
+//   }
+// ${PRODUCT_INFO}`;
 
 export const UPDATE_PUCHASE = gql`
     mutation UpdatePurchase($input: UpdatePurchasesConnectionInput!) {

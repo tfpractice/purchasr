@@ -4,8 +4,8 @@ import { getID, } from 'utils';
 import { WithCurrent, } from './auth';
 import { WithUpdate, } from './products';
 
-const { actions: { dropProduct, purchaseProduct, }, } = Purchases;
-const { queries: { UNPURCHASE_PRODUCT, PURCHASE_PRODUCT, }, } = Purchases;
+const { actions: { dropProduct, buyAndUpdate: purchaseProduct, }, } = Purchases;
+const { queries: { UNPURCHASE_PRODUCT, BUY_AND_UPDATE: PURCHASE_PRODUCT, }, } = Purchases;
 
 const getQt = ({ quantity, }) => quantity;
 
@@ -24,10 +24,7 @@ export const WithPurchase = component => compose(WithCurrent, WithUpdate)(graphq
   options: { refetchQueries: [ 'GetCurrentUser', ], },
   skip: ({ currentUser, }) => !currentUser,
   props: ({ mutate, ownProps: { product, currentUser: { id: uid, }, updateProduct, }, }) =>
-    ({
-      purchaseProduct: qt => purchaseProduct(mutate)(uid)(product.id)(qt)
-        .then(p => updateProduct({ id: product.id, stock: product.stock - qt.quantity, })),
-    }),
+    ({ purchaseProduct: qt => purchaseProduct(mutate)(uid)(product)(qt), }),
 })(component));
 
 export const WithUnPurchase = component => WithPurchase(graphql(UNPURCHASE_PRODUCT, {

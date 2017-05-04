@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { VIEWER_USER, } from '../auth';
-import { PRODUCT_INFO, PURCHASE_INFO, } from './fragments';
+import { PRODUCT_INFO, } from './fragments';
 
 export const PRODUCT_BY_ID = gql`
   query GetProduct($id: ID!){
@@ -69,23 +69,3 @@ export const DESTROY_PRODUCT = gql`
     }
   }
 ${PRODUCT_INFO}`;
-
-export const PURCHASE_PRODUCT = gql`
-    mutation AddProduct($input: AddToPurchasesConnectionInput!) {
-      addToPurchasesConnection(input: $input) {
-        changedPurchases {
-          ...purchaseInfo
-        }
-      }
-    }
-${PURCHASE_INFO}`;
-
-export const UNPURCHASE_PRODUCT = gql`
-  mutation RemoveProduct($input: RemoveFromPurchasesConnectionInput!) {
-    removeFromPurchasesConnection(input: $input) {
-      changedPurchases {
-        ...purchaseInfo
-    }
-  }
-}
-${PURCHASE_INFO}`;
