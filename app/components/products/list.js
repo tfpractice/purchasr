@@ -6,17 +6,19 @@ import { WithAll, } from '../containers';
 import { CreateProductForm, } from './forms';
    
 const ProductList = ({ products, byPrice, byStock, }) => (
-  <Layout container>
-    <Layout item sm={12} >
+  <Layout container row justify="center">
+    <Layout item sm={8} >
+      <CreateProductForm formID="createProduct" />
       <Button onClick={byPrice}>Sort by price</Button>
       <Button onClick={byStock}>Sort by stock</Button>
-      <CreateProductForm formID="createProduct" />
     </Layout>
-    {products.map(p =>
-      <Layout item md={4} key={p.id}>
-        <Single id={p.id} product={p} />
-      </Layout>)}
+    <Layout item sm={12}>
+      {products.map(p =>
+        <Layout item md={4} key={p.id}>
+          <Single id={p.id} product={p} />
+        </Layout>)}
+    </Layout>
   </Layout>
-);
+    );
 
 export default WithAll(ProductList);
