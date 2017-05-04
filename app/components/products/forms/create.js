@@ -18,8 +18,10 @@ const baseProduct = ({ handleSubmit, destroyProduct, }) => (
         <Field label="price" name="price" type="number" component={renderText} />
       </Layout>
     </Layout>
-    <Button accent type="submit">Submit Product</Button>
-    {destroyProduct && <Button onClick={destroyProduct}>Destroy </Button>}
+    <FormGroup row>
+      <Button accent type="submit">Submit Product</Button>
+      {destroyProduct && <Button onClick={destroyProduct}>Destroy </Button>}
+    </FormGroup>
   </form>
   );
 
