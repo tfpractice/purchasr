@@ -2,9 +2,10 @@ import React from 'react';
 import { Card, CardActions, CardContent, CardHeader, CardMedia, } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Text from 'material-ui/Typography';
-import { EditProductForm, PurchaseForm, } from './forms';
+import { EditProductForm, } from './forms';
 import { WithUnPurchase, } from '../purchase';
 
+// PurchaseForm
 const Product = ({ product, dropProduct, purchaseProduct, }) => {
   const a = 0;
   
@@ -19,7 +20,7 @@ const Product = ({ product, dropProduct, purchaseProduct, }) => {
         {product.description || product.stock }
       </CardContent>
       <CardActions >
-        { purchaseProduct && <PurchaseForm product={product} formID={`purchase:${product.id}`} />}
+        {/* { purchaseProduct && <PurchaseForm product={product} formID={`purchase:${product.id}`} />} */}
         { dropProduct && <Button onClick={dropProduct}>Remove from cart</Button>}
       </CardActions>
     </Card>

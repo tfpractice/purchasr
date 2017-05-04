@@ -14,7 +14,8 @@ import DeleteIcon from 'material-ui-icons/Delete';
 import Avatar from 'material-ui/Avatar';
 import Button from 'material-ui/Button';
 import Text from 'material-ui/Typography';
-import { PurchaseForm, } from './forms';
+
+// import { PurchaseForm, } from './forms';
 import { WithUnPurchase, } from '../purchase';
 
 const CartItem = ({ product, dropProduct, purchaseProduct, ...props }) => {
@@ -26,7 +27,7 @@ const CartItem = ({ product, dropProduct, purchaseProduct, ...props }) => {
       </ListItemAvatar>
       <ListItemText primary={product.name} secondary={(product.price)} />
       <ListItemSecondaryAction>
-        { purchaseProduct && <PurchaseForm product={product} formID={`purchase:${product.id}`} />}
+        {/* { purchaseProduct && <PurchaseForm product={product} formID={`purchase:${product.id}`} />} */}
         { dropProduct && <IconButton>
           <DeleteIcon onClick={dropProduct} />
         </IconButton>}
