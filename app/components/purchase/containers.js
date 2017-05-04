@@ -1,5 +1,5 @@
 import { compose, graphql, } from 'react-apollo';
-import { Product, Purchases, } from 'modules';
+import { Purchases, } from 'modules';
 import { getID, } from 'utils';
 import { WithCurrent, } from '../auth';
 import { WithUpdate, } from '../products';

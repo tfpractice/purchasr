@@ -31,6 +31,4 @@ const CartItem = ({ product, dropProduct, purchaseProduct, ...props }) => {
   );
 };
 
-// export { CartItem as default, } from '../products';
-
 export default WithUnPurchase(CartItem);

@@ -15,4 +15,4 @@ const Cart = ({ products, ...props }) => {
   );
 };
 
-export default (Cart);
+export default WithCurrent(Cart);
