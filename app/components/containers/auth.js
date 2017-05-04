@@ -25,7 +25,6 @@ export const WithRegister = component => WithRoles(graphql(CREATE_USER, {
 
 export const WithLogin = component => graphql(LOGIN_USER, {
   options: { refetchQueries: [ 'GetCurrentUser', ], },
-  
   props: ({ mutate, }) =>
     ({ loginUser: loginUser(mutate), }),
 })(component);
@@ -34,8 +33,6 @@ const getUser = ({ viewer: { user, }, }) => user;
 const getProduct = ({ product, }) => product;
 const getPurchases = ({ purchases: { edges, }, } = { purchases: { edges: [], }, }) =>
 spread(edges);
-
-// .map(getProduct);
 
 const getCart = data => getUser(data) ? getPurchases(getUser(data)) : [];
 

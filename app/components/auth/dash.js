@@ -13,7 +13,7 @@ import MailIcon from 'material-ui-icons/Mail';
 import DeleteIcon from 'material-ui-icons/Delete';
 import ReportIcon from 'material-ui-icons/Report';
 import { WithCurrent, } from '../containers';
-import { Cart, } from '../products';
+import { Cart, } from '../purchase';
 
 const styleSheet = createStyleSheet('Dash', () => ({
   list: {
