@@ -6,7 +6,6 @@ import { pink, teal, } from 'material-ui/styles/colors';
 import Layout from 'material-ui/Layout';
 import NavBar from './navBar';
 import { ProductList, } from './products';
-import { Login, } from './auth';
 
 const palette = createPalette({
   primary: teal,

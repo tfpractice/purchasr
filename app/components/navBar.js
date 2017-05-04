@@ -5,8 +5,8 @@ import Text from 'material-ui/Typography';
 import Layout from 'material-ui/Layout';
 import { Dash, Login, WithCurrent, } from './auth';
 
-const NavBar = ({ currentUser, }) => {
-  console.log('props', currentUser);
+const NavBar = ({ currentUser, ...props }) => {
+  console.log('props', props);
   return (
     <AppBar>
       <Toolbar>
