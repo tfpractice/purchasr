@@ -8,6 +8,7 @@ export const USER_PURCHASE = gql`
       product:node{
         id
         name
+        stock
       }
       quantity
   }
