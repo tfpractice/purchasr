@@ -12,12 +12,10 @@ const ProductList = ({ products, byPrice, byStock, }) => (
       <Button onClick={byStock}>Sort by stock</Button>
       <CreateProductForm formID="createProduct" />
     </Layout>
-    {products.map((p) => {
-      console.log('p', p);
-      return (<Layout item md={4} key={p.id}>
+    {products.map(p =>
+      <Layout item md={4} key={p.id}>
         <Single id={p.id} product={p} />
-      </Layout>);
-    })}
+      </Layout>)}
   </Layout>
 );
 
