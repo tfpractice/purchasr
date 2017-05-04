@@ -1,3 +1,3 @@
 export * from './containers';
+export { Cart, } from '../purchase';
 export { default as ProductList, } from './list';
-export { default as Cart, } from './cart';

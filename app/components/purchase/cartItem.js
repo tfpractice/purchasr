@@ -9,9 +9,9 @@ import Avatar from 'material-ui/Avatar';
 import Button from 'material-ui/Button';
 import Text from 'material-ui/Typography';
 
-// import { PurchaseForm, } from '../products/forms';
+import { PurchaseForm, } from './form';
+import { WithUnPurchase, } from './containers';
 
-//
 const CartItem = ({ product, dropProduct, purchaseProduct, ...props }) => {
   console.log('props', props);
   return (
@@ -31,6 +31,6 @@ const CartItem = ({ product, dropProduct, purchaseProduct, ...props }) => {
   );
 };
 
-export { CartItem as default, } from '../products';
+// export { CartItem as default, } from '../products';
 
-// export default (CartItem);
+export default WithUnPurchase(CartItem);
