@@ -1,7 +1,10 @@
 import { viewEdges, viewNodes, } from 'utils';
+const defs = { count: 0, status: 'PENDING', };
 
-export const createSale = mutate => product => user => input =>
-mutate({ variables: { input: { ...input, product, user, }, }, });
+export const createSale = mutate => userId => productId => (input = defs) => {
+  console.log('input', input);
+  return mutate({ variables: { input: { ...input, productId, userId, }, }, });
+};
 
 export const editSale = mutate => id => input =>
   mutate({ variables: { input: { id, ...input, }, }, });

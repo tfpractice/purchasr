@@ -4,6 +4,7 @@ import Button from 'material-ui/Button';
 import Text from 'material-ui/Typography';
 import { EditProductForm, } from './forms';
 import { PurchaseForm, } from '../purchase';
+import { SaleForm, } from '../sales';
 import { WithProduct, } from '../containers';
 
 const Product = ({ product, ...props }) => {
@@ -22,6 +23,7 @@ const Product = ({ product, ...props }) => {
         <EditProductForm formID={`edit:${product.id}`} id={product.id} />
       </CardContent>
       <CardActions >
+        {<SaleForm product={product} formID={`purchase:${product.id}`} />}
         {<PurchaseForm product={product} formID={`purchase:${product.id}`} />}
         {/* { dropProduct && <Button onClick={dropProduct}>Remove from cart</Button>} */}
       </CardActions>

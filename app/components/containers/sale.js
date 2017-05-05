@@ -4,8 +4,8 @@ import { getID, } from 'utils';
 import { WithCurrent, } from './auth';
 import { WithUpdate, } from './products';
 
-const { actions: { dropProduct, buyAndUpdate: createSale, }, } = Purchases;
-const { queries: { CREATE_SALE, BUY_AND_UPDATE: PURCHASE_PRODUCT, }, } = Purchases;
+// const { actions: { dropProduct, buyAndUpdate: createSale, }, } = Purchases;
+// const { queries: { CREATE_SALE, BUY_AND_UPDATE: PURCHASE_PRODUCT, }, } = Purchases;
 
 const { actions: { createSale, editSale, destroySale, }, } = Sale;
 const { queries: { CREATE_SALE, EDIT_SALE, DESTROY_SALE, }, } = Sale;
@@ -23,12 +23,13 @@ const { queries: { CREATE_SALE, EDIT_SALE, DESTROY_SALE, }, } = Sale;
 // export const getPQ = p => cart => getQt(findMatch(p)(cart));
 // const incStock = p => cart => p.stock + getPQ(p)(cart);
 
-export const WithCreateSale = component => compose(WithCurrent, WithUpdate)(graphql(CREATE_SALE, {
-  options: { refetchQueries: [ 'GetCurrentUser', ], },
-  skip: ({ currentUser, }) => !currentUser,
-  props: ({ mutate, ownProps: { product, currentUser: { id: uid, }, updateProduct, }, }) =>
-    ({ createSale: input => createSale(mutate)(uid)(product)(input), }),
-})(component));
+export const WithCreateSale = component =>
+  compose(WithCurrent, WithUpdate)(graphql(CREATE_SALE, {
+    options: { refetchQueries: [ 'GetCurrentUser', ], },
+    skip: ({ currentUser, }) => !currentUser,
+    props: ({ mutate, ownProps: { product: p, currentUser: u, }, }) =>
+      ({ createSale: input => createSale(mutate)(u.id)(p.id)(input), }),
+  })(component));
 
 // export const WithUnPurchase = component => WithPurchase(graphql(UNPURCHASE_PRODUCT, {
 //   options: { refetchQueries: [ 'GetCurrentUser', ], },
