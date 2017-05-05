@@ -4,7 +4,7 @@ import Button from 'material-ui/Button';
 import { FormGroup, } from 'material-ui/Form';
 import { LabelCheckbox, } from 'material-ui/Checkbox';
 import { ClearForm, renderText, } from 'utils';
-import { WithCreateSale, WithUpSell, } from '../containers';
+import { WithCreateSale, WithSell, } from '../containers';
 
 // const { DOM: { input, select, textarea, }, } = React;
 
@@ -25,4 +25,4 @@ const Sale = ({ buyProduct: createSale, formID, currentUser, }) =>
   initialValues={{ status: 'PENDING', }} form={formID} onSubmit={createSale}
 />);
 
-export const SaleForm = WithUpSell(Sale);
+export const SaleForm = WithSell(Sale);

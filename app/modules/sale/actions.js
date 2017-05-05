@@ -1,26 +1,8 @@
 import { viewEdges, viewNodes, } from 'utils';
 const defs = { count: 0, status: 'PENDING', };
 
-export const createSale = mutate => userId => productId => (input = defs) => {
-  console.log('input', input);
-  return mutate({ variables: { input: { ...input, productId, userId, }, }, });
-};
-
-export const sellAndUpdate = mutate => userId => product => (input = defs) =>
-  mutate({
-    variables: {
-      input: { ...input, productId: product.id, userId, },
-      pInput: { id: product.id, stock: product.stock - input.count, },
-    },
-  });
-
-  // export const edit = mutate => userId => product => (input = defs) =>
-  //   mutate({
-  //     variables: {
-  //       input: { ...input, productId: product.id, userId, },
-  //       pInput: { id: product.id, stock: product.stock - input.count, },
-  //     },
-  //   });
+export const createSale = mutate => userId => productId => (input = defs) =>
+  mutate({ variables: { input: { ...input, productId, userId, }, }, });
 
 export const editSale = mutate => id => input =>
   mutate({ variables: { input: { id, ...input, }, }, });
@@ -28,9 +10,32 @@ export const editSale = mutate => id => input =>
 export const destroySale = mutate => id => () =>
   mutate({ variables: { input: { id, }, }, });
 
-export const dropSale = mutate => userId => productId =>
-  mutate({ variables: { input: { userId, productId, }, }, });
+export const sellAndUpdate = mutate => userId => product => (input = defs) =>
+    mutate({
+      variables: {
+        input: { ...input, productId: product.id, userId, },
+        pInput: { id: product.id, stock: product.stock - input.count, },
+      },
+    });
 
-//
-// export const purchaseSale = mutate => userId => productId => (input = { quantity: 1, }) =>
-//     mutate({ variables: { input: { ...input, userId, productId, }, }, });
+export const editAndUpdate = mutate => sale => (input = defs) =>
+  mutate({
+    variables: {
+      input: { ...input, id: sale.id, },
+      pInput: {
+        id: sale.product.id,
+        stock: sale.product.stock - (sale.count - input.count),
+      },
+    },
+  });
+
+export const unSellAndUpdate = mutate => sale =>
+    mutate({
+      variables: {
+        input: { id: sale.id, },
+        pInput: {
+           id: sale.product.id,
+           stock: sale.product.stock - (-sale.count),
+        },
+      },
+    });

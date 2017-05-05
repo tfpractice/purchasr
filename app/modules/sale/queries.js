@@ -15,7 +15,7 @@ export const ALL_SALES = gql`
   }
 ${SALE_INFO}`;
 
-export const SALE_BY_ID = gql`
+export const GET_SALE = gql`
   query GetSale($id: ID!){
     getSale(id:$id) {
       ...saleInfo
@@ -32,23 +32,6 @@ export const CREATE_SALE = gql`
      }
    }
    ${SALE_INFO}`;
-
-export const SELL_AND_UPDATE = gql`
-   mutation SellAndUpdate($input: CreateSaleInput!, $pInput: UpdateProductInput!) {
-     createSale(input: $input) {
-       sale:changedSale {
-        ...saleInfo
-      }
-    }
-    updateProduct(input: $pInput) {
-      product:changedProduct {
-        ...productInfo
-      }
-    }
-  }
-  ${SALE_INFO}
-  ${PRODUCT_INFO} `
-   ;
 
 export const EDIT_SALE = gql`
   mutation UpdateSaleMutation($input: UpdateSaleInput!) {
@@ -70,6 +53,39 @@ export const DESTROY_SALE = gql`
   }
 ${SALE_INFO}`;
 
+export const SELL_AND_UPDATE = gql`
+   mutation SellAndUpdate($input: CreateSaleInput!, $pInput: UpdateProductInput!) {
+     createSale(input: $input) {
+       sale:changedSale {
+        ...saleInfo
+      }
+    }
+    updateProduct(input: $pInput) {
+      product:changedProduct {
+        ...productInfo
+      }
+    }
+  }
+  ${SALE_INFO}
+  ${PRODUCT_INFO} `
+   ;
+   
+export const EDIT_SALE_AND_UPDATE = gql`
+      mutation EditSaleAndUpdate($input: UpdateSaleInput!, $pInput: UpdateProductInput!) {
+        updateSale(input: $input) {
+          sale:changedSale {
+           ...saleInfo
+         }
+       }
+       updateProduct(input: $pInput) {
+         product:changedProduct {
+           ...productInfo
+         }
+       }
+     }
+     ${SALE_INFO}
+     ${PRODUCT_INFO} `
+      ;
 export const UNSELL_AND_UPDATE = gql`
   mutation UnsellAndUpdate($input: DeleteSaleInput!, $pInput: UpdateProductInput!) {
     deleteSale(input: $input) {
