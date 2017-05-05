@@ -36,7 +36,7 @@ export const BUY_AND_UPDATE = gql`
       }    
     }
 ${PURCHASE_INFO}`;
-
+}
 export const CANCEL_SALE = gql`
     mutation CancelSale($input: RemoveFromPurchasesConnectionInput!, $pInput:UpdateProductInput!) {
       RemoveFromPurchasesConnection(input: $input) {
