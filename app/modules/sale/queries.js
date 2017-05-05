@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
+import { PRODUCT_INFO, } from '../products';
 import { SALE_INFO, } from './fragments';
-
 export const ALL_SALES = gql`
   query GetAllSales($where:SaleWhereArgs $orderBy:[SaleOrderByArgs]) {
     viewer {
@@ -33,6 +33,23 @@ export const CREATE_SALE = gql`
    }
    ${SALE_INFO}`;
 
+export const SELL_AND_UPDATE = gql`
+   mutation SellAndUpdate($input: CreateSaleInput!, $pInput: UpdateProductInput!) {
+     createSale(input: $input) {
+       sale:changedSale {
+        ...saleInfo
+      }
+    }
+    updateProduct(input: $pInput) {
+      product:changedProduct {
+        ...productInfo
+      }
+    }
+  }
+  ${SALE_INFO}
+  ${PRODUCT_INFO} `
+   ;
+
 export const EDIT_SALE = gql`
   mutation UpdateSaleMutation($input: UpdateSaleInput!) {
     updateSale(input: $input) {
@@ -52,3 +69,19 @@ export const DESTROY_SALE = gql`
     }
   }
 ${SALE_INFO}`;
+
+export const UNSELL_AND_UPDATE = gql`
+  mutation UnsellAndUpdate($input: DeleteSaleInput!, $pInput: UpdateProductInput!) {
+    deleteSale(input: $input) {
+      changedSale {
+        ...saleInfo
+      }
+    }
+    updateProduct(input: $pInput) {
+      product:changedProduct {
+        ...productInfo
+      }
+    }
+  }
+  ${SALE_INFO}
+  ${PRODUCT_INFO}`;

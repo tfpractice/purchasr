@@ -6,6 +6,22 @@ export const createSale = mutate => userId => productId => (input = defs) => {
   return mutate({ variables: { input: { ...input, productId, userId, }, }, });
 };
 
+export const sellAndUpdate = mutate => userId => product => (input = defs) =>
+  mutate({
+    variables: {
+      input: { ...input, productId: product.id, userId, },
+      pInput: { id: product.id, stock: product.stock - input.count, },
+    },
+  });
+
+  // export const edit = mutate => userId => product => (input = defs) =>
+  //   mutate({
+  //     variables: {
+  //       input: { ...input, productId: product.id, userId, },
+  //       pInput: { id: product.id, stock: product.stock - input.count, },
+  //     },
+  //   });
+
 export const editSale = mutate => id => input =>
   mutate({ variables: { input: { id, ...input, }, }, });
 

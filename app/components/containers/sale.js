@@ -7,8 +7,8 @@ import { WithUpdate, } from './products';
 // const { actions: { dropProduct, buyAndUpdate: createSale, }, } = Purchases;
 // const { queries: { CREATE_SALE, BUY_AND_UPDATE: PURCHASE_PRODUCT, }, } = Purchases;
 
-const { actions: { createSale, editSale, destroySale, }, } = Sale;
-const { queries: { CREATE_SALE, EDIT_SALE, DESTROY_SALE, }, } = Sale;
+const { actions: { createSale, sellAndUpdate, ditSale, destroySale, }, } = Sale;
+const { queries: { CREATE_SALE, SELL_AND_UPDATE, EDIT_SALE, DESTROY_SALE, }, } = Sale;
 
 // const getQt = ({ quantity, }) => quantity;
 //
@@ -30,6 +30,14 @@ export const WithCreateSale = component =>
     props: ({ mutate, ownProps: { product: p, currentUser: u, }, }) =>
       ({ createSale: input => createSale(mutate)(u.id)(p.id)(input), }),
   })(component));
+  
+export const WithUpSell = component =>
+    compose(WithCurrent, WithUpdate)(graphql(SELL_AND_UPDATE, {
+      options: { refetchQueries: [ 'GetCurrentUser', ], },
+      skip: ({ currentUser, }) => !currentUser,
+      props: ({ mutate, ownProps: { product, currentUser: u, }, }) =>
+        ({ buyProduct: input => sellAndUpdate(mutate)(u.id)(product)(input), }),
+    })(component));
 
 // export const WithUnPurchase = component => WithPurchase(graphql(UNPURCHASE_PRODUCT, {
 //   options: { refetchQueries: [ 'GetCurrentUser', ], },
