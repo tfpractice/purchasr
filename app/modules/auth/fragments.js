@@ -26,6 +26,20 @@ export const VIEWER_USER = gql`
           ...userPurchase
         }
       }
+      sales{
+        edges{
+          node{
+          id
+          modifiedAt
+          createdAt
+          status
+          count
+          product{
+            name
+          }
+        }
+        }
+      }
     }    
   }
 ${USER_INFO}

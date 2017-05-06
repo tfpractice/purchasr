@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 import { PRODUCT_INFO, } from '../products';
 import { SALE_INFO, } from './fragments';
+
 export const ALL_SALES = gql`
   query GetAllSales($where:SaleWhereArgs $orderBy:[SaleOrderByArgs]) {
     viewer {

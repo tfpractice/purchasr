@@ -11,7 +11,9 @@ const {
 const getUser = ({ viewer: { user, }, }) => user;
 const getProduct = ({ product, }) => product;
 const getPurchases = ({ purchases: { edges, }, } = { purchases: { edges: [], }, }) => { console.log('edges ', edges); return spread(edges); };
+
 const getCart = data => getUser(data) ? getPurchases(getUser(data)) : [];
+const getSales = user => user ? user.sales.edges.map(({ node, }) => node) : [];
 
 export const WithFind = component => graphql(GET_USERS, {
   props: ({ data, }) =>
@@ -38,7 +40,12 @@ export const WithLogin = component => graphql(LOGIN_USER, {
 export const WithCurrent = component => graphql(CURRENT_USER, {
   props: ({ data, ...rest }) => {
     console.log('getCart(data)', getCart(data), rest);
-    return ({ userData: data, currentUser: getUser(data), purchases: getCart(data), });
+    return ({
+      userData: data,
+      currentUser: getUser(data),
+      purchases: getCart(data),
+      sales: getSales(getUser(data)),
+    });
   },
 })(component);
 

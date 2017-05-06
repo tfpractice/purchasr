@@ -13,7 +13,7 @@ import MailIcon from 'material-ui-icons/Mail';
 import DeleteIcon from 'material-ui-icons/Delete';
 import ReportIcon from 'material-ui-icons/Report';
 import { WithCurrent, } from '../containers';
-import { Cart, } from '../purchase';
+import { Cart, } from '../sales';
 
 const styleSheet = createStyleSheet('Dash', () => ({
   list: {
@@ -125,7 +125,7 @@ class Dash extends Component {
           onClick={this.handleRightClose}
         >
           {fullList}
-          <Cart products={this.props.purchases.map(({ product, }) => product)} />
+          <Cart />
         </Drawer>
       </div>
     );

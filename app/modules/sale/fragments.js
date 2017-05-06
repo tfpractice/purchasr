@@ -8,7 +8,9 @@ export const SALE_INFO = gql`
       username
     }
     product{
+      id
       name
+      stock
     }
     createdAt
     status
