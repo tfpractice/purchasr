@@ -8,7 +8,7 @@ import DeleteIcon from 'material-ui-icons/Delete';
 import Avatar from 'material-ui/Avatar';
 import Button from 'material-ui/Button';
 import Text from 'material-ui/Typography';
-
+import Paper from 'material-ui/Paper';
 import { SaleForm, } from './form';
 import { WithUnSell, } from '../containers';
 
@@ -19,13 +19,12 @@ const CartItem = ({ sale, ...props }) => {
       <ListItemAvatar>
         <Avatar alt="Remy Sharp" src={'http://placehold.it/150/ff00ff'} />
       </ListItemAvatar>
-      <ListItemText primary={sale.product.name} secondary={sale.count} />
-      <ListItemSecondaryAction>
-        { <SaleForm sale={sale} product={sale.product} formID={`purchase:${sale.id}`} />}
-        {/* { dropProduct && <IconButton>
-          <DeleteIcon onClick={dropProduct} />
-        </IconButton>} */}
-      </ListItemSecondaryAction>
+      {/* <SaleForm sale={sale} product={sale.product} formID={`sale:${sale.id}`} /> */}
+      <Text>{sale.product.name}</Text>
+      <ListItemText
+        primary={
+          <SaleForm sale={sale} product={sale.product} formID={`sale:${sale.id}`} />}
+      />
     </ListItem>
 
   );
