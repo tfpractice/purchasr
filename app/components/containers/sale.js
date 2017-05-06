@@ -36,7 +36,7 @@ export const WithEditSale = component =>
     options: { refetchQueries: [ 'GetCurrentUser', ], },
     skip: ({ sale, }) => !sale,
     props: ({ mutate, ownProps: { sale, }, }) =>
-      ({ editSale: input => editAndUpdate(mutate)(sale)(input), }),
+      ({ buyProduct: input => editAndUpdate(mutate)(sale)(input), }),
   })(component));
 
 export const WithUnSell = component =>

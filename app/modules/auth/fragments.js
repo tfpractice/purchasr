@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-
+import { SALE_INFO, } from '../sale/fragments';
 export const USER_INFO = gql`
   fragment userInfo on User{
     id
@@ -28,17 +28,21 @@ export const VIEWER_USER = gql`
       }
       sales{
         edges{
-          node{
+          node {
           id
+          count
+          status
           modifiedAt
           createdAt
-          status
-          count
-          product{
-            name
+          user{
+            id
           }
-        }
-        }
+          product{
+            id
+            stock
+          }
+      }
+      }
       }
     }    
   }

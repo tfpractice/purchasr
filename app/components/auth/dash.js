@@ -122,9 +122,7 @@ class Dash extends Component {
           anchor="right"
           open={this.state.open.right}
           onRequestClose={this.handleRightClose}
-          onClick={this.handleRightClose}
         >
-          {fullList}
           <Cart />
         </Drawer>
       </div>

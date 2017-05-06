@@ -19,23 +19,22 @@ export const sellAndUpdate = mutate => userId => product => (input = defs) =>
     });
 
 export const editAndUpdate = mutate => sale => (input = defs) =>
-  mutate({
+mutate({
     variables: {
       input: { ...input, id: sale.id, },
       pInput: {
         id: sale.product.id,
-        stock: sale.product.stock - (sale.count - input.count),
+        stock: sale.product.stock - (input.count - sale.count),
       },
     },
-  });
+});
 
-export const unSellAndUpdate = mutate => sale =>
-    mutate({
+export const unSellAndUpdate = mutate => sale => mutate({
       variables: {
         input: { id: sale.id, },
         pInput: {
-           id: sale.product.id,
-           stock: sale.product.stock - (-sale.count),
+          id: sale.product.id,
+          stock: sale.product.stock - (-sale.count),
         },
       },
-    });
+});

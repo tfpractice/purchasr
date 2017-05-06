@@ -3,17 +3,16 @@ import gql from 'graphql-tag';
 export const SALE_INFO = gql`
   fragment saleInfo on Sale{
     id
+    count
+    status
     modifiedAt
+    createdAt
     user{
-      username
+      id
     }
     product{
       id
-      name
       stock
     }
-    createdAt
-    status
-    count
   }
 `;
