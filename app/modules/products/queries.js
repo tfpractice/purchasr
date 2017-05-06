@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import { VIEWER_USER, } from '../auth';
 import { PRODUCT_INFO, } from './fragments';
 
-export const PRODUCT_BY_ID = gql`
+export const GET_PRODUCT = gql`
   query GetProduct($id: ID!){
     getProduct(id:$id) {
       ...productInfo

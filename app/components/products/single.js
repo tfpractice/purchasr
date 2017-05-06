@@ -24,7 +24,6 @@ const Product = ({ product, ...props }) => {
       </CardContent>
       <CardActions >
         {<SaleForm product={product} formID={`purchase:${product.id}`} />}
-        {/* { dropProduct && <Button onClick={dropProduct}>Remove from cart</Button>} */}
       </CardActions>
     </Card>
   );

@@ -21,14 +21,14 @@ export const getPQ = p => cart => getQt(findMatch(p)(cart));
 const incStock = p => cart => p.stock + getPQ(p)(cart);
 
 export const WithPurchase = component => compose(WithCurrent, WithUpdate)(graphql(PURCHASE_PRODUCT, {
-  options: { refetchQueries: [ 'GetCurrentUser', ], },
+  // options: { refetchQueries: [ 'GetCurrentUser', ], },
   skip: ({ currentUser, }) => !currentUser,
   props: ({ mutate, ownProps: { product, currentUser: { id: uid, }, updateProduct, }, }) =>
     ({ purchaseProduct: qt => purchaseProduct(mutate)(uid)(product)(qt), }),
 })(component));
 
 export const WithUnPurchase = component => WithPurchase(graphql(UNPURCHASE_PRODUCT, {
-  options: { refetchQueries: [ 'GetCurrentUser', ], },
+  // options: { refetchQueries: [ 'GetCurrentUser', ], },
   skip: ({ currentUser, purchases, product, }) =>
    !currentUser || !isInCart(purchases)(product),
   props: ({ mutate, ownProps: { product, currentUser: { id: uid, }, purchases, updateProduct, }, }) =>

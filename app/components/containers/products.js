@@ -4,7 +4,7 @@ import { Product, } from 'modules';
 
 const {
   actions:  { createProduct, destroyProduct, editProduct, sortProducts, },
-  queries:  { ALL_PRODUCTS, CREATE_PRODUCT, DESTROY_PRODUCT, EDIT_PRODUCT, PRODUCT_BY_ID, },
+  queries:  { ALL_PRODUCTS, CREATE_PRODUCT, DESTROY_PRODUCT, EDIT_PRODUCT, GET_PRODUCT, },
 } = Product;
 
 export const WithAll = component => graphql(ALL_PRODUCTS, {
@@ -20,27 +20,27 @@ export const WithAll = component => graphql(ALL_PRODUCTS, {
 export const WithCreate = component => graphql(CREATE_PRODUCT, {
    props: ({ mutate, }) =>
    ({ createProduct: createProduct(mutate), }),
-   options: { refetchQueries: [ 'GetAllProducts', ], },
+  //  options: { refetchQueries: [ 'GetAllProducts', ], },
 })(component);
 
-export const WithProduct = component => graphql(PRODUCT_BY_ID, {
-  skip:  ({ product, }) => !product,
+export const WithProduct = component => graphql(GET_PRODUCT, {
+  skip:  ({ product, }) => { console.log('WithProduct will skip?', !!product); return !!product; },
   options: ({ product: { id, }, }) => ({ variables: { id, }, }),
   props: ({ data, }) => ({ productQuery: data, }),
 })(component);
 
 export const WithUpdate = component => graphql(EDIT_PRODUCT, {
-  skip: ({ id, }) => false,
+  skip: ({ id, }) => !id,
   props: ({ mutate, ownProps: { id, }, }) =>
     ({ updateProduct: editProduct(mutate)(id), }),
-  options: { refetchQueries: [ 'GetAllProducts', ], },
+  // options: { refetchQueries: [ 'GetAllProducts', ], },
 })(component);
 
 export const WithDestroy = component => graphql(DESTROY_PRODUCT, {
   skip: ({ id, }) => !id,
   props: ({ mutate, ownProps: { id, }, }) =>
    ({ destroyProduct: destroyProduct(mutate)(id), }),
-  options: { refetchQueries: [ 'GetAllProducts', ], },
+  // options: { refetchQueries: [ 'GetAllProducts', ], },
 })(component);
 
 export const WithEdit = component => compose(WithUpdate, WithDestroy)(component);
