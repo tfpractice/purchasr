@@ -12,7 +12,7 @@ const ProductList = ({ products, byPrice, byStock, }) => (
       <Button onClick={byPrice}>Sort by price</Button>
       <Button onClick={byStock}>Sort by stock</Button>
     </Layout>
-    <Layout item sm={12}>
+    <Layout container sm={12}>
       {products.map(p =>
         <Layout item md={4} key={p.id}>
           <Single id={p.id} product={p} />
