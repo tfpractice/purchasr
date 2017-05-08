@@ -6,6 +6,7 @@ function _initClient(headers, initialState) {
   return new ApolloClient({
     initialState,
     networkInterface,
+    dataIdFromObject: ({ id, } = { id: '', }) => id,
     ssrMode: !process.browser,
   });
 }

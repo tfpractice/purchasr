@@ -10,7 +10,7 @@ const { queries: { CREATE_SALE, SELL_AND_UPDATE, GET_SALE, EDIT_SALE_AND_UPDATE,
 export const WithSale = component => graphql(GET_SALE, {
     skip: ({ sale, }) => !sale,
     options: ({ sale: { id, }, }) => ({ variables: { id, }, }),
-    props: ({ data: saleData, }) => ({ saleData, }),
+    props: ({ data: saleData, }) => { console.log('saleData', saleData); return ({ saleData, }); },
 })(component);
   
 export const WithCreateSale = component =>
@@ -22,11 +22,11 @@ export const WithCreateSale = component =>
   })(component));
   
 export const WithSell = component =>
-  compose(WithCurrent, WithProduct)(graphql(SELL_AND_UPDATE, {
+  compose(WithCurrent, WithProduct, WithSale)(graphql(SELL_AND_UPDATE, {
     options: { refetchQueries: [ 'GetProduct', ], },
     skip: ({ currentUser, }) => !currentUser,
     props: ({ mutate, ownProps: { product, currentUser: u, ...own }, }) => {
-      console.log('WithSellown', own);
+      const a = 0;
       
       return ({ buyProduct: input => sellAndUpdate(mutate)(u.id)(product)(input), });
     },
@@ -34,10 +34,21 @@ export const WithSell = component =>
 
 export const WithEditSale = component =>
   WithSell(graphql(EDIT_SALE_AND_UPDATE, {
-    options: (props) => { console.log('WithEditSaleprops', props); return ({ refetchQueries: [ 'GetSale', ], }); },
+    options: (props) => {
+      console.log('WithEditSaleprops', props); return ({ refetchQueries: [ 'GetCurrentUser', ], });
+    },
     skip: ({ sale, }) => !sale,
-    props: ({ mutate, ownProps: { sale, }, }) =>
-      ({ buyProduct: input => editAndUpdate(mutate)(sale)(input), }),
+    props: ({ mutate, ownProps: { sale, saleData, ...own }, }) => {
+      console.log('WithEditSale');
+      console.log('WithEditSale'); console.log('WithEditSale');
+
+      console.log('WithEditSale'); console.log('WithEditSale');
+    
+      console.log('sale', sale);
+      console.log('saleData.getSale', saleData.getSale);
+    
+      return ({ buyProduct: input => editAndUpdate(mutate)(sale)(input), });
+    },
   })(component));
 
 export const WithUnSell = component =>

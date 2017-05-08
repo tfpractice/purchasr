@@ -37,7 +37,7 @@ export const CREATE_SALE = gql`
 export const EDIT_SALE = gql`
   mutation UpdateSaleMutation($input: UpdateSaleInput!) {
     updateSale(input: $input) {
-      changedSale {
+      sale:changedSale {
         ...saleInfo
       }
     }
@@ -47,7 +47,7 @@ ${SALE_INFO}`;
 export const DESTROY_SALE = gql`
   mutation DeleteSaleMutation($input: DeleteSaleInput!) {
     deleteSale(input: $input) {
-      changedSale {
+      sale:changedSale {
         ...saleInfo
       }
     }
