@@ -33,36 +33,37 @@ mutate({
         stock: sale.product.stock - (input.count - sale.count),
       },
     },
-    
-    update: (proxy, { data: { updateSale: { sale, }, }, }) => {
-      const data = proxy.readQuery({ query: GET_SALE, variables: { id: sale.id, }, });
-      
-      console.log('_____________CUREN_USER_QUERY____________',);
-      console.log('_____________CUREN_USER_QUERY____________',);
-      console.log('_____________CUREN_USER_QUERY____________',);
-      
-      console.log('data', data);
-      
-      console.log('proxy', proxy);
-      
-      console.log('sale', sale);
-      
-      console.log('_____________CUREN_USER_QUERY____________',);
-      console.log('_____________CUREN_USER_QUERY____________',);
-      console.log('_____________CUREN_USER_QUERY____________',);
-      console.log('_____________CUREN_USER_QUERY____________',);
-      
-      console.log('      proxy.writeQuery({ query: CURRENT_USER, data, });', proxy.writeQuery({ query: CURRENT_USER, data, }));
-      proxy.writeQuery({ query: CURRENT_USER, data, });
-    },
-    
-    updateQueries: {
-      GetSale: (prev, { mutationResult: { data: { updateSale: { sale, }, }, }, }) => {
-        console.log('mutationResult', sale);
-        console.log('PREV', prev);
-        return ({ ...prev, getSale: sale, });
-      },
-    },
+    refetchQueries: [ 'GetSale', ],
+    //
+    // update: (proxy, { data: { updateSale: { sale, }, }, }) => {
+    //   const data = proxy.readQuery({ query: GET_SALE, variables: { id: sale.id, }, });
+    //
+    //   console.log('_____________CUREN_USER_QUERY____________',);
+    //   console.log('_____________CUREN_USER_QUERY____________',);
+    //   console.log('_____________CUREN_USER_QUERY____________',);
+    //
+    //   console.log('data', data);
+    //
+    //   console.log('proxy', proxy);
+    //
+    //   console.log('sale', sale);
+    //
+    //   console.log('_____________CUREN_USER_QUERY____________',);
+    //   console.log('_____________CUREN_USER_QUERY____________',);
+    //   console.log('_____________CUREN_USER_QUERY____________',);
+    //   console.log('_____________CUREN_USER_QUERY____________',);
+    //
+    //   console.log('      proxy.writeQuery({ query: CURRENT_USER, data, });', proxy.writeQuery({ query: CURRENT_USER, data, }));
+    //   proxy.writeQuery({ query: CURRENT_USER, data, });
+    // },
+    //
+    // updateQueries: {
+    //   GetSale: (prev, { mutationResult: { data: { updateSale: { sale, }, }, }, }) => {
+    //     console.log('mutationResult', sale);
+    //     console.log('PREV', prev);
+    //     return ({ ...prev, getSale: sale, });
+    //   },
+    // },
 });
 
 export const unSellAndUpdate = mutate => sale => mutate({

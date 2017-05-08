@@ -13,21 +13,24 @@ import Paper from 'material-ui/Paper';
 import { SaleForm, } from './form';
 import { WithUnSell, } from '../containers';
 
-const CartItem = ({ sale, }) => (
-  <ListItem divider>
-    <ListItemAvatar>
-      <Avatar alt="Remy Sharp" src={'http://placehold.it/150/ff00ff'} />
-    </ListItemAvatar>
-    <Layout>
-      <Text>{sale.product.name}</Text>
-      <ListItemText
-        primary={
-          <SaleForm sale={sale} product={sale.product} formID={`sale:${sale.id}`} />
-          }
-      />
-    </Layout>
-  </ListItem>
+const CartItem = ({ sale, }) => {
+  console.log('CartItemsale', sale);
+  return (
+    <ListItem divider>
+      <ListItemAvatar>
+        <Avatar alt="Remy Sharp" src={'http://placehold.it/150/ff00ff'} />
+      </ListItemAvatar>
+      <Layout>
+        <Text>{sale.product.name}</Text>
+        <ListItemText
+          primary={
+            <SaleForm sale={sale} product={sale.product} formID={`sale:${sale.id}`} />
+        }
+        />
+      </Layout>
+    </ListItem>
 
   );
+};
 
 export default (CartItem);

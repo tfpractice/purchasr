@@ -22,7 +22,7 @@ export const WithCreateSale = component =>
   })(component));
   
 export const WithSell = component =>
-  compose(WithCurrent, WithProduct, WithSale)(graphql(SELL_AND_UPDATE, {
+  compose(WithCurrent, WithProduct)(graphql(SELL_AND_UPDATE, {
     options: { refetchQueries: [ 'GetProduct', ], },
     skip: ({ currentUser, }) => !currentUser,
     props: ({ mutate, ownProps: { product, currentUser: u, ...own }, }) => {
@@ -33,22 +33,21 @@ export const WithSell = component =>
   })(component));
 
 export const WithEditSale = component =>
-  WithSell(graphql(EDIT_SALE_AND_UPDATE, {
+  compose(WithSell, WithSale)(graphql(EDIT_SALE_AND_UPDATE, {
     options: (props) => {
-      console.log('WithEditSaleprops', props); return ({ refetchQueries: [ 'GetCurrentUser', ], });
+      console.log('WithEditSaleprops', props); return ({ refetchQueries: [ 'GetSale', ], });
     },
     skip: ({ sale, }) => !sale,
-    props: ({ mutate, ownProps: { sale, saleData, ...own }, }) => {
-      console.log('WithEditSale');
-      console.log('WithEditSale'); console.log('WithEditSale');
-
-      console.log('WithEditSale'); console.log('WithEditSale');
+    props: ({ mutate, ownProps: { sale, ...own }, }) =>
+      // console.log('WithEditSale');
+      // console.log('WithEditSale'); console.log('WithEditSale');
+      //
+      // console.log('WithEditSale'); console.log('WithEditSale');
+      //
+      // console.log('sale', sale);
+      // console.log('saleData.getSale', saleData.getSale);
     
-      console.log('sale', sale);
-      console.log('saleData.getSale', saleData.getSale);
-    
-      return ({ buyProduct: input => editAndUpdate(mutate)(sale)(input), });
-    },
+       ({ buyProduct: input => editAndUpdate(mutate)(sale)(input), }),
   })(component));
 
 export const WithUnSell = component =>

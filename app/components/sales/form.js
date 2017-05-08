@@ -30,12 +30,12 @@ const Sale = ({ buyProduct, sale, formID, unsell, currentUser, }) =>
 (currentUser && <ReduxSale
   form={formID}
   unsell={unsell}
+  onSubmit={buyProduct}
   initialValues={{
     status: (sale ? sale.status : 'PENDING'),
     count: (sale ? sale.count : 0),
   }}
-  onSubmit={buyProduct}
 />
-);
+  );
 
 export const SaleForm = WithUnSell(Sale);
