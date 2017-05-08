@@ -33,7 +33,7 @@ mutate({
         stock: sale.product.stock - (input.count - sale.count),
       },
     },
-    refetchQueries: [ 'GetSale', ],
+    // refetchQueries: [ 'GetSale', ],
     //
     // update: (proxy, { data: { updateSale: { sale, }, }, }) => {
     //   const data = proxy.readQuery({ query: GET_SALE, variables: { id: sale.id, }, });

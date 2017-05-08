@@ -26,16 +26,19 @@ const baseSale = ({ handleSubmit, unsell, ...baseSaleProps }) => (
   );
 const ReduxSale = ClearForm(baseSale);
 
-const Sale = ({ buyProduct, sale, formID, unsell, currentUser, }) =>
-(currentUser && <ReduxSale
-  form={formID}
-  unsell={unsell}
-  onSubmit={buyProduct}
-  initialValues={{
+const Sale = ({ buyProduct, sale, formID, unsell, currentUser, }) => {
+  console.log('buyProduct', buyProduct);
+  
+  return (currentUser && <ReduxSale
+    form={formID}
+    unsell={unsell}
+    onSubmit={buyProduct}
+    initialValues={{
     status: (sale ? sale.status : 'PENDING'),
     count: (sale ? sale.count : 0),
-  }}
-/>
+    }}
+  />
   );
+};
 
 export const SaleForm = WithUnSell(Sale);

@@ -38,8 +38,10 @@ export const WithEditSale = component =>
       console.log('WithEditSaleprops', props); return ({ refetchQueries: [ 'GetSale', ], });
     },
     skip: ({ sale, }) => !sale,
-    props: ({ mutate, ownProps: { sale, ...own }, }) =>
-      // console.log('WithEditSale');
+    props: ({ mutate, ownProps: { sale, ...own }, }) => {
+      console.log('WithEditSaleown', own);
+      console.log('own.buyProduct', own.buyProduct);
+
       // console.log('WithEditSale'); console.log('WithEditSale');
       //
       // console.log('WithEditSale'); console.log('WithEditSale');
@@ -47,12 +49,13 @@ export const WithEditSale = component =>
       // console.log('sale', sale);
       // console.log('saleData.getSale', saleData.getSale);
     
-       ({ buyProduct: input => editAndUpdate(mutate)(sale)(input), }),
+      return ({ buyProduct: input => editAndUpdate(mutate)(sale)(input), });
+    },
   })(component));
 
 export const WithUnSell = component =>
   WithEditSale(graphql(UNSELL_AND_UPDATE, {
-    options: { refetchQueries: [ 'GetSale', ], },
+    options: { refetchQueries: [ 'GetCurrentUser', ], },
     skip: ({ sale, }) => !sale,
     props: ({ mutate, ownProps: { sale, }, }) =>
       ({ unsell: () => unSellAndUpdate(mutate)(sale), }),
