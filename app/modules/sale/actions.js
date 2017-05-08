@@ -2,6 +2,7 @@ import { viewEdges, viewNodes, } from 'utils';
 import { CURRENT_USER, } from '../auth/queries';
 import { GET_SALE, } from './queries';
 import { SALE_INFO, } from './fragments';
+
 const defs = { count: 0, status: 'PENDING', };
 const sameID = next => ({ id, }) => next.id === id;
 const replace = next => ({ node: prev, }) => sameID(next)(prev) ? ({ node: next, }) : ({ node: prev, });
@@ -33,37 +34,6 @@ mutate({
         stock: sale.product.stock - (input.count - sale.count),
       },
     },
-    // refetchQueries: [ 'GetSale', ],
-    //
-    // update: (proxy, { data: { updateSale: { sale, }, }, }) => {
-    //   const data = proxy.readQuery({ query: GET_SALE, variables: { id: sale.id, }, });
-    //
-    //   console.log('_____________CUREN_USER_QUERY____________',);
-    //   console.log('_____________CUREN_USER_QUERY____________',);
-    //   console.log('_____________CUREN_USER_QUERY____________',);
-    //
-    //   console.log('data', data);
-    //
-    //   console.log('proxy', proxy);
-    //
-    //   console.log('sale', sale);
-    //
-    //   console.log('_____________CUREN_USER_QUERY____________',);
-    //   console.log('_____________CUREN_USER_QUERY____________',);
-    //   console.log('_____________CUREN_USER_QUERY____________',);
-    //   console.log('_____________CUREN_USER_QUERY____________',);
-    //
-    //   console.log('      proxy.writeQuery({ query: CURRENT_USER, data, });', proxy.writeQuery({ query: CURRENT_USER, data, }));
-    //   proxy.writeQuery({ query: CURRENT_USER, data, });
-    // },
-    //
-    // updateQueries: {
-    //   GetSale: (prev, { mutationResult: { data: { updateSale: { sale, }, }, }, }) => {
-    //     console.log('mutationResult', sale);
-    //     console.log('PREV', prev);
-    //     return ({ ...prev, getSale: sale, });
-    //   },
-    // },
 });
 
 export const unSellAndUpdate = mutate => sale => mutate({
@@ -74,4 +44,33 @@ export const unSellAndUpdate = mutate => sale => mutate({
           stock: sale.product.stock - (-sale.count),
         },
       },
+//       updateQueries: {
+//         GetCurrentUser: (prev, { mutationResult, }) => {
+//           console.log('_________updateQueries_________');
+//           console.log('_________updateQueries_________');
+//           console.log('_________updateQueries_________');
+//           const { viewer: { user: { sales: { edges, }, }, }, } = prev;
+//
+//           console.log('mutationResult', mutationResult);
+//           console.log('next', mutationResult.data.deleteSale.changedSale.id);
+//
+//           console.log('prev', edges.filter(({ node: id, }) => id !== mutationResult.data.deleteSale.changedSale.id));
+//           console.log('_________updateQueries_________');
+//           console.log('_________updateQueries_________');
+//           console.log('_________updateQueries_________');
+//           console.log('_________updateQueries_________');
+//
+// // viewer
+//           return { ...prev, };
+//         },
+//       },
+      // optimisticResponse: {
+      //      __typename: 'Mutation',
+      //      submitComment: {
+      //        __typename: 'Comment',
+      //        postedBy: ownProps.currentUser,
+      //        createdAt: +new Date,
+      //        content: commentContent,
+      //      },
+      //    },
 });
