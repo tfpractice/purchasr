@@ -6,44 +6,10 @@ import { LabelCheckbox, } from 'material-ui/Checkbox';
 import { ClearForm, renderText, } from 'utils';
 import { WithUnSell, } from '../containers';
 import Layout from 'material-ui/Layout';
+import Text from 'material-ui/Typography';
 
-{ /* <form onSubmit={handleSubmit} >
-
-  <Layout container>
-    <Layout item sm={6}>
-      <FormGroup row>
-        <Field label="count" name="count" type="number" component={renderText} />
-        <Field name="status" component="hidden" />
-
-      </FormGroup>
-    </Layout>
-    <Layout item sm={6}>
-      <FormGroup >
-        <Button accent type="submit">AddToCart</Button>
-        {unsell && <Button accent onClick={unsell}> remove from cart</Button>}
-      </FormGroup>  </Layout>
-  </Layout>
-</form> */ }
-
-//
-//
-// <form onSubmit={handleSubmit} >
-//   <FormGroup row>
-//     <FormGroup row>
-//       <Field label="count" name="count" type="number" component={renderText} />
-//       <Field name="status" component="hidden" />
-//
-//     </FormGroup>
-//     <FormGroup >
-//       <Button accent type="submit">AddToCart</Button>
-//       {unsell && <Button accent onClick={unsell}> remove from cart</Button>}
-//     </FormGroup>
-//   </FormGroup>
-// </form>
-
-const baseSale = ({ handleSubmit, unsell, }) => (
+const baseSale = ({ handleSubmit, unsell, ...baseSaleProps }) => (
   <form onSubmit={handleSubmit} >
-
     <Layout container direction="column" justify="center">
       <Layout item sm={12}>
         <Field label="count" name="count" type="number" component={renderText} />
@@ -53,19 +19,20 @@ const baseSale = ({ handleSubmit, unsell, }) => (
         <FormGroup row>
           <Button accent type="submit">AddToCart</Button>
           {unsell && <Button accent onClick={unsell}> remove from cart</Button>}
-        </FormGroup>                                                                                                                                                                                                                                        </Layout>
+        </FormGroup>
+      </Layout>
     </Layout>
   </form>
   );
-
 const ReduxSale = ClearForm(baseSale);
 
-const Sale = ({ buyProduct, sale, formID, unsell, currentUser, }) =>
+const Sale = ({ buyProduct, sale, formID, unsell, product, currentUser, }) =>
 (currentUser && <ReduxSale
   form={formID}
   unsell={unsell}
   initialValues={sale || { status: 'PENDING', }}
   onSubmit={buyProduct}
-/>);
+/>
+);
 
 export const SaleForm = WithUnSell(Sale);

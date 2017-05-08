@@ -12,6 +12,7 @@ export const SALE_INFO = gql`
     }
     product{
       id
+      name
       stock
     }
   }

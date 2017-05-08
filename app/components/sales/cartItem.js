@@ -8,26 +8,26 @@ import DeleteIcon from 'material-ui-icons/Delete';
 import Avatar from 'material-ui/Avatar';
 import Button from 'material-ui/Button';
 import Text from 'material-ui/Typography';
+import Layout from 'material-ui/Layout';
 import Paper from 'material-ui/Paper';
 import { SaleForm, } from './form';
 import { WithUnSell, } from '../containers';
 
-const CartItem = ({ sale, ...props }) => {
-  console.log('CartItemprops', props);
-  return (
-    <ListItem divider>
-      <ListItemAvatar>
-        <Avatar alt="Remy Sharp" src={'http://placehold.it/150/ff00ff'} />
-      </ListItemAvatar>
-      {/* <SaleForm sale={sale} product={sale.product} formID={`sale:${sale.id}`} /> */}
+const CartItem = ({ sale, }) => (
+  <ListItem divider>
+    <ListItemAvatar>
+      <Avatar alt="Remy Sharp" src={'http://placehold.it/150/ff00ff'} />
+    </ListItemAvatar>
+    <Layout>
       <Text>{sale.product.name}</Text>
       <ListItemText
         primary={
-          <SaleForm sale={sale} product={sale.product} formID={`sale:${sale.id}`} />}
+          <SaleForm sale={sale} product={sale.product} formID={`sale:${sale.id}`} />
+          }
       />
-    </ListItem>
+    </Layout>
+  </ListItem>
 
   );
-};
 
 export default (CartItem);

@@ -38,7 +38,8 @@ export const VIEWER_USER = gql`
             id
           }
           product{
-            id
+            id 
+            name
             stock
           }
       }
