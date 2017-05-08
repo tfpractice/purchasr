@@ -26,11 +26,14 @@ const baseSale = ({ handleSubmit, unsell, ...baseSaleProps }) => (
   );
 const ReduxSale = ClearForm(baseSale);
 
-const Sale = ({ buyProduct, sale, formID, unsell, product, currentUser, }) =>
+const Sale = ({ buyProduct, sale, formID, unsell, currentUser, }) =>
 (currentUser && <ReduxSale
   form={formID}
   unsell={unsell}
-  initialValues={sale || { status: 'PENDING', }}
+  initialValues={{
+    status: (sale ? sale.status : 'PENDING'),
+    count: (sale ? sale.count : 0),
+  }}
   onSubmit={buyProduct}
 />
 );
