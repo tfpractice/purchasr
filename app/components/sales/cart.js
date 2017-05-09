@@ -1,6 +1,6 @@
 import React from 'react';
 import Grid from 'material-ui/Grid';
-import { List, ListItem, ListItemIcon, ListItemText, ListSubheader, } from 'material-ui/List';
+import List, { ListItem, ListItemIcon, ListItemText, ListSubheader, } from 'material-ui/List';
 import { WithCurrent, } from '../containers';
 import CartItem from './cartItem';
 import Text from 'material-ui/Typography';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardActions, CardContent, CardHeader, CardMedia, } from 'material-ui/Card';
-import { List, ListItem, ListItemAvatar, ListItemIcon, ListItemSecondaryAction, ListItemText,
+import List, { ListItem, ListItemAvatar, ListItemIcon, ListItemSecondaryAction, ListItemText,
 } from 'material-ui/List';
 import { Checkbox, } from 'material-ui/Checkbox';
 import IconButton from 'material-ui/IconButton';

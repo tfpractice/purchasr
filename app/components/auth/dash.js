@@ -3,7 +3,7 @@ import { createStyleSheet, } from 'jss-theme-reactor';
 import customPropTypes from 'material-ui/utils/customPropTypes';
 import Drawer from 'material-ui/Drawer';
 import Button from 'material-ui/Button';
-import { List, ListItem, ListItemIcon, ListItemText, } from 'material-ui/List';
+import List, { ListItem, ListItemIcon, ListItemText, } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import InboxIcon from 'material-ui-icons/Inbox';
 import DraftsIcon from 'material-ui-icons/Drafts';
