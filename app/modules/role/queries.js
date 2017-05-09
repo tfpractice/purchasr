@@ -1,9 +1,9 @@
 import gql from 'graphql-tag';
 
 export const GET_ROLES = gql`
-  query GetRoles($where:RoleWhereArgs $first:Int) {
+  query GetRoles($where:RoleWhereArgs, $first:Int) {
    viewer {
-     collection:allRoles(where:$where first:$first) {
+     collection:allRoles(where:$where, first:$first) {
        edges {
         node {
            name
@@ -24,7 +24,7 @@ export const ADD_ROLE = gql`
            }
            user{
              id
-             name
+             username
            }
          }
        }
@@ -41,7 +41,7 @@ export const UPDATE_ROLE = gql`
         }
         user{
           id
-          name
+          username
         }   
       }
     }
@@ -58,7 +58,7 @@ export const DROP_ROLE = gql`
      }
       user{
         id
-        name
+        username
         }   
       }
     }

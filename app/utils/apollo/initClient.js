@@ -8,6 +8,7 @@ function _initClient(headers, initialState) {
     networkInterface,
     dataIdFromObject: ({ id, } = { id: '', }) => id,
     ssrMode: !process.browser,
+    queryDeduplication: true,
   });
 }
 

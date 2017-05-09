@@ -5,41 +5,35 @@ import { viewNodes, } from 'utils';
 import { WithCurrent, } from './auth';
 
 const {
-  actions: { addRole, dropRole, },
+  actions: { addRole, dropRole, updateRole, },
   queries: { GET_ROLES, DROP_ROLE, ADD_ROLE, },
 } = Role;
 
-// export const WithRoles = component => graphql(GET_ROLES, {
-//   props: ({ data, }) =>
-//     ({ roleData: data, roles: viewNodes(data), }),
-// })(component);
-
-export const WithRoles = component => (graphql(GET_ROLES, {
-  // skip: ({ currentUser, }) => !currentUser,
+export const WithRoles = component => graphql(GET_ROLES, {
   props: ({ data, }) =>
     ({ roleData: data, roles: viewNodes(data), }),
-})(component));
+})(component);
 
-export const WithNewRoles = component => WithCurrent(graphql(GET_ROLES, {
-  // options: ({ currentUser: { id, }, }) => {
-  //   console.log('WithNewRoles', );
-  //
-  //   return ({ variables: { where: { members: { node: { id: { ne: id, }, }, }, }, }, });
-  // },
-  // skip: ({ currentUser, }) => {
-  //   console.log('skip WithNewRoles');
-  //   return false;
-  // },
-  props: ({ data, }) => {
-    console.log('WithNewRolesdata', data);
-    return ({ roleData: data, roles: viewNodes(data), });
+export const WithNewRoles = component => compose(WithCurrent, WithRoles)(graphql(GET_ROLES, {
+  options: ({ currentUser: { id, }, ...props }) => {
+    console.log('WithNewRolesOPTIONS', id, props);
+
+    // roleData.refetch({ variables: { where: { members: { node: { id: { ne: id, }, }, }, }, }, });
+    return ({});
+  },
+  skip: ({ currentUser, }) => !currentUser,
+  props: (props) => {
+    console.log('WithNewRolesdata', props.data);
+    console.log('WithNewRolesrest', props);
+
+    return ({ roleData: props.data, roles: viewNodes(props.data), });
   },
 })(component));
 
 export const WithAddRole = component => WithNewRoles(graphql(ADD_ROLE, {
   skip: ({ roleId, currentUser, }) => !currentUser,
   props: ({ mutate, ownProps: { roleId, currentUser, }, }) =>
-    ({ addRole: () => addRole(mutate)(currentUser.id)(roleId), }),
+    ({ addRole: () => updateRole(mutate)(currentUser.id)(roleId), }),
 })(component));
 
 export const WithDropRole = component => (graphql(DROP_ROLE, {

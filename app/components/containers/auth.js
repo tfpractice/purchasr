@@ -1,7 +1,7 @@
 import { spread, } from 'fenugreek-collections';
 import { compose, graphql, } from 'react-apollo';
 import { Auth, } from 'modules';
-
+import { WithRoles, } from '../containers';
 const {
  actions: { userByName, createUser, loginUser, findAndLogin, },
  queries: { GET_USERS, CREATE_USER, LOGIN_USER, CURRENT_USER, },
@@ -14,10 +14,10 @@ const getPurchases = ({ purchases: { edges, }, } = { purchases: { edges: [], }, 
 const getCart = data => getUser(data) ? getPurchases(getUser(data)) : [];
 const getSales = user => user ? user.sales.edges.map(({ node, }) => node) : [];
 
-export const WithFind = component => graphql(GET_USERS, {
+export const WithFind = component => WithRoles(graphql(GET_USERS, {
   props: ({ data, }) =>
     ({ findUser: userByName(data), }),
-})(component);
+})(component));
 
 export const WithUsers = WithFind;
 
@@ -26,11 +26,11 @@ export const WithRegister = component => (graphql(CREATE_USER, {
     ({ createUser: createUser(mutate), }),
 })(component));
 
-export const WithLogin = component => graphql(LOGIN_USER, {
-  options: { refetchQueries: [ 'GetCurrentUser', ], },
+export const WithLogin = component => WithRoles(graphql(LOGIN_USER, {
+  options: { refetchQueries: [ 'GetCurrentUser', 'GetRoles', ], },
   props: ({ mutate, }) =>
     ({ loginUser: loginUser(mutate), }),
-})(component);
+})(component));
 
 export const WithCurrent = component => (graphql(CURRENT_USER, {
   options:  { variables: { sWhere: { status: { eq: 'PENDING', }, }, }, },

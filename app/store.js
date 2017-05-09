@@ -4,7 +4,9 @@ import { applyMiddleware as applyMid, createStore, } from 'redux';
 import getReducer from './reducer';
 
 const collapsed = (getState, action) => action.type;
-const predicate = (getState, { type, }) => type[0] !== '@';
+const predicate = (getState, { type, }) => false;
+
+// type[0] !== '@';
 const log = makeLog({ collapsed, predicate, });
 
 let reduxStore = null;
