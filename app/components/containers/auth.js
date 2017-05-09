@@ -19,6 +19,7 @@ export const WithFind = component => graphql(GET_USERS, {
   props: ({ data, }) =>
     ({ findUser: userByName(data), }),
 })(component);
+
 export const WithUsers = WithFind;
 
 export const WithRoles = component => graphql(GET_ROLES, {
@@ -38,15 +39,13 @@ export const WithLogin = component => graphql(LOGIN_USER, {
 })(component);
 
 export const WithCurrent = component => graphql(CURRENT_USER, {
-  props: ({ data, ...rest }) => {
-    console.log('getCart(data)', getCart(data), rest);
-    return ({
+  options:  { variables: { sWhere: { status: { eq: 'PENDING', }, }, }, },
+  props: ({ data, ...rest }) => ({
       userData: data,
       currentUser: getUser(data),
       purchases: getCart(data),
       sales: getSales(getUser(data)),
-    });
-  },
+  }),
 })(component);
 
 export const WithAddRole = component => WithCurrent(graphql(ADD_ROLE, {

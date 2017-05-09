@@ -21,10 +21,9 @@ const CartItem = ({ sale, }) => {
         <Avatar alt="Remy Sharp" src={'http://placehold.it/150/ff00ff'} />
       </ListItemAvatar>
       <Layout>
-        <Text>{sale.product.name}</Text>
+        <Text type="subheading" secondary>{sale.product.name}</Text>
         <ListItemText
-          primary={
-            <SaleForm sale={sale} product={sale.product} formID={`sale:${sale.id}`} />
+          primary={<SaleForm sale={sale} product={sale.product} formID={`sale:${sale.id}`} />
         }
         />
       </Layout>

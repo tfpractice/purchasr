@@ -26,7 +26,7 @@ export const VIEWER_USER = gql`
           ...userPurchase
         }
       }
-      sales{
+      sales(where: $sWhere){
         edges{
           node {
           id
@@ -39,6 +39,7 @@ export const VIEWER_USER = gql`
           }
           product{
             id 
+            price
             name
             stock
           }

@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import { USER_INFO, VIEWER_USER, } from './fragments';
 
 export const CURRENT_USER = gql`
-  query GetCurrentUser {
+  query GetCurrentUser($sWhere: SaleWhereArgs) {
     viewer {
       ...viewerUser
   }
@@ -10,7 +10,7 @@ export const CURRENT_USER = gql`
 ${VIEWER_USER}`;
 
 export const GET_USERS = gql`
-  query GetUsers($where:UserWhereArgs $first:Int) {
+  query GetUsers($where:UserWhereArgs, $first:Int) {
    viewer {
      collection:allUsers(where:$where first:$first) {
        edges {
