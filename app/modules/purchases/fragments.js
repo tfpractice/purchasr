@@ -1,7 +1,11 @@
 import gql from 'graphql-tag';
 
-import { PRODUCT_INFO, } from '../products';
-import { USER_INFO, } from '../auth';
+// import { Auth, Product, } from './';
+import { USER_INFO, } from '../auth/fragments';
+import { PRODUCT_INFO, } from '../products/fragments';
+
+// const { fragments: { USER_INFO, }, } = Auth;
+// const { fragments: { PRODUCT_INFO, }, } = Product;
 
 export const USER_PURCHASE = gql`
   fragment userPurchase on UserPurchasesEdge{

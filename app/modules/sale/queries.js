@@ -1,6 +1,10 @@
 import gql from 'graphql-tag';
-import { PRODUCT_INFO, } from '../products';
+
+// import { Product, } from '../';
+import { PRODUCT_INFO, } from '../products/fragments';
 import { SALE_INFO, } from './fragments';
+
+// const { fragments: { PRODUCT_INFO, }, } = Product;
 
 export const ALL_SALES = gql`
   query GetAllSales($where:SaleWhereArgs $orderBy:[SaleOrderByArgs]) {
@@ -9,6 +13,16 @@ export const ALL_SALES = gql`
         edges {
            node {
             ...saleInfo
+            user{
+              id
+              username
+            }
+            product{
+              id
+              name
+              price
+              stock
+            }
           }
         }
       }

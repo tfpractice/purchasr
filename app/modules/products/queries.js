@@ -1,6 +1,10 @@
 import gql from 'graphql-tag';
-import { VIEWER_USER, } from '../auth';
+
+// import { Auth, } from '../';
+import { USER_INFO, } from '../auth/fragments';
 import { PRODUCT_INFO, } from './fragments';
+
+// const { fragments: { USER_INFO, }, } = Auth;
 
 export const GET_PRODUCT = gql`
   query GetProduct($id: ID!){
@@ -27,7 +31,9 @@ ${PRODUCT_INFO}`;
 export const UNPURCHASED_PRODUCTS = gql`
   query GetUnPurchased {
     viewer {
-    ...viewerUser
+    user{
+    ...userInfo
+    }
       collection:allProducts {
         edges {
           node {
@@ -38,7 +44,7 @@ export const UNPURCHASED_PRODUCTS = gql`
     }
   }
 ${PRODUCT_INFO}
-${VIEWER_USER}`;
+${USER_INFO}`;
 
 export const CREATE_PRODUCT = gql`
    mutation CreateProductMutation($input: CreateProductInput!) {

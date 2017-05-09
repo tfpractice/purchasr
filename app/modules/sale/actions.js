@@ -1,7 +1,8 @@
 import { viewEdges, viewNodes, } from 'utils';
-import { CURRENT_USER, } from '../auth/queries';
-import { GET_SALE, } from './queries';
-import { SALE_INFO, } from './fragments';
+
+// import { CURRENT_USER, } from '../auth/queries';
+// import { GET_SALE, } from './queries';
+// import { SALE_INFO, } from './fragments';
 
 const defs = { count: 0, status: 'PENDING', };
 const sameID = next => ({ id, }) => next.id === id;

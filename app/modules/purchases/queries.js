@@ -12,12 +12,6 @@ export const PURCHASE_PRODUCT = gql`
     }
 ${PURCHASE_INFO}`;
 
-// updateProduct(input: $pInput) {
-//   changedProduct {
-//     ...productInfo
-//   }
-// }
-
 export const BUY_AND_UPDATE = gql`
     mutation BuyAndUpdate($input: AddToPurchasesConnectionInput!, $pInput:UpdateProductInput!) {
       addToPurchasesConnection(input: $input) {

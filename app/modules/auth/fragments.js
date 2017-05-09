@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { SALE_INFO, } from '../sale/fragments';
+
 export const USER_INFO = gql`
   fragment userInfo on User{
     id
@@ -15,39 +15,4 @@ export const USER_PURCHASE = gql`
       }
       quantity
   } 
-`;
-
-export const VIEWER_USER = gql`
-  fragment viewerUser on Viewer{
-    user {
-      ...userInfo
-      purchases{
-        edges{
-          ...userPurchase
-        }
-      }
-      sales(where: $sWhere){
-        edges{
-          node {
-          id
-          count
-          status
-          modifiedAt
-          createdAt
-          user{
-            id
-          }
-          product{
-            id 
-            price
-            name
-            stock
-          }
-      }
-      }
-      }
-    }    
-  }
-${USER_INFO}
-${USER_PURCHASE}
 `;
