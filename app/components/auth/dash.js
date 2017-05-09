@@ -66,7 +66,7 @@ class Dash extends Component {
           onRequestClose={this.handleRightClose}
         >
           <List>
-            <ListItem button>
+            <ListItem>
               <RoleForm formID="navrole" />
             </ListItem>
             <ListItem button>

@@ -2,17 +2,11 @@ import { spread, } from 'fenugreek-collections';
 import { compose, graphql, } from 'react-apollo';
 import { Auth, } from 'modules';
 
-// import { viewNodes, } from 'utils';
-
 const {
  actions: { userByName, createUser, loginUser, findAndLogin, },
  queries: { GET_USERS, CREATE_USER, LOGIN_USER, CURRENT_USER, },
 } = Auth;
 
-// const {
-//   actions: { addRole, dropRole, },
-//   queries: { GET_ROLES, DROP_ROLE, ADD_ROLE, },
-// } = Role;
 const getUser = ({ viewer: { user, }, }) => user;
 const getProduct = ({ product, }) => product;
 const getPurchases = ({ purchases: { edges, }, } = { purchases: { edges: [], }, }) => { console.log('edges ', edges); return spread(edges); };
@@ -40,29 +34,13 @@ export const WithLogin = component => graphql(LOGIN_USER, {
 
 export const WithCurrent = component => (graphql(CURRENT_USER, {
   options:  { variables: { sWhere: { status: { eq: 'PENDING', }, }, }, },
-  props: ({ data, ...rest }) => {
-    console.log('WithCurrent rolerest', rest);
-    return ({
+  props: ({ data, ...rest }) => ({
       userData: data,
       currentUser: getUser(data),
       purchases: getCart(data),
       sales: getSales(getUser(data)),
-    });
-  },
+  }),
 })(component));
-
-//
-// export const WithAddRole = component => WithCurrent(graphql(ADD_ROLE, {
-//   skip: ({ roleId, currentUser, }) => !currentUser || !roleId,
-//   props: ({ mutate, ownProps: { roleId, currentUser, }, }) =>
-//     ({ addRole: () => addRole(mutate)(currentUser.id)(roleId), }),
-// })(component));
-//
-// export const WithDropRole = component => WithAddRole(graphql(DROP_ROLE, {
-//   skip: ({ roleId, currentUser, }) => !currentUser || !roleId,
-//   props: ({ mutate, ownProps: { roleId, currentUser, }, }) =>
-//     ({ dropRole: () => dropRole(mutate)(currentUser.id)(roleId), }),
-// })(component));
 
 export const WithFindAndLogin = component => compose(WithFind, WithRegister, WithLogin,
   graphql(CURRENT_USER, {

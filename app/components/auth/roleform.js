@@ -48,7 +48,6 @@ const RoleForm = ({ roles, formID, ...props }) => {
 
   // roles.forEach(({ id, name, }) => ival[name] = id);
   return (<Grid container >
-    <h1>IAM THE ROLE FORM</h1>
     {roles.map(role => <RoleButton role={role} key={role.id} roleId={role.id} />)}
     {/* <ReduxRole
       form={formID} roles={roles} onSubmit={(...args) => console.log('args', args)}
