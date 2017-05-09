@@ -4,9 +4,10 @@ import { FormGroup, } from 'material-ui/Form';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
-import { ClearForm, } from 'utils';
-import { WithAddRole, WithRoles, } from '../containers';
 import { LabelCheckbox, } from 'material-ui/Checkbox';
+import { ClearForm, } from 'utils';
+import { WithAddRole, WithNewRoles, WithRoles, } from '../containers';
+
 const styles = { display: 'inline-flex', };
 
 const renderField = ({ ...rest }) => {
@@ -15,13 +16,7 @@ const renderField = ({ ...rest }) => {
     <LabelCheckbox {...rest} />
   );
 };
-  
-{ /* <LabelCheckbox
-        checked={this.state.checkedA}
-        onChange={(event, checked) => this.setState({ checkedA: checked, })}
-        label="Option A"
-        value="checkedA"
-/>; */ }
+
 const baseRole = ({ handleSubmit, roles, }) => {
   console.log('roleprops', roles);
   return (
@@ -39,24 +34,27 @@ const baseRole = ({ handleSubmit, roles, }) => {
     </form>
   );
 };
+
+const ReduxRole = ClearForm(baseRole);
+
 const baseButton = ({ role, roleId, addRole, }) =>
   <Button onClick={addRole}>{role.name}</Button>;
 
 const RoleButton = WithAddRole(baseButton);
-const ReduxRole = ClearForm(baseRole);
 
 const RoleForm = ({ roles, formID, ...props }) => {
-  console.log('props', props);
+  console.log('RoleFormrops', props);
   const ival = {};
 
-  roles.forEach(({ id, name, }) => ival[name] = id);
+  // roles.forEach(({ id, name, }) => ival[name] = id);
   return (<Grid container >
+    <h1>IAM THE ROLE FORM</h1>
     {roles.map(role => <RoleButton role={role} key={role.id} roleId={role.id} />)}
-    <ReduxRole
+    {/* <ReduxRole
       form={formID} roles={roles} onSubmit={(...args) => console.log('args', args)}
-    />
+    /> */}
   </Grid>
   );
 };
 
-export default WithRoles(RoleForm);
+export default WithNewRoles(RoleForm);

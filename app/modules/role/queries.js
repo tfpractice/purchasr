@@ -56,11 +56,11 @@ export const DROP_ROLE = gql`
        id
        name
      }
-     user{
-       id
-       name
-      }   
+      user{
+        id
+        name
+        }   
       }
-      }
+    }
    }
 `;

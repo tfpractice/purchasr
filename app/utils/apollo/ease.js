@@ -10,8 +10,13 @@ export const getColl = ({ collection, }) => collection;
 export const getEdges = ({ edges, }) => spread(edges);
 export const getNode = ({ node, }) => node;
 
-export const viewEdges = qRes =>
-[ getViewer, getColl, getEdges, ].reduce(binVoke, qRes);
+export const viewEdges = (qRes) => {
+  console.log('viewEdges,qRes', qRes);
+  return [ getViewer, getColl, getEdges, ].reduce(binVoke, qRes);
+};
 
-export const viewNodes = qRes => viewEdges(qRes).map(getNode);
+export const viewNodes = (qRes) => {
+  console.log('viewNodes,qRes', qRes);
+  return viewEdges(qRes).map(getNode);
+};
 export const getID = ({ id, }) => id;

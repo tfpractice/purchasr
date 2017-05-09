@@ -14,9 +14,9 @@ import SendIcon from 'material-ui-icons/Send';
 import MailIcon from 'material-ui-icons/Mail';
 import DeleteIcon from 'material-ui-icons/Delete';
 import ReportIcon from 'material-ui-icons/Report';
+import Text from 'material-ui/Typography';
 import { WithCurrent, } from '../containers';
 import { Cart, } from '../sales';
-import Text from 'material-ui/Typography';
 import RoleForm from './roleform';
 
 const styleSheet = createStyleSheet('Dash', () => ({
@@ -55,6 +55,7 @@ class Dash extends Component {
 
     const { currentUser, } = this.props;
 
+    console.log('Dashthis.props', this.props);
     return (
       <Grid >
         <Text secondary align="center" type="headline">{`Welcome, ${currentUser.username}`}</Text>
@@ -65,8 +66,9 @@ class Dash extends Component {
           onRequestClose={this.handleRightClose}
         >
           <List>
-            <RoleForm formID="navrole" />
-
+            <ListItem button>
+              <RoleForm formID="navrole" />
+            </ListItem>
             <ListItem button>
               <ListItemIcon>
                 <Receipt />
