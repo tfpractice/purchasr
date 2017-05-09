@@ -3,7 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import createPalette, { dark, } from 'material-ui/styles/palette';
 import createMuiTheme from 'material-ui/styles/theme';
 import { pink, teal, } from 'material-ui/styles/colors';
-import Layout from 'material-ui/Layout';
+import Grid from 'material-ui/Grid';
 import NavBar from './navBar';
 import { ProductList, } from './products';
 
@@ -28,15 +28,15 @@ export default class Main extends Component {
 
     return (
       <MuiThemeProvider theme={theme} styleManager={styleManager}>
-        <Layout container className="App" direction={'column'}>
-          <Layout item xs={12}>
+        <Grid container className="App" direction={'column'}>
+          <Grid item xs={12}>
             <NavBar />
-          </Layout>
-          <Layout item xs={12} style={styles}>
+          </Grid>
+          <Grid item xs={12} style={styles}>
             <ProductList />
             {this.props.children}
-          </Layout>
-        </Layout>
+          </Grid>
+        </Grid>
       </MuiThemeProvider>
     );
   }

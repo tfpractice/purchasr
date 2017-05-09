@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from 'material-ui/Layout';
+import Grid from 'material-ui/Grid';
 import { List, ListItem, ListItemIcon, ListItemText, ListSubheader, } from 'material-ui/List';
 import { WithCurrent, } from '../containers';
 import CartItem from './cartItem';
@@ -19,26 +19,26 @@ const Cart = ({ sales, ...props, currentUser, }) => {
       </ListSubheader>
       {sales.map(s => <CartItem sale={s} key={s.id} />)}
       <ListItem>
-        <Layout container align="center" justify="space-between">
-          <Layout item >
+        <Grid container align="center" justify="space-between">
+          <Grid item >
             <ListItemText
               primary={
                 <Text secondary type="button">{'Total:'}</Text>}
             />
 
-          </Layout>
-          <Layout item>
+          </Grid>
+          <Grid item>
             <ListItemText
               primary={
                 <Text secondary type="button">{`$${total(sales)}`}</Text>}
             />
-          </Layout>
-          <Layout item >
+          </Grid>
+          <Grid item >
             <Button primary>
               <Text align="center" type="button">checkout</Text>
             </Button>
-          </Layout>
-        </Layout>
+          </Grid>
+        </Grid>
       </ListItem>
 
     </List>

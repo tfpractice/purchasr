@@ -7,7 +7,7 @@ import { List, ListItem, ListItemIcon, ListItemText, } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import InboxIcon from 'material-ui-icons/Inbox';
 import DraftsIcon from 'material-ui-icons/Drafts';
-import Layout from 'material-ui/Layout';
+import Grid from 'material-ui/Grid';
 import StarIcon from 'material-ui-icons/Star';
 import Receipt from 'material-ui-icons/Receipt';
 import SendIcon from 'material-ui-icons/Send';
@@ -118,7 +118,7 @@ class Dash extends Component {
     const { currentUser, } = this.props;
 
     return (
-      <Layout >
+      <Grid >
         <Text secondary align="center" type="headline">{`Welcome, ${currentUser.username}`}</Text>
         <Button onClick={this.handleRightOpen}>View Cart</Button>
         <Drawer
@@ -136,7 +136,7 @@ class Dash extends Component {
           </List>
           <Cart />
         </Drawer>
-      </Layout>
+      </Grid>
     );
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from 'material-ui/Layout';
+import Grid from 'material-ui/Grid';
 import { List, ListItem, ListItemIcon, ListItemText, } from 'material-ui/List';
 import { WithCurrent, } from '../containers';
 import CartItem from './cartItem';

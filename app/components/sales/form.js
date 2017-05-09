@@ -5,23 +5,23 @@ import { FormGroup, } from 'material-ui/Form';
 import { LabelCheckbox, } from 'material-ui/Checkbox';
 import { ClearForm, renderText, } from 'utils';
 import { WithUnSell, } from '../containers';
-import Layout from 'material-ui/Layout';
+import Grid from 'material-ui/Grid';
 import Text from 'material-ui/Typography';
 
 const baseSale = ({ handleSubmit, unsell, ...baseSaleProps }) => (
   <form onSubmit={handleSubmit} >
-    <Layout container direction="column" justify="center">
-      <Layout item sm={12}>
+    <Grid container direction="column" justify="center">
+      <Grid item sm={12}>
         <Field label="count" name="count" type="number" component={renderText} />
         <Field name="status" component="hidden" />
-      </Layout>
-      <Layout item sm={12}>
+      </Grid>
+      <Grid item sm={12}>
         <FormGroup row>
           <Button accent type="submit">AddToCart</Button>
           {unsell && <Button accent onClick={unsell}> remove from cart</Button>}
         </FormGroup>
-      </Layout>
-    </Layout>
+      </Grid>
+    </Grid>
   </form>
   );
 const ReduxSale = ClearForm(baseSale);

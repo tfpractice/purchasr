@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, } from 'redux-form';
 import { FormGroup, } from 'material-ui/Form';
-import Layout from 'material-ui/Layout';
+import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import { ClearForm, } from 'utils';

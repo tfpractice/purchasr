@@ -8,7 +8,7 @@ import DeleteIcon from 'material-ui-icons/Delete';
 import Avatar from 'material-ui/Avatar';
 import Button from 'material-ui/Button';
 import Text from 'material-ui/Typography';
-import Layout from 'material-ui/Layout';
+import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
 import { SaleForm, } from './form';
 import { WithUnSell, } from '../containers';
@@ -20,13 +20,13 @@ const CartItem = ({ sale, }) => {
       <ListItemAvatar>
         <Avatar alt="Remy Sharp" src={'http://placehold.it/150/ff00ff'} />
       </ListItemAvatar>
-      <Layout>
+      <Grid>
         <Text type="subheading" secondary>{sale.product.name}</Text>
         <ListItemText
           primary={<SaleForm sale={sale} product={sale.product} formID={`sale:${sale.id}`} />
         }
         />
-      </Layout>
+      </Grid>
     </ListItem>
 
   );
