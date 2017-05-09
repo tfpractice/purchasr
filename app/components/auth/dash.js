@@ -9,12 +9,14 @@ import InboxIcon from 'material-ui-icons/Inbox';
 import DraftsIcon from 'material-ui-icons/Drafts';
 import Layout from 'material-ui/Layout';
 import StarIcon from 'material-ui-icons/Star';
+import Receipt from 'material-ui-icons/Receipt';
 import SendIcon from 'material-ui-icons/Send';
 import MailIcon from 'material-ui-icons/Mail';
 import DeleteIcon from 'material-ui-icons/Delete';
 import ReportIcon from 'material-ui-icons/Report';
 import { WithCurrent, } from '../containers';
 import { Cart, } from '../sales';
+import Text from 'material-ui/Typography';
 
 const styleSheet = createStyleSheet('Dash', () => ({
   list: {
@@ -113,16 +115,25 @@ class Dash extends Component {
         </List>
       </div>
     );
+    const { currentUser, } = this.props;
 
     return (
-      <Layout item>
+      <Layout >
+        <Text secondary align="center" type="headline">{`Welcome, ${currentUser.username}`}</Text>
         <Button onClick={this.handleRightOpen}>View Cart</Button>
-
         <Drawer
           anchor="right"
           open={this.state.open.right}
           onRequestClose={this.handleRightClose}
         >
+          <List>
+            <ListItem button>
+              <ListItemIcon>
+                <Receipt />
+              </ListItemIcon>
+              <ListItemText primary="Histort" />
+            </ListItem>
+          </List>
           <Cart />
         </Drawer>
       </Layout>
