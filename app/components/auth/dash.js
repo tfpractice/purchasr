@@ -17,6 +17,7 @@ import ReportIcon from 'material-ui-icons/Report';
 import { WithCurrent, } from '../containers';
 import { Cart, } from '../sales';
 import Text from 'material-ui/Typography';
+import RoleForm from './roleform';
 
 const styleSheet = createStyleSheet('Dash', () => ({
   list: {
@@ -52,69 +53,6 @@ class Dash extends Component {
   render() {
     const classes = this.context.styleManager.render(styleSheet);
 
-    const mailFolderListItems = (
-      <div>
-        <ListItem button>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <ListItemText primary="Inbox" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <StarIcon />
-          </ListItemIcon>
-          <ListItemText primary="Starred" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <SendIcon />
-          </ListItemIcon>
-          <ListItemText primary="Send mail" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <DraftsIcon />
-          </ListItemIcon>
-          <ListItemText primary="Drafts" />
-        </ListItem>
-      </div>
-    );
-
-    const otherMailFolderListItems = (
-      <div>
-        <ListItem button>
-          <ListItemIcon>
-            <MailIcon />
-          </ListItemIcon>
-          <ListItemText primary="All mail" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <DeleteIcon />
-          </ListItemIcon>
-          <ListItemText primary="Trash" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <ReportIcon />
-          </ListItemIcon>
-          <ListItemText primary="Spam" />
-        </ListItem>
-      </div>
-    );
-
-    const fullList = (
-      <div>
-        <List className={classes.listFull} disablePadding>
-          {mailFolderListItems}
-        </List>
-        <Divider />
-        <List className={classes.listFull} disablePadding>
-          {otherMailFolderListItems}
-        </List>
-      </div>
-    );
     const { currentUser, } = this.props;
 
     return (
@@ -127,6 +65,8 @@ class Dash extends Component {
           onRequestClose={this.handleRightClose}
         >
           <List>
+            <RoleForm formID="navrole" />
+
             <ListItem button>
               <ListItemIcon>
                 <Receipt />

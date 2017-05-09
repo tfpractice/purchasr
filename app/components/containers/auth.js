@@ -38,15 +38,18 @@ export const WithLogin = component => graphql(LOGIN_USER, {
     ({ loginUser: loginUser(mutate), }),
 })(component);
 
-export const WithCurrent = component => graphql(CURRENT_USER, {
+export const WithCurrent = component => WithRoles(graphql(CURRENT_USER, {
   options:  { variables: { sWhere: { status: { eq: 'PENDING', }, }, }, },
-  props: ({ data, ...rest }) => ({
+  props: ({ data, ...rest }) => {
+    console.log('WithCurrent rolerest', rest);
+    return ({
       userData: data,
       currentUser: getUser(data),
       purchases: getCart(data),
       sales: getSales(getUser(data)),
-  }),
-})(component);
+    });
+  },
+})(component));
 
 export const WithAddRole = component => WithCurrent(graphql(ADD_ROLE, {
   skip: ({ roleId, currentUser, }) => !currentUser || !roleId,
