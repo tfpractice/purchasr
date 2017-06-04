@@ -28,9 +28,11 @@ export const updateRole = mutate => userId => roleId =>
 export const dropRole = mutate => userId => roleId =>
   mutate({ variables: { input: { roleId, userId, accessLevel: 'readwrite', }, }, });
 
-export const findAndLogin = findU => createU => loginU => input =>
-  findU(input)
+export const findAndLogin = findU => createU => loginU => (input) => {
+  console.log('logging in');
+  return findU(input)
     .then(newIfNull(createU)(input))
     .then(loginU)
     .then(setToken)
     .catch(console.error);
+};

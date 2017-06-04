@@ -45,7 +45,12 @@ export const WithCurrent = component => (graphql(CURRENT_USER, {
 export const WithFindAndLogin = component => compose(WithFind, WithRegister, WithLogin,
   graphql(CURRENT_USER, {
     props: ({ ownProps: { findUser, loginUser, createUser, }, }) =>
-    ({ login: findAndLogin(findUser)(createUser)(loginUser), }),
+    ({
+ login: (a) => {
+   console.log('logging in');
+   return findAndLogin(findUser)(createUser)(loginUser)(a);
+ },
+    }),
   }))(component);
 
 export const LoginChain = component => WithFindAndLogin(component);
