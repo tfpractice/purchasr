@@ -9,6 +9,7 @@ const postWare = (applyAfterware = post) => ({ applyAfterware, });
 
 const preLog = (req, next) => {
   console.log('APOLLO REQUEST IN PRGRESS ');
+  console.log('req', req);
   next();
 };
 
@@ -17,14 +18,18 @@ const auth = (req, next) => {
     req.options.headers = {};
   }
   if (process.browser) {
+    console.log('req.options', req.options);
+
     const token = localStorage.getItem('purchasr_token');
 
+    console.log('token', token);
     req.options.headers.authorization = token ? `Bearer ${token}` : null;
   }
   next();
 };
 
 const postLog = ({ response, }, next) => {
+  console.log('res', response);
   console.log('APOLLO RESPONSE IN PRGRESS ');
   next();
 };
